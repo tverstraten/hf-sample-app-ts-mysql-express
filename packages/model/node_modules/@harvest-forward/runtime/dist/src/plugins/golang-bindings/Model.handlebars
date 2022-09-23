@@ -1,0 +1,21 @@
+/**
+ * Informational model in golang (no framework) for {{name}}
+ * {{description}}
+ */
+package model
+
+/**
+ * {{this.name}}
+ * {{this.description}}
+ */
+type {{this.name}}_generated struct {
+{{#each this.properties}}
+	/**
+	 * {{this.description}}
+	 */
+	var {{this.name}} {{Go this.type}} 
+
+{{/each}}
+}
+
+

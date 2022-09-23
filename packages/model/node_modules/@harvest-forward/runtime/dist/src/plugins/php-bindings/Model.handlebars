@@ -1,0 +1,41 @@
+<?php
+declare(strict_types=1);
+
+namespace model;
+
+/**
+ * {{this.name}}
+ * {{this.description}}
+ * @package model
+ */
+abstract class {{this.name}}_generated {   
+{{#each this.properties}}
+	/**
+	 * {{this.description}}
+	 */
+	private {{PHP this.type}} ${{this.name}};
+	
+{{/each}}  
+{{#each this.properties}}
+	/**
+	 * get the value for {{this.description}}
+	 * @returns {{PHP this.type}} the current value for {{this.name}}
+	 */
+	public function get{{PascalCase this.name}}(): {{PHP this.type}}
+	{
+		return $this->{{this.name}};
+	}
+
+	/**
+	 * set the value for {{this.description}}
+	 * @param {{PHP this.type}} $newValue the new value to use for {{this.name}}
+	 */
+	public function set{{PascalCase this.name}}({{PHP this.type}} $newValue)
+	{
+		$this->{{this.name}} = $newValue;		
+	}
+	
+{{/each}}
+}
+
+

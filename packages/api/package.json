@@ -1,0 +1,16 @@
+{
+	"name": "@hf/api",
+	"version": "1.0.0",
+	"main": "bin/index.js",
+	"scripts": {
+		"compile": "tsc -b",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "prettier --write \"src/**/*.ts\" "
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"prettier": "^2.7.1"
+	},
+	"description": ""
+}

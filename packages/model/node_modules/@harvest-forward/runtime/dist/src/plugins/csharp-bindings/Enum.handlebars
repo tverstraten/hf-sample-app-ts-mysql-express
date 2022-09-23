@@ -1,0 +1,22 @@
+/// <summary>
+/// Informational model in c# (dotnet core) for {{name}}
+/// {{NoCrString description}}
+///
+/// NOTE: DO NOT EDIT, this is a generated file and will be overwritten
+/// </summary>
+namespace Model 
+{
+    /// <summary>
+    /// {{NoCrString this.description}}
+    /// </summary>
+    public enum {{this.name}} 
+    {
+    {{#each this.values}}
+        /// <summary> 
+        /// {{NoCrString this.description}}
+        /// </summary>
+        {{PascalCase this.name}}{{#IsNumber this.value}} = {{SafeString this.value}}{{/IsNumber}},{{#if this.value}} // value={{SafeString this.value}}{{/if}}
+        
+    {{/each}}
+    }
+}

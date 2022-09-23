@@ -1,0 +1,45 @@
+using System;
+
+/// <summary>
+/// Informational model in c# (dotnet core) for {{name}}
+///
+/// NOTE: DO NOT EDIT, this is a generated file and will be overwritten
+/// </summary>
+namespace Model 
+{
+    /// <summary>
+    /// {{NoCrString this.description}}
+    /// </summary>
+    public partial class {{PascalCase this.name}} {{#if this.inheritsFrom}}: Model.{{PascalCase this.inheritsFrom.name}}{{/if}} 
+    {
+{{#each this.fields}}
+        /// <summary>
+        /// Backing field for the {{PascalCase this.name}} property
+        /// </summary>
+        /// <remarks>
+        /// {{NoCrString this.description}}
+        /// </remarks>
+        private {{CSharp this.type}} _{{CamelCase this.name}};
+        
+{{/each}}
+{{#each this.properties}}
+        /// <summary>
+        /// {{NoCrString this.description}}
+        /// </summary>
+        public {{CSharp this.type}} {{PascalCase this.name}}
+        {
+            get 
+            {
+                return this._{{CamelCase this.name}};
+            }
+
+            set 
+            {
+                this._{{CamelCase this.name}} = value;
+            }
+        }
+        
+{{/each}}
+    }
+
+}

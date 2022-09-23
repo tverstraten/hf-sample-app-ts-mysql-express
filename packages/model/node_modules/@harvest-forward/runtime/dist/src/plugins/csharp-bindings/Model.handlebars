@@ -1,0 +1,18 @@
+using System;{{#each this.classReferences}}{{#ifvalue this.constantCaseNameSpace equals="MODEL"}}{{else}}
+using {{PascalCase this.name}} = Model.{{PascalCase this.name}}; // constantCaseNameSpace = {{this.constantCaseNameSpace}}{{/ifvalue}}{{/each}}
+
+/// <summary>
+/// Informational model in c# (dotnet core) for {{this.parent.parent.name}}
+///
+/// NOTE: this is created by code generation for the purpose of manually updating
+/// </summary>
+namespace Model 
+{
+    /// <summary>
+    /// {{NoCrString this.description}}
+    /// </summary>
+    public partial class {{PascalCase this.name}} {{#if this.inheritsFrom}}: {{PascalCase this.inheritsFrom.name}}{{/if}} 
+    {
+        // add custom code here
+    }
+}

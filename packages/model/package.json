@@ -1,0 +1,21 @@
+{
+	"name": "@hf/model",
+	"version": "1.0.0",
+	"description": "",
+	"main": "bin/index.js",
+	"scripts": {
+		"compile": "tsc -b",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "prettier --write \"src/**/*.ts\" "
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@harvest-forward/runtime": "^0.2.84",
+		"class-validator": "^0.13.2"
+	},
+	"devDependencies": {
+		"jest": "^29.0.3",
+		"prettier": "^2.7.1"
+	}
+}

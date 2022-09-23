@@ -1,0 +1,38 @@
+/**
+ * Informational model in java (no framework) for {{name}}
+ * {{description}}
+ */
+
+/**
+ * {{this.name}}
+ * {{this.description}}
+ */
+abstract class {{this.name}}_generated {
+{{#each this.properties}}
+	/**
+	 * {{this.description}}
+	 */
+	private {{Java this.type}} {{this.name}};
+
+{{/each}}
+{{#each this.properties}}
+	/**
+	 * Get the value of the {{this.name}} property
+	 * @returns the current value of the {{this.name}} property
+	 */
+    public {{Java this.type}} get{{PascalCase this.name}}() {
+        return this.{{this.name}};
+    }
+
+	/**
+	 * Set the current value of the {{this.name}} property
+	 * @param newValue the new value to use for the {{this.name}} property
+	 */
+    public set{{PascalCase this.name}}({{Java this.type}} newValue) {
+        this.{{this.name}} = newValue;
+    }
+	
+{{/each}}
+}
+
+

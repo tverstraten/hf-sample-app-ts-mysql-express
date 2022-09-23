@@ -1,0 +1,43 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsBeforeToday = exports.beforeToday = void 0;
+const class_validator_1 = require("class-validator");
+/**
+ * check if an object is a date and before now
+ *
+ * @param item - the date to test
+ * @returns true if item is before today
+ */
+function beforeToday(item) {
+    if (!(item instanceof Date))
+        return false;
+    const now = new Date().getTime();
+    const itemTime = item.getTime();
+    const diff = itemTime - now;
+    if (diff > 1000)
+        return false;
+    return true;
+}
+exports.beforeToday = beforeToday;
+/**
+ * validator to check if the object is a date and before now
+ */
+let IsBeforeToday = class IsBeforeToday {
+    validate(object, __args) {
+        return beforeToday(object);
+    }
+    defaultMessage(__args) {
+        return 'The value ($value) is not a date before now';
+    }
+};
+IsBeforeToday = __decorate([
+    (0, class_validator_1.ValidatorConstraint)({ name: 'IsBeforeToday', async: false })
+], IsBeforeToday);
+exports.IsBeforeToday = IsBeforeToday;
+//# sourceMappingURL=IsBeforeToday.js.map

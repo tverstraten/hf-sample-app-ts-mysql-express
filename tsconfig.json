@@ -1,0 +1,36 @@
+{
+	"compilerOptions": {
+	  "incremental": true,
+	  "target": "es2022",
+	  "module": "commonjs",
+	  "declaration": true,
+	  "sourceMap": true,
+	  "strict": true,
+	  "moduleResolution": "node",
+	  "esModuleInterop": true,
+	  "skipLibCheck": true,
+	  "forceConsistentCasingInFileNames": true,
+	  "rootDir": "./src",
+	  "outDir": "./superbin"
+	},
+	"files": [
+	  "./src/index.ts"
+	],
+	  "references": [
+		{
+		  "path": "./packages/db"
+		},
+		{
+		  "path": "./packages/model"
+		},
+		{
+		  "path": "./packages/dal"
+		},
+		{
+		  "path": "./packages/bll"
+		},
+		{
+		  "path": "./packages/api"
+		}
+	  ],
+  }
