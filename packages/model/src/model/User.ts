@@ -1,7 +1,7 @@
 import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, MaxLength, Validate } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
 import { IdentityProvider } from './IdentityProvider'
-import { IsBeforeToday } from './validators/IsBeforeToday'
+import { IsBeforeToday } from '../validators/IsBeforeToday'
 
 /**
  * one single persona that may use the system.

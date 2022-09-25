@@ -1,0 +1,8 @@
+{
+    "plugins": [],
+    "name": "Harvest Forward",
+    "configuration": {
+        "builder": "SequentialAggregateBuilder",
+        "settings": "[{builder: 'builtIn/typescript/ClassToModelHarvester',settings: JSON.stringify({sourcePath: '../packages/model/src/model',namePattern: '.*(?<!_ex)$',}),}]"
+    }
+}
