@@ -1,5 +1,5 @@
 import { validate } from 'class-validator'
-import { Email } from '../Email'
+import { Email } from '../model/Email'
 
 /**
  * get an email object to use for testing

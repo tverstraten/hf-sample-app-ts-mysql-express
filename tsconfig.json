@@ -24,10 +24,10 @@
 		  "path": "./packages/model"
 		},
 		{
-		  "path": "./packages/dal"
+		  "path": "./packages/da"
 		},
 		{
-		  "path": "./packages/bll"
+		  "path": "./packages/bl"
 		},
 		{
 		  "path": "./packages/api"

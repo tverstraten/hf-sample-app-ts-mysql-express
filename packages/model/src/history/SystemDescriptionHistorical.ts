@@ -1,5 +1,5 @@
 import { IsBoolean } from 'class-validator'
-import { SystemDescription } from '../SystemDescription'
+import { SystemDescription } from '../model/SystemDescription'
 import { Historical } from './Historical'
 
 /**

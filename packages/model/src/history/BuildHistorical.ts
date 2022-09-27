@@ -1,4 +1,4 @@
-import { Build } from '../Build'
+import { Build } from '../model/Build'
 import { Historical } from './Historical'
 
 /**

@@ -1,5 +1,5 @@
 import { IsBoolean } from 'class-validator'
-import { PersistentBuilder } from '../PersistentBuilder'
+import { PersistentBuilder } from '../model/PersistentBuilder'
 import { Historical } from './Historical'
 
 /**

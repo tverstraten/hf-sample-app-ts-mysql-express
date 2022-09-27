@@ -1,4 +1,4 @@
-import { Traceable } from '../Traceable'
+import { Traceable } from '../model/Traceable'
 
 /**
  * a class that is held historically

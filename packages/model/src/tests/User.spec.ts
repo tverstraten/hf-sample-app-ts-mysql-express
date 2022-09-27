@@ -1,6 +1,6 @@
 import { validate } from 'class-validator'
-import { IdentityProvider } from '../IdentityProvider'
-import { User } from '../User'
+import { IdentityProvider } from '../model/IdentityProvider'
+import { User } from '../model/User'
 
 /**
  * get a valid user object for testing

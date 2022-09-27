@@ -1,6 +1,6 @@
 import { IsDate, IsNotEmpty, IsNumber, IsOptional, Validate } from 'class-validator'
+import { IsBeforeToday } from '../validators/IsBeforeToday'
 import { AbstractMutable } from './AbstractMutable'
-import { IsBeforeToday } from './validators/IsBeforeToday'
 
 /**
  * one invocation of a builder

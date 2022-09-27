@@ -1,5 +1,5 @@
 import { IsBoolean } from 'class-validator'
-import { ConfigurationBuilder } from '../ConfigurationBuilder'
+import { ConfigurationBuilder } from '../model/ConfigurationBuilder'
 import { Historical } from './Historical'
 
 /**

@@ -1,0 +1,49 @@
+{
+    "folders": [
+		{
+			"path": "../eslint-config"
+		},
+		{
+			"path": "../runtime"
+		},
+		{
+			"path": "../csharp-entityframework"
+		},
+		{
+			"path": "../ejs"
+		},
+		{
+			"path": "../postgres"
+		},
+		{
+			"path": "../sample-template"
+		},
+		{
+			"path": "../sqlserver"
+		},
+		{
+			"path": "../sqlserverorm"
+		},
+		{
+			"path": "../typescript-builder"
+		},
+		{
+			"path": "../ui-admin"
+		},
+		{
+			"path": "../ui-common"
+		},
+		{
+			"path": "../ui-landing"
+		},
+		{
+			"path": "../ui-my"
+		},
+		{
+			"path": "../api"
+		},
+		{
+			"path": "."
+		}
+	]
+}

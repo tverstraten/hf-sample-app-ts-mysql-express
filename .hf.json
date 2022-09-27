@@ -3,6 +3,59 @@
     "name": "Harvest Forward",
     "configuration": {
         "builder": "SequentialAggregateBuilder",
-        "settings": "[{builder: 'builtIn/typescript/ClassToModelHarvester',settings: JSON.stringify({sourcePath: '../packages/model/src/model',namePattern: '.*(?<!_ex)$',}),}]"
+        "settings": [
+            {
+                "builder": "builtIn/typescript/EnumValueHarvester",
+                "settings": {
+                    "sourcePath": "./packages/model/src/model",
+                    "fileNamePattern": ".*(?<!_ex)$",
+                    "classNamePattern": ".*"
+                }
+            },
+            {
+                "builder": "builtIn/typescript/ClassToModelHarvester",
+                "settings": {
+                    "sourcePath": "./packages/model/src/model",
+                    "fileNamePattern": ".*(?<!_ex)$",
+                    "classNamePattern": ".*"
+                }
+            },
+            {
+                "builder": "builtIn/typescript/ClassFieldToModelHarvester",
+                "settings": {
+                    "sourcePath": "./packages/model/src/model",
+                    "fileNamePattern": ".*(?<!_ex)$",
+                    "classNamePattern": ".*"
+                }
+            },
+            {
+                "builder": "builtIn/typescript/ClassPropertyToModelHarvester",
+                "settings": {
+                    "sourcePath": "./packages/model/src/model",
+                    "fileNamePattern": ".*(?<!_ex)$",
+                    "classNamePattern": ".*"
+                }
+            },
+            {
+                "builder": "builtIn/applicationArchitecture/ModelToDalTransformer",
+                "settings": ""
+            },
+            {
+                "builder": "builtIn/applicationArchitecture/DalToServiceTransformer",
+                "settings": ""
+            },
+            {
+                "builder": "builtIn/applicationArchitecture/ServiceToEndpointTransformer",
+                "settings": ""
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templateName": "handlebars/builtIn/handlebars/SystemAsJson",
+                    "targetPath": "./System.json",
+                    "overwrite": true
+                }
+            }
+        ]
     }
 }

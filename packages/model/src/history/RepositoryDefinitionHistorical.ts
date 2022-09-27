@@ -1,5 +1,5 @@
 import { IsBoolean } from 'class-validator'
-import { RepositoryDefinition } from '../RepositoryDefinition'
+import { RepositoryDefinition } from '../model/RepositoryDefinition'
 import { Historical } from './Historical'
 
 /**

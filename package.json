@@ -6,10 +6,10 @@
 		"eslint": "eslint src/**/**.{ts,tsx}",
 		"eslint:fix": "eslint src/**/**.{ts,tsx} --fix",
 		"format": "prettier --write \"src/**/*.ts\" ",
-		"generate": "harvest-forward -l='{'level':'debug','ConfigurationManager':'debug','BuilderFactory':'debug','SequentialAggregateBuilder':'debug'}'"
+		"generate": "harvest-forward"
 	},
 	"devDependencies": {
-		"@harvest-forward/runtime": "github:harvest-forward/runtime",
+		"@harvest-forward/runtime": "^0.3.12",
 		"@types/jest": "^29.0.3",
 		"@types/node": "^18.7.18",
 		"jest": "^29.0.3",

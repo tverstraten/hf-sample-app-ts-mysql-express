@@ -1,5 +1,5 @@
 import { IsBoolean } from 'class-validator'
-import { Transaction } from '../Transaction'
+import { Transaction } from '../model/Transaction'
 import { Historical } from './Historical'
 
 /**

@@ -1,6 +1,6 @@
 import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Validate } from 'class-validator'
+import { IsEmailCsv } from '../validators/IsEmailCsv'
 import { AbstractMutable } from './AbstractMutable'
-import { IsEmailCsv } from './validators/IsEmailCsv'
 
 /**
  * an email that was sent
