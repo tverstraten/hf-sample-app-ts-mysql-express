@@ -1,5 +1,5 @@
 {
-	"name": "@hf/bll",
+	"name": "@hf/bl",
 	"version": "1.0.0",
 	"main": "bin/index.js",
 	"scripts": {

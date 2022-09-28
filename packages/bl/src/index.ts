@@ -1,1 +1,1 @@
-console.log("Debug: Loading bll");
+console.log('Debug: Loading bl')

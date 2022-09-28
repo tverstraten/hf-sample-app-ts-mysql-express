@@ -1,0 +1,149 @@
+[
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "builtIn/typescript_typeorm/AbstractCrudDal",
+			"targetPath": "../hf-api/src/dal/AbstractCrudDal.generated.ts"
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "builtIn/typescript_typeorm/DalBase",
+			"targetPath": "../hf-api/src/dal/Dal.generated.ts"
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "builtIn/typescript_typeorm/Dal",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"componentType": "dataAccess"
+			},
+			"targetPath": "../hf-api/src/dal",
+			"fileNamePattern": "%n.ts",
+			"overwrite": false
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Dal_testHelper.handlebars",
+			"targetPath": "../hf-api/src/dal/TestHelper.generated.ts",
+			"overwrite": false
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Dal_userEdittable.handlebars",
+			"targetPath": "../hf-api/src/dal",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"componentType": "dataAccess"
+			},
+			"fileNameFunction": `(item)=> item.name.substring(0, item.name.length - 3) + ".provider.ts"`,
+			"overwrite": false
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Dal_test.handlebars",
+			"targetPath": "../hf-api/src/dal",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"componentType": "dataAccess"
+			},
+			"fileNameFunction": `(item)=> item.name.substring(0, item.name.length - 3) + ".provider.generated.spec.ts"`,
+			"overwrite": true
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Bll_generatedBaseClass.handlebars",
+			"targetPath": "../fundscraper/my/node/api/src/bll/bll.generated.ts"
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Bll_userEdittable.handlebars",
+			"targetPath": "../fundscraper/my/node/api/src/bll",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"componentType": "service"
+			},
+			"fileNameFunction": `(item)=> item.name.substring(0, item.name.length - 7) + ".service.ts"`,
+			"overwrite": false
+		}
+	},
+	{
+		"builder": "builtIn/typescript_tools/TypescriptServiceHarvestor",
+		"settings": {
+			"sourcePath": "../fundscraper/my/node/api/src/bll"
+		}
+	},
+	{
+		"builder": "builtIn/typescript_tools/TypescriptServiceDependencyHarvestor",
+		"settings": {
+			"sourcePath": "../fundscraper/my/node/api/src/bll"
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Api_generatedBaseClass.handlebars",
+			"targetPath": "../fundscraper/my/node/api/src/api/api.generated.ts"
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Api_userEdittable.handlebars",
+			"targetPath": "../fundscraper/my/node/api/src/api",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"componentType": "serviceEndpoint"
+			},
+			"fileNameFunction": `(item)=> item.name.substring(0, item.name.length - 3) + ".controller.ts"`,
+			"overwrite": false
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/nest/Api_test.handlebars",
+			"targetPath": "../fundscraper/my/node/api/src/api",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"permanence": "persistent",
+				"componentType": "informationModel"
+			},
+			"fileNamePattern": "%n.controller.generated.spec.ts",
+			"overwrite": true
+		}
+	},
+	{
+		"builder": "builtIn/handlebars/HandlebarsGenerator",
+		"settings": {
+			"templateName": "src/lib/code/typescript/react/Model_generatedBaseClass.handlebars",
+			"targetPath": "../fundscraper/my/react/issuer/src/model",
+			"repeatFor": {
+				"objectTypeName": "Class",
+				"componentType": "informationModel"
+			},
+			"fileNamePattern": "%n.entity.generated.ts",
+			"overwrite": true
+		}
+	},
+	{
+		"builder": "builtIn/npm/NpmBuilder",
+		"settings": {
+			"scriptName": "format",
+			"path": "../hf-model"
+		}
+	}
+]

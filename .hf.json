@@ -41,6 +41,13 @@
                 "settings": ""
             },
             {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templateName": "handlebars/builtIn/typescript_typeorm/AbstractDal",
+                    "targetPath": "./packages/da/src/AbstractDal.generated.ts"
+                }
+            },
+            {
                 "builder": "builtIn/applicationArchitecture/DalToServiceTransformer",
                 "settings": ""
             },
