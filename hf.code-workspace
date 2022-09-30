@@ -1,12 +1,28 @@
 {
-    "folders": [
+	"folders": [
 		{
-			"name": "eslint-config",
-			"path": "../eslint-config"
+			"name": "app",
+			"path": "."
 		},
 		{
-			"name": "runtime",
-			"path": "../runtime"
+			"name": "app-api",
+			"path": "../app-api"
+		},
+		{
+			"name": "app-model",
+			"path": "../app-model"
+		},
+		{
+			"name": "app-ui-common",
+			"path": "../app-ui-common"
+		},
+		{
+			"name": "app-ui-landing",
+			"path": "../app-ui-landing"
+		},
+		{
+			"name": "app-ui-my",
+			"path": "../app-ui-my"
 		},
 		{
 			"name": "csharp-entityframework",
@@ -17,8 +33,16 @@
 			"path": "../ejs"
 		},
 		{
+			"name": "eslint-config",
+			"path": "../eslint-config"
+		},
+		{
 			"name": "postgres",
 			"path": "../postgres"
+		},
+		{
+			"name": "runtime",
+			"path": "../runtime"
 		},
 		{
 			"name": "sample-template",
@@ -29,8 +53,8 @@
 			"path": "../sqlserver"
 		},
 		{
-			"name": "sqlserver-ef-orm",
-			"path": "../sqlserver-ef-orm"
+			"name": "sqlserver-orm",
+			"path": "../sqlserver-orm"
 		},
 		{
 			"name": "typescript-builder",
@@ -39,34 +63,6 @@
 		{
 			"name": "typescript-typeorm",
 			"path": "../typescript-typeorm"
-		},
-		{
-			"name": "model",
-			"path": "../model"
-		},
-		{
-			"name": "ui-admin",
-			"path": "../ui-admin"
-		},
-		{
-			"name": "ui-common",
-			"path": "../ui-common"
-		},
-		{
-			"name": "ui-landing",
-			"path": "../ui-landing"
-		},
-		{
-			"name": "ui-my",
-			"path": "../ui-my"
-		},
-		{
-			"name": "api",
-			"path": "../api"
-		},
-		{
-			"name": "app",
-			"path": "."
 		}
 	]
 }

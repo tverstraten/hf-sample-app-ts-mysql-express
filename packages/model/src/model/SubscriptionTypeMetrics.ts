@@ -1,4 +1,4 @@
-import { Describable, Nameable } from '@harvest-forward/runtime'
+import { Describable, Nameable } from '@hfadmin/runtime'
 
 /**
  * a plan for subscriptions

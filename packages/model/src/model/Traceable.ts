@@ -1,4 +1,4 @@
-import { Identifiable } from '@harvest-forward/runtime'
+import { Identifiable } from '@hfadmin/runtime'
 
 /**
  * a class impements this if it tracks useage data

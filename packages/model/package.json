@@ -11,7 +11,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@harvest-forward/runtime": "^0.2.84",
+		"@hfadmin/runtime": "^0.2.84",
 		"class-validator": "^0.13.2"
 	},
 	"devDependencies": {
