@@ -1,7 +1,7 @@
 import { Traceable } from './Traceable'
 
 /**
- * a class impements this if it tracks useage data
+ * a class impements this if it tracks usage data
  */
 export interface Mutable extends Traceable {
 	/**

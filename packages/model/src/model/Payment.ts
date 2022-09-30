@@ -3,7 +3,7 @@ import { Transaction } from './Transaction'
 import { TransactionType } from './TransactionType'
 
 /**
- * a single remittence of funds for an account
+ * a single remittance of funds for an account
  */
 export class Payment extends Transaction {
 	/**

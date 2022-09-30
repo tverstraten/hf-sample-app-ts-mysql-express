@@ -2,7 +2,7 @@ import { IsNumber } from 'class-validator'
 import { AbstractTraceable } from './AbstractTraceable'
 
 /**
- * a point of inheritence for classes that can be traced
+ * a point of inheritance for classes that can be traced
  */
 export class PersistentBuilderDependency extends AbstractTraceable {
 	/**

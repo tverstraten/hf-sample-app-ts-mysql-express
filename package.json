@@ -3,13 +3,13 @@
 	"private": true,
 	"scripts": {
 		"compile": "tsc -b -w -i",
-		"eslint": "eslint src/**/**.{ts,tsx}",
-		"eslint:fix": "eslint src/**/**.{ts,tsx} --fix",
+		"eslint": "eslint src/**/**{ts,tsx}",
+		"eslint:fix": "eslint src/**/**{ts,tsx} --fix",
 		"format": "prettier --write \"src/**/*.ts\" ",
 		"generate": "harvest-forward"
 	},
 	"devDependencies": {
-		"@hfadmin/runtime": "^0.3.12",
+		"@hfadmin/runtime": "^0.3.17",
 		"@types/jest": "^29.0.3",
 		"@types/node": "^18.7.18",
 		"jest": "^29.0.3",

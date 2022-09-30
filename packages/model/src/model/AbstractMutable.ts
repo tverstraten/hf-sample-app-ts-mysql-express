@@ -2,7 +2,7 @@ import { IsDate, IsNotEmpty, IsNumber, IsOptional } from 'class-validator'
 import { AbstractTraceable } from './AbstractTraceable'
 
 /**
- * a point of inheritence for classes that can be traced
+ * a point of inheritance for classes that can be traced
  */
 export abstract class AbstractMutable extends AbstractTraceable {
 	/**

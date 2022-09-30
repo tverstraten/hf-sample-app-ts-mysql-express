@@ -1,7 +1,7 @@
 import { Identifiable } from '@hfadmin/runtime'
 
 /**
- * a class impements this if it tracks useage data
+ * a class impements this if it tracks usage data
  */
 export interface Traceable extends Identifiable {
 	/**

@@ -11,7 +11,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@hfadmin/runtime": "^0.2.84",
+		"@hfadmin/runtime": "^0.3.17",
 		"class-validator": "^0.13.2"
 	},
 	"devDependencies": {
