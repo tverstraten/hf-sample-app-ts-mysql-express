@@ -1,0 +1,1 @@
+{"version":3,"file":"SystemDescription.d.ts","sourceRoot":"","sources":["../../../src/model/SystemDescription.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,mBAAmB,CAAC;AAEpD,qBAAa,iBAAkB,SAAQ,eAAe;IACrD,oBAAoB,CAAC,EAAE,MAAM,CAAC;IAE9B,IAAI,SAAM;IAEV,WAAW,SAAM;IAEjB,eAAe,CAAC,EAAE,MAAM,CAAC;IAEzB,YAAY,CAAC,EAAE,MAAM,CAAC;CACtB"}

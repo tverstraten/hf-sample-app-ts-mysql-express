@@ -1,0 +1,1 @@
+{"version":3,"file":"IsEmailCsv.d.ts","sourceRoot":"","sources":["../../../../src/model/validators/IsEmailCsv.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAuB,4BAA4B,EAAE,MAAM,iBAAiB,CAAA;AASxG,wBAAgB,QAAQ,CAAC,GAAG,EAAE,GAAG,GAAG,OAAO,CAI1C;AAKD,qBACa,UAAW,YAAW,4BAA4B;IAC9D,QAAQ,CAAC,MAAM,EAAE,GAAG,EAAE,MAAM,EAAE,mBAAmB;IAIjD,cAAc,CAAC,MAAM,EAAE,mBAAmB;CAI1C"}

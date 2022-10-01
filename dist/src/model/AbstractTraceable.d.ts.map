@@ -1,0 +1,1 @@
+{"version":3,"file":"AbstractTraceable.d.ts","sourceRoot":"","sources":["../../../src/model/AbstractTraceable.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAC;AAExC,8BAAsB,iBAAkB,YAAW,SAAS;IAC3D,EAAE,SAAK;IAEP,WAAW,CAAC,EAAE,MAAM,CAAK;IAEzB,SAAS,EAAE,IAAI,CAAc;CAC7B"}

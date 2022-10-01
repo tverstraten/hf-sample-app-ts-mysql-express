@@ -7,7 +7,7 @@
             {
                 "builder": "builtIn/typescript/EnumValueHarvester",
                 "settings": {
-                    "sourcePath": "./packages/model/src/model",
+                    "sourcePath": "./src/model",
                     "fileNamePattern": ".*(?<!_ex)$",
                     "classNamePattern": ".*"
                 }
@@ -15,7 +15,7 @@
             {
                 "builder": "builtIn/typescript/ClassToModelHarvester",
                 "settings": {
-                    "sourcePath": "./packages/model/src/model",
+                    "sourcePath": "./src/model",
                     "fileNamePattern": ".*(?<!_ex)$",
                     "classNamePattern": ".*"
                 }
@@ -23,7 +23,7 @@
             {
                 "builder": "builtIn/typescript/ClassFieldToModelHarvester",
                 "settings": {
-                    "sourcePath": "./packages/model/src/model",
+                    "sourcePath": "./src/model",
                     "fileNamePattern": ".*(?<!_ex)$",
                     "classNamePattern": ".*"
                 }
@@ -31,7 +31,7 @@
             {
                 "builder": "builtIn/typescript/ClassPropertyToModelHarvester",
                 "settings": {
-                    "sourcePath": "./packages/model/src/model",
+                    "sourcePath": "./src/model",
                     "fileNamePattern": ".*(?<!_ex)$",
                     "classNamePattern": ".*"
                 }
@@ -43,8 +43,35 @@
             {
                 "builder": "builtIn/handlebars/HandlebarsGenerator",
                 "settings": {
-                    "templateName": "handlebars/builtIn/typescript_typeorm/AbstractDal",
-                    "targetPath": "./packages/da/src/AbstractDal.generated.ts"
+                    "templatePath": "./typescript_mysql_abstractDa.handlebars",
+                    "targetPath": "./src/da/AbstractDa.generated.ts"
+                }
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_mysql_abstractCrudDa.handlebars",
+                    "targetPath": "./src/da/AbstractCrudDa.generated.ts"
+                }
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_mysql_findResults.handlebars",
+                    "targetPath": "./src/da/FindResults.generated.ts"
+                }
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_mysql_da.handlebars",
+                    "repeatFor": {
+                        "objectTypeName": "Class",
+                        "componentType": "dataAccess"
+                    },
+                    "targetPath": "./src/da",
+                    "fileNamePattern": "%n.ts",
+                    "overwrite": false
                 }
             },
             {

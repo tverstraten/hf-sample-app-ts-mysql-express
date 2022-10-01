@@ -1,0 +1,25 @@
+import { Identity } from './model/Identity'
+import { AbstractCrudDa } from './AbstractCrudDa.generated'
+import { AbstractDa } from './AbstractDa.generated'
+
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
+export class IdentityDal extends AbstractCrudDa<Identity> {
+	protected getTableName(): string {
+		return 'thisname'
+	}
+
+	protected getIdColumnName(): string {
+		return 'id'
+	}
+
+	protected getDefaultOrderByColumnName(): string {
+		return 'createdOn'
+	}
+
+	async findOneById(id: number): Promise<Identity> {
+		return super.findOneById(id)
+	}
+
+}
