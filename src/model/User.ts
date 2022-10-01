@@ -1,47 +1,46 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { IdentityProvider } from "./IdentityProvider";
+import { AbstractMutable } from './AbstractMutable'
+import { IdentityProvider } from './IdentityProvider'
 
 export class User extends AbstractMutable {
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	givenName = "";
+	givenName = ''
 
-	familyName = "";
+	familyName = ''
 
-	contactEmail = "";
+	contactEmail = ''
 
-	avatarUrl?: string;
+	avatarUrl?: string
 
-	performsId?: number;
+	performsId?: number
 
-	primaryIdentityProvider = IdentityProvider.github;
+	primaryIdentityProvider = IdentityProvider.github
 
-	enabled = true;
+	enabled = true
 
-	lastInvitationSentOn?: Date;
+	lastInvitationSentOn?: Date
 
-	invitationAcceptedOn?: Date;
+	invitationAcceptedOn?: Date
 
 	get name() {
-		return `${this.givenName} ${this.familyName}`.trim();
+		return `${this.givenName} ${this.familyName}`.trim()
 	}
 
 	get status(): string {
-		if (!this.enabled) return "Disabled";
+		if (!this.enabled) return 'Disabled'
 		if (this.lastInvitationSentOn) {
-			if (!this.invitationAcceptedOn)
-				return `Last Invited ${this.lastInvitationSentOn}`;
+			if (!this.invitationAcceptedOn) return `Last Invited ${this.lastInvitationSentOn}`
 		}
 
-		return "Enabled";
+		return 'Enabled'
 	}
 
 	get identityProvider(): string {
-		const fname = this.givenName ? this.givenName : "";
-		const lname = this.familyName ? this.familyName : "";
-		let fullName = `${fname} ${lname}`.trim();
-		fullName = fullName === "" ? "-" : fullName;
+		const fname = this.givenName ? this.givenName : ''
+		const lname = this.familyName ? this.familyName : ''
+		let fullName = `${fname} ${lname}`.trim()
+		fullName = fullName === '' ? '-' : fullName
 
-		return fullName;
+		return fullName
 	}
 }

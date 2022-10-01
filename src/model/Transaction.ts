@@ -1,12 +1,12 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { TransactionType } from "./TransactionType";
+import { AbstractMutable } from './AbstractMutable'
+import { TransactionType } from './TransactionType'
 
 export class Transaction extends AbstractMutable {
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	transactionType: TransactionType = TransactionType.invoice;
+	transactionType: TransactionType = TransactionType.invoice
 
-	effective?: Date;
+	effective?: Date
 
-	amount = 0;
+	amount = 0
 }

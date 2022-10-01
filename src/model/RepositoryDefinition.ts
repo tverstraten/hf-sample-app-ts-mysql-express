@@ -1,13 +1,13 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class RepositoryDefinition extends AbstractMutable {
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	name = "";
+	name = ''
 
-	providerName = "";
+	providerName = ''
 
-	url = "";
+	url = ''
 
-	pat = "";
+	pat = ''
 }

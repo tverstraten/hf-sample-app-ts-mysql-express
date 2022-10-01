@@ -1,9 +1,9 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class Notification extends AbstractMutable {
-	userId?: number;
+	userId?: number
 
-	text = "";
+	text = ''
 
-	readOn?: Date;
+	readOn?: Date
 }

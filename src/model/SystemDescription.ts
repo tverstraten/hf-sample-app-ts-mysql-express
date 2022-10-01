@@ -1,13 +1,13 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class SystemDescription extends AbstractMutable {
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	name = "";
+	name = ''
 
-	description = "";
+	description = ''
 
-	configurationId?: number;
+	configurationId?: number
 
-	systemAsJson?: string;
+	systemAsJson?: string
 }

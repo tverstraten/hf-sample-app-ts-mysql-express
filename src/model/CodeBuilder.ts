@@ -1,9 +1,9 @@
-import { PersistentBuilderType } from "./PersistentBuilderType";
-import { PersistentBuilderVersion } from "./PersistentBuilderVersion";
+import { PersistentBuilderType } from './PersistentBuilderType'
+import { PersistentBuilderVersion } from './PersistentBuilderVersion'
 
 export class CodeBuilder extends PersistentBuilderVersion {
 	constructor() {
-		super();
-		this.type = PersistentBuilderType.code;
+		super()
+		this.type = PersistentBuilderType.code
 	}
 }

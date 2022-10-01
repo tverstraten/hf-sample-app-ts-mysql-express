@@ -1,14 +1,14 @@
-import { Transaction } from "./Transaction";
-import { TransactionType } from "./TransactionType";
+import { Transaction } from './Transaction'
+import { TransactionType } from './TransactionType'
 
 export class Invoice extends Transaction {
-	invoiceNumber: string;
+	invoiceNumber: string
 
-	coveringId?: number;
+	coveringId?: number
 
 	constructor() {
-		super();
-		this.invoiceNumber = "";
-		this.transactionType = TransactionType.invoice;
+		super()
+		this.invoiceNumber = ''
+		this.transactionType = TransactionType.invoice
 	}
 }

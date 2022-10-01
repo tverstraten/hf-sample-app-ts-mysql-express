@@ -1,15 +1,15 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { PersistentBuilderType } from "./PersistentBuilderType";
-import { ReleaseLevel } from "./ReleaseLevel";
+import { AbstractMutable } from './AbstractMutable'
+import { PersistentBuilderType } from './PersistentBuilderType'
+import { ReleaseLevel } from './ReleaseLevel'
 
 export class PersistentBuilder extends AbstractMutable {
-	type: PersistentBuilderType = PersistentBuilderType.configuration;
+	type: PersistentBuilderType = PersistentBuilderType.configuration
 
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	name = "";
+	name = ''
 
-	releaseLevel: ReleaseLevel = ReleaseLevel.community;
+	releaseLevel: ReleaseLevel = ReleaseLevel.community
 
-	mostCurrentVersionId?: number;
+	mostCurrentVersionId?: number
 }

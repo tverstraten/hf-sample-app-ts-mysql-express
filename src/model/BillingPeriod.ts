@@ -1,9 +1,9 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class BillingPeriod extends AbstractMutable {
-	name = "";
+	name = ''
 
-	start?: Date;
+	start?: Date
 
-	end?: Date;
+	end?: Date
 }

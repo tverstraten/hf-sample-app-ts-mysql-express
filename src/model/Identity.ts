@@ -1,14 +1,14 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { IdentityProvider } from "./IdentityProvider";
+import { AbstractMutable } from './AbstractMutable'
+import { IdentityProvider } from './IdentityProvider'
 
 export class Identity extends AbstractMutable {
-	providedBy = IdentityProvider.github;
+	providedBy = IdentityProvider.github
 
-	socialIdentifier = "";
+	socialIdentifier = ''
 
-	forId?: number;
+	forId?: number
 
-	enabled = false;
+	enabled = false
 
-	expiresOn?: Date;
+	expiresOn?: Date
 }

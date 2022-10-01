@@ -1,5 +1,5 @@
 export enum ReleaseLevel {
-	community = "community",
-	private = "private",
-	enterprise = "enterprise",
+	community = 'community',
+	private = 'private',
+	enterprise = 'enterprise',
 }

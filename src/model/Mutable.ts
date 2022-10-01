@@ -1,9 +1,9 @@
-import { Traceable } from "./Traceable";
+import { Traceable } from './Traceable'
 
 export interface Mutable extends Traceable {
-	objectVersion: number;
+	objectVersion: number
 
-	lastUpdatedById?: number;
+	lastUpdatedById?: number
 
-	lastUpdatedOn: Date;
+	lastUpdatedOn: Date
 }

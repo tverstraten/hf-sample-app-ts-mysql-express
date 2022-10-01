@@ -1,20 +1,20 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { PersistentBuilderType } from "./PersistentBuilderType";
+import { AbstractMutable } from './AbstractMutable'
+import { PersistentBuilderType } from './PersistentBuilderType'
 
 export abstract class PersistentBuilderVersion extends AbstractMutable {
-	type: PersistentBuilderType = PersistentBuilderType.configuration;
+	type: PersistentBuilderType = PersistentBuilderType.configuration
 
-	persistentBuilderId?: number;
+	persistentBuilderId?: number
 
-	version = "";
+	version = ''
 
-	released = false;
+	released = false
 
-	tags = "";
+	tags = ''
 
-	text = "";
+	text = ''
 
-	deprecated = false;
+	deprecated = false
 
-	suggestedAlternateId?: number;
+	suggestedAlternateId?: number
 }

@@ -1,14 +1,14 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { SubscriptionType } from "./SubscriptionType";
+import { AbstractMutable } from './AbstractMutable'
+import { SubscriptionType } from './SubscriptionType'
 
 export class Organization extends AbstractMutable {
-	name = "";
+	name = ''
 
-	primaryContactEmail = "";
+	primaryContactEmail = ''
 
-	billingContactEmail = "";
+	billingContactEmail = ''
 
-	balance = 0;
+	balance = 0
 
-	currentSubscription: SubscriptionType = SubscriptionType.free;
+	currentSubscription: SubscriptionType = SubscriptionType.free
 }

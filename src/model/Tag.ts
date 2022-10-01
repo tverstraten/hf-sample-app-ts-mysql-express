@@ -1,7 +1,7 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class Tag extends AbstractMutable {
-	name = "";
+	name = ''
 
-	description = "";
+	description = ''
 }

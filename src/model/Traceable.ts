@@ -1,7 +1,9 @@
-import { Identifiable } from "@hfadmin/runtime";
+import { Identifiable } from '@hfadmin/runtime'
 
 export interface Traceable extends Identifiable {
-	createdById?: number;
+	id: number
 
-	createdOn: Date;
+	createdById?: number
+
+	createdOn: Date
 }

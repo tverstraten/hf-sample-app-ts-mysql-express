@@ -6,9 +6,9 @@ declare class WhereClause {
     constructor(text: string, params: any);
 }
 export declare abstract class AbstractCrudDa<T> extends AbstractDa {
-    abstract getTableName(): string;
-    abstract getIdColumnName(): string;
-    abstract getDefaultOrderByColumnName(): string;
+    protected abstract getTableName(): string;
+    protected abstract getIdColumnName(): string;
+    protected abstract getDefaultOrderByColumnName(): string;
     protected fromRow(row: any): T;
     findOneById(id: number): Promise<T>;
     findBy(where: string, params?: any[], orderBy?: string, page?: number, pageSize?: number): Promise<FindResults<T>>;

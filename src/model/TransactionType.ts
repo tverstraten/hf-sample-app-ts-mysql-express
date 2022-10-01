@@ -1,4 +1,4 @@
 export enum TransactionType {
-	payment = "payment",
-	invoice = "invoice",
+	payment = 'payment',
+	invoice = 'invoice',
 }

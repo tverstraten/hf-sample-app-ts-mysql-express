@@ -1,0 +1,12 @@
+import { {{this.operatesOnBehalfOf.name}}Da } from '../da/{{this.operatesOnBehalfOf.name}}Da'
+import { AbstractService } from './AbstractService.generated'
+import { {{this.operatesOnBehalfOf.name}} } from '../model/{{this.operatesOnBehalfOf.name}}'
+
+/**
+ * NOTE: This file is meant to be extended, add to it as you need. It is only generated if it does not already exist.
+ */
+export class {{this.name}} extends AbstractService<{{this.operatesOnBehalfOf.name}}> {
+	constructor() {
+		super(new {{this.operatesOnBehalfOf.name}}Da())
+	}
+}

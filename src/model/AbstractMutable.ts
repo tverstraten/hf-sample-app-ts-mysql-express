@@ -1,9 +1,9 @@
-import { AbstractTraceable } from "./AbstractTraceable";
+import { AbstractTraceable } from './AbstractTraceable'
 
 export abstract class AbstractMutable extends AbstractTraceable {
-	objectVersion = 1;
+	objectVersion = 1
 
-	lastUpdatedById?: number = 0;
+	lastUpdatedById?: number = 0
 
-	lastUpdatedOn: Date = new Date();
+	lastUpdatedOn: Date = new Date()
 }

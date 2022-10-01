@@ -1,39 +1,39 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class Email extends AbstractMutable {
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	from = "";
+	from = ''
 
-	sentTo = "";
+	sentTo = ''
 
-	userSentToId?: number;
+	userSentToId?: number
 
-	ccd?: string;
+	ccd?: string
 
 	get ccdArray(): string[] {
-		if (!this.ccd || this.ccd.trim() === "") return [];
-		const results = this.ccd.split(",");
+		if (!this.ccd || this.ccd.trim() === '') return []
+		const results = this.ccd.split(',')
 		for (let index = 0; index < results.length; index++) {
-			results[index] = results[index].trim();
+			results[index] = results[index].trim()
 		}
-		return results;
+		return results
 	}
 
-	bccd?: string;
+	bccd?: string
 
 	get bccdArray(): string[] {
-		if (!this.bccd || this.bccd.trim() === "") return [];
-		const results = this.bccd.split(",");
+		if (!this.bccd || this.bccd.trim() === '') return []
+		const results = this.bccd.split(',')
 		for (let index = 0; index < results.length; index++) {
-			results[index] = results[index].trim();
+			results[index] = results[index].trim()
 		}
-		return results;
+		return results
 	}
 
-	firstRead?: Date;
+	firstRead?: Date
 
-	subject = "";
+	subject = ''
 
-	body = "";
+	body = ''
 }

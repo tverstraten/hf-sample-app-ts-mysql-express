@@ -1,15 +1,15 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class Build extends AbstractMutable {
-	withinOrganizationId?: number;
+	withinOrganizationId?: number
 
-	forSystemId?: number;
+	forSystemId?: number
 
-	startedOn: Date = new Date();
+	startedOn: Date = new Date()
 
-	finishedOn?: Date;
+	finishedOn?: Date
 
-	builtById?: number;
+	builtById?: number
 
-	triggeredById?: number;
+	triggeredById?: number
 }

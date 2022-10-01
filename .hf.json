@@ -50,13 +50,6 @@
             {
                 "builder": "builtIn/handlebars/HandlebarsGenerator",
                 "settings": {
-                    "templatePath": "./typescript_mysql_abstractCrudDa.handlebars",
-                    "targetPath": "./src/da/AbstractCrudDa.generated.ts"
-                }
-            },
-            {
-                "builder": "builtIn/handlebars/HandlebarsGenerator",
-                "settings": {
                     "templatePath": "./typescript_mysql_findResults.handlebars",
                     "targetPath": "./src/da/FindResults.generated.ts"
                 }
@@ -67,7 +60,8 @@
                     "templatePath": "./typescript_mysql_da.handlebars",
                     "repeatFor": {
                         "objectTypeName": "Class",
-                        "componentType": "dataAccess"
+                        "componentType": "dataAccess",
+                        "isAbstract": false
                     },
                     "targetPath": "./src/da",
                     "fileNamePattern": "%n.ts",
@@ -79,8 +73,48 @@
                 "settings": ""
             },
             {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_abstractService.handlebars",
+                    "targetPath": "./src/bl/AbstractService.generated.ts"
+                }
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_service.handlebars",
+                    "repeatFor": {
+                        "objectTypeName": "Class",
+                        "componentType": "service"
+                    },
+                    "targetPath": "./src/bl",
+                    "fileNamePattern": "%n.ts",
+                    "overwrite": true
+                }
+            },
+            {
                 "builder": "builtIn/applicationArchitecture/ServiceToEndpointTransformer",
                 "settings": ""
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_express_abstractController.handlebars",
+                    "targetPath": "./src/api/AbstractController.generated.ts"
+                }
+            },
+            {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templatePath": "./typescript_express_controller.handlebars",
+                    "repeatFor": {
+                        "objectTypeName": "Class",
+                        "componentType": "serviceEndpoint"
+                    },
+                    "targetPath": "./src/api",
+                    "fileNamePattern": "%n.ts",
+                    "overwrite": true
+                }
             },
             {
                 "builder": "builtIn/handlebars/HandlebarsGenerator",

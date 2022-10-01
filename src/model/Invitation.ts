@@ -1,11 +1,11 @@
-import { AbstractMutable } from "./AbstractMutable";
+import { AbstractMutable } from './AbstractMutable'
 
 export class Invitation extends AbstractMutable {
-	toEmail = "";
+	toEmail = ''
 
-	invitedById?: number;
+	invitedById?: number
 
-	invitedUserId?: number;
+	invitedUserId?: number
 
-	lastReminderSentOn?: Date;
+	lastReminderSentOn?: Date
 }
