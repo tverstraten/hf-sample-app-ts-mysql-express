@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class Build extends AbstractMutable {
+export class Build implements Traceable {
+	id = 0
+
 	withinOrganizationId?: number
 
 	forSystemId?: number

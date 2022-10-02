@@ -1,1 +1,0 @@
-{"version":3,"file":"Mutable.d.ts","sourceRoot":"","sources":["../../../src/model/Mutable.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAC;AAExC,MAAM,WAAW,OAAQ,SAAQ,SAAS;IACzC,aAAa,EAAE,MAAM,CAAC;IAEtB,eAAe,CAAC,EAAE,MAAM,CAAC;IAEzB,aAAa,EAAE,IAAI,CAAC;CACpB"}

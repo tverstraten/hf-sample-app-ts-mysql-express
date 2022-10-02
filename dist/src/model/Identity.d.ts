@@ -1,6 +1,7 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { IdentityProvider } from "./IdentityProvider";
-export declare class Identity extends AbstractMutable {
+import { IdentityProvider } from './IdentityProvider';
+import { Traceable } from './Traceable';
+export declare class Identity implements Traceable {
+    id: number;
     providedBy: IdentityProvider;
     socialIdentifier: string;
     forId?: number;

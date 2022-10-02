@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class Email extends AbstractMutable {
+export class Email implements Traceable {
+	id = 0
+
 	withinOrganizationId?: number
 
 	from = ''

@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Build = void 0;
-const AbstractMutable_1 = require("./AbstractMutable");
-class Build extends AbstractMutable_1.AbstractMutable {
+class Build {
     constructor() {
-        super(...arguments);
+        this.id = 0;
         this.startedOn = new Date();
     }
 }

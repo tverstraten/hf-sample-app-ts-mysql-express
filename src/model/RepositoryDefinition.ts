@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class RepositoryDefinition extends AbstractMutable {
+export class RepositoryDefinition implements Traceable {
+	id = 0
+
 	withinOrganizationId?: number
 
 	name = ''

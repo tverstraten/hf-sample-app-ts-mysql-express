@@ -1,7 +1,9 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 import { TransactionType } from './TransactionType'
 
-export class Transaction extends AbstractMutable {
+export class Transaction implements Traceable {
+	id = 0
+
 	withinOrganizationId?: number
 
 	transactionType: TransactionType = TransactionType.invoice

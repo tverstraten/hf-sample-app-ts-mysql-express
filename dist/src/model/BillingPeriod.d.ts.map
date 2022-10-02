@@ -1,1 +1,1 @@
-{"version":3,"file":"BillingPeriod.d.ts","sourceRoot":"","sources":["../../../src/model/BillingPeriod.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,mBAAmB,CAAC;AAEpD,qBAAa,aAAc,SAAQ,eAAe;IACjD,IAAI,SAAM;IAEV,KAAK,CAAC,EAAE,IAAI,CAAC;IAEb,GAAG,CAAC,EAAE,IAAI,CAAC;CACX"}
+{"version":3,"file":"BillingPeriod.d.ts","sourceRoot":"","sources":["../../../src/model/BillingPeriod.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAA;AAEvC,qBAAa,aAAc,YAAW,SAAS;IAC9C,EAAE,SAAI;IAEN,IAAI,SAAK;IAET,KAAK,CAAC,EAAE,IAAI,CAAA;IAEZ,GAAG,CAAC,EAAE,IAAI,CAAA;CACV"}

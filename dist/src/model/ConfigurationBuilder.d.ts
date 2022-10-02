@@ -1,4 +1,4 @@
-import { PersistentBuilderVersion } from "./PersistentBuilderVersion";
+import { PersistentBuilderVersion } from './PersistentBuilderVersion';
 export declare class ConfigurationBuilder extends PersistentBuilderVersion {
     constructor();
 }

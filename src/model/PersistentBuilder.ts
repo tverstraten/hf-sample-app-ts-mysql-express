@@ -1,8 +1,10 @@
-import { AbstractMutable } from './AbstractMutable'
 import { PersistentBuilderType } from './PersistentBuilderType'
 import { ReleaseLevel } from './ReleaseLevel'
+import { Traceable } from './Traceable'
 
-export class PersistentBuilder extends AbstractMutable {
+export class PersistentBuilder implements Traceable {
+	id = 0
+
 	type: PersistentBuilderType = PersistentBuilderType.configuration
 
 	withinOrganizationId?: number

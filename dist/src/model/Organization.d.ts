@@ -1,6 +1,7 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { SubscriptionType } from "./SubscriptionType";
-export declare class Organization extends AbstractMutable {
+import { SubscriptionType } from './SubscriptionType';
+import { Traceable } from './Traceable';
+export declare class Organization implements Traceable {
+    id: number;
     name: string;
     primaryContactEmail: string;
     billingContactEmail: string;

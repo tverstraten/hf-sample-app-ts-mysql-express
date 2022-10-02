@@ -1,14 +1,10 @@
-import { Describable, Nameable } from "@hfadmin/runtime";
-export declare class SubscriptionTypeMetrics implements Nameable, Describable {
+import { Describable, Nameable } from '@hfadmin/runtime';
+import { Traceable } from './Traceable';
+export declare class SubscriptionTypeMetrics implements Nameable, Describable, Traceable {
+    id: number;
     name: string;
     description: string;
-    numberOfUsersAllowed: number;
-    numberOfBuildsAllowed: number;
-    static free: SubscriptionTypeMetrics;
-    static pro: SubscriptionTypeMetrics;
-    static team: SubscriptionTypeMetrics;
-    static enterprise: SubscriptionTypeMetrics;
-    private constructor();
-    static types: SubscriptionTypeMetrics[];
+    numberOfUsersAllowed?: number;
+    numberOfBuildsAllowed?: number;
 }
 //# sourceMappingURL=SubscriptionTypeMetrics.d.ts.map

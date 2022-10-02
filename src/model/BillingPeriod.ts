@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class BillingPeriod extends AbstractMutable {
+export class BillingPeriod implements Traceable {
+	id = 0
+
 	name = ''
 
 	start?: Date

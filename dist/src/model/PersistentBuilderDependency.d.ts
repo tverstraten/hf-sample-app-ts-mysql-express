@@ -1,5 +1,6 @@
-import { AbstractTraceable } from "./AbstractTraceable";
-export declare class PersistentBuilderDependency extends AbstractTraceable {
+import { Traceable } from './Traceable';
+export declare class PersistentBuilderDependency implements Traceable {
+    id: number;
     builderId?: number;
     dependentOnId?: number;
 }

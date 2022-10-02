@@ -1,1 +1,1 @@
-{"version":3,"file":"Traceable.d.ts","sourceRoot":"","sources":["../../../src/model/Traceable.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,kBAAkB,CAAC;AAEhD,MAAM,WAAW,SAAU,SAAQ,YAAY;IAC9C,WAAW,CAAC,EAAE,MAAM,CAAC;IAErB,SAAS,EAAE,IAAI,CAAC;CAChB"}
+{"version":3,"file":"Traceable.d.ts","sourceRoot":"","sources":["../../../src/model/Traceable.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,kBAAkB,CAAA;AAE/C,MAAM,WAAW,SAAU,SAAQ,YAAY;IAC9C,EAAE,EAAE,MAAM,CAAA;CACV"}

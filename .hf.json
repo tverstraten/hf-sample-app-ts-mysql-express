@@ -60,8 +60,7 @@
                     "templatePath": "./typescript_mysql_da.handlebars",
                     "repeatFor": {
                         "objectTypeName": "Class",
-                        "componentType": "dataAccess",
-                        "isAbstract": false
+                        "componentType": "dataAccess"
                     },
                     "targetPath": "./src/da",
                     "fileNamePattern": "%n.ts",

@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tag = void 0;
-const AbstractMutable_1 = require("./AbstractMutable");
-class Tag extends AbstractMutable_1.AbstractMutable {
+class Tag {
     constructor() {
-        super(...arguments);
-        this.name = "";
-        this.description = "";
+        this.id = 0;
+        this.name = '';
+        this.description = '';
     }
 }
 exports.Tag = Tag;

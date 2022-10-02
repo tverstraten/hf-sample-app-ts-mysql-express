@@ -1,5 +1,6 @@
-import { AbstractMutable } from "./AbstractMutable";
-export declare class SystemDescription extends AbstractMutable {
+import { Traceable } from './Traceable';
+export declare class SystemDescription implements Traceable {
+    id: number;
     withinOrganizationId?: number;
     name: string;
     description: string;

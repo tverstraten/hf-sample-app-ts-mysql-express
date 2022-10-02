@@ -6,7 +6,7 @@ const TransactionType_1 = require("./TransactionType");
 class Invoice extends Transaction_1.Transaction {
     constructor() {
         super();
-        this.invoiceNumber = "";
+        this.invoiceNumber = '';
         this.transactionType = TransactionType_1.TransactionType.invoice;
     }
 }

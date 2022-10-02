@@ -1,1 +1,1 @@
-{"version":3,"file":"Tag.d.ts","sourceRoot":"","sources":["../../../src/model/Tag.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,mBAAmB,CAAC;AAEpD,qBAAa,GAAI,SAAQ,eAAe;IACvC,IAAI,SAAM;IAEV,WAAW,SAAM;CACjB"}
+{"version":3,"file":"Tag.d.ts","sourceRoot":"","sources":["../../../src/model/Tag.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAA;AAEvC,qBAAa,GAAI,YAAW,SAAS;IACpC,EAAE,SAAI;IAEN,IAAI,SAAK;IAET,WAAW,SAAK;CAChB"}

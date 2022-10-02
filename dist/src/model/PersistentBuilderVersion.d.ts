@@ -1,6 +1,7 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { PersistentBuilderType } from "./PersistentBuilderType";
-export declare abstract class PersistentBuilderVersion extends AbstractMutable {
+import { PersistentBuilderType } from './PersistentBuilderType';
+import { Traceable } from './Traceable';
+export declare class PersistentBuilderVersion implements Traceable {
+    id: number;
     type: PersistentBuilderType;
     persistentBuilderId?: number;
     version: string;

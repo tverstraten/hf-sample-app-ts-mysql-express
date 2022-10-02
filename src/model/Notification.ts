@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class Notification extends AbstractMutable {
+export class Notification implements Traceable {
+	id = 0
+
 	userId?: number
 
 	text = ''

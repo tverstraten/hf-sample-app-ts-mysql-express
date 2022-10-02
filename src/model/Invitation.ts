@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class Invitation extends AbstractMutable {
+export class Invitation implements Traceable {
+	id = 0
+
 	toEmail = ''
 
 	invitedById?: number

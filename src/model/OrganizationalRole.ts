@@ -1,15 +1,9 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class OrganizationalRole extends AbstractMutable {
+export class OrganizationalRole implements Traceable {
+	id = 0
+
 	name = ''
 
 	description = ''
-
-	static operator = 'operator'
-	static user = 'user'
-	static administrator = 'administrator'
-	static administratorWithBilling = 'administratorWithBilling'
-	static internalAdministrator = 'internalAdministrator'
-	static internalSupport = 'internalSupport'
-	static internalBilling = 'internalBilling'
 }

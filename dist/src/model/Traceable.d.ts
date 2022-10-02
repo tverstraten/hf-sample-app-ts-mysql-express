@@ -1,6 +1,5 @@
-import { Identifiable } from "@hfadmin/runtime";
+import { Identifiable } from '@hfadmin/runtime';
 export interface Traceable extends Identifiable {
-    createdById?: number;
-    createdOn: Date;
+    id: number;
 }
 //# sourceMappingURL=Traceable.d.ts.map

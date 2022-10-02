@@ -1,1 +1,0 @@
-{"version":3,"file":"AbstractMutable.d.ts","sourceRoot":"","sources":["../../../src/model/AbstractMutable.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,qBAAqB,CAAC;AAExD,8BAAsB,eAAgB,SAAQ,iBAAiB;IAC9D,aAAa,SAAK;IAElB,eAAe,CAAC,EAAE,MAAM,CAAK;IAE7B,aAAa,EAAE,IAAI,CAAc;CACjC"}

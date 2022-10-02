@@ -1,6 +1,8 @@
-import { AbstractMutable } from './AbstractMutable'
+import { Traceable } from './Traceable'
 
-export class Tag extends AbstractMutable {
+export class Tag implements Traceable {
+	id = 0
+
 	name = ''
 
 	description = ''

@@ -1,7 +1,9 @@
-import { AbstractMutable } from './AbstractMutable'
 import { IdentityProvider } from './IdentityProvider'
+import { Traceable } from './Traceable'
 
-export class Identity extends AbstractMutable {
+export class Identity implements Traceable {
+	id = 0
+
 	providedBy = IdentityProvider.github
 
 	socialIdentifier = ''

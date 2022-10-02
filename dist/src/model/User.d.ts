@@ -1,6 +1,7 @@
-import { AbstractMutable } from "./AbstractMutable";
-import { IdentityProvider } from "./IdentityProvider";
-export declare class User extends AbstractMutable {
+import { IdentityProvider } from './IdentityProvider';
+import { Traceable } from './Traceable';
+export declare class User implements Traceable {
+    id: number;
     withinOrganizationId?: number;
     givenName: string;
     familyName: string;
