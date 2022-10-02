@@ -37,6 +37,13 @@
                 }
             },
             {
+                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                "settings": {
+                    "templateName": "handlebars/builtIn/mysql/Schema",
+                    "targetPath": "./db/schema.generated.sql"
+                }
+            },
+            {
                 "builder": "builtIn/applicationArchitecture/ModelToDalTransformer",
                 "settings": ""
             },
