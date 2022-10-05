@@ -38,18 +38,22 @@
                     }
                 },
                 {
-                    "builder": "builtIn/orm-basic/ClassToTableTransformer",
+                    "builder": "builtIn/applicationArchitecture/ClassToTableTransformer",
                     "settings": ""
                 },
                 {
-                    "builder": "builtIn/orm-basic/PropertyToColumnTransformer",
+                    "builder": "builtIn/applicationArchitecture/PropertyToColumnTransformer",
                     "settings": ""
                 },
                 {
                     "builder": "builtIn/handlebars/HandlebarsGenerator",
                     "settings": {
-                        "templateName": "handlebars/builtIn/mysql/Schema",
-                        "targetPath": "./db/schema.generated.sql"
+                        "templatePath": "./mysql_schema.handlebars",
+                        "targetPath": "./db",
+                        "fileNamePattern": "%n.generated.sql",
+                        "repeatFor": {
+                            "objectTypeName": "RelationalDatabase"
+                        }
                     }
                 },
                 {
