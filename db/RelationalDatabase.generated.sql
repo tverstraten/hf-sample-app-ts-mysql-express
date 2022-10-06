@@ -1,220 +1,186 @@
-/**
- * Database creation script for application RelationalDatabase
- * The data that describes the structure of a relational database providing storage for the system.
- */
-
-
 CREATE TABLE `MODEL`.`BillingPeriods` (    
-	`id`  NULL,
-	`name`  NULL,
-	`start`  NULL,
-	`end`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`name` DATETIME NULL,
+	`start` DATETIME NULL,
+	`end` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Builds` (    
-	`id`  NULL,
-	`withinOrganizationId`  NULL,
-	`forSystemId`  NULL,
-	`startedOn`  NULL,
-	`finishedOn`  NULL,
-	`builtById`  NULL,
-	`triggeredById`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`withinOrganizationId` DATETIME NULL,
+	`forSystemId` DATETIME NULL,
+	`startedOn` DATETIME NULL,
+	`finishedOn` DATETIME NULL,
+	`builtById` DATETIME NULL,
+	`triggeredById` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Emails` (    
-	`id`  NULL,
-	`withinOrganizationId`  NULL,
-	`from`  NULL,
-	`sentTo`  NULL,
-	`userSentToId`  NULL,
-	`ccd`  NULL,
-	`bccd`  NULL,
-	`firstRead`  NULL,
-	`subject`  NULL,
-	`body`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`withinOrganizationId` DATETIME NULL,
+	`from` DATETIME NULL,
+	`sentTo` DATETIME NULL,
+	`userSentToId` DATETIME NULL,
+	`ccd` DATETIME NULL,
+	`bccd` DATETIME NULL,
+	`firstRead` DATETIME NULL,
+	`subject` DATETIME NULL,
+	`body` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Identities` (    
-	`id`  NULL,
-	`providedBy`  NULL,
-	`socialIdentifier`  NULL,
-	`forId`  NULL,
-	`enabled`  NULL,
-	`expiresOn`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`providedBy` DATETIME NULL,
+	`socialIdentifier` DATETIME NULL,
+	`forId` DATETIME NULL,
+	`enabled` DATETIME NULL,
+	`expiresOn` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Invitations` (    
-	`id`  NULL,
-	`toEmail`  NULL,
-	`invitedById`  NULL,
-	`invitedUserId`  NULL,
-	`lastReminderSentOn`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`toEmail` DATETIME NULL,
+	`invitedById` DATETIME NULL,
+	`invitedUserId` DATETIME NULL,
+	`lastReminderSentOn` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
-
-CREATE TABLE `MODEL`.`Invoices` (    
-	`invoiceNumber`  NULL,
-	`coveringId`  NULL,
-	PRIMARY KEY (``), 
-)
-ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Notifications` (    
-	`id`  NULL,
-	`userId`  NULL,
-	`text`  NULL,
-	`readOn`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`userId` DATETIME NULL,
+	`text` DATETIME NULL,
+	`readOn` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`OrganizationalRoles` (    
-	`id`  NULL,
-	`name`  NULL,
-	`description`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`name` DATETIME NULL,
+	`description` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Organizations` (    
-	`id`  NULL,
-	`name`  NULL,
-	`primaryContactEmail`  NULL,
-	`billingContactEmail`  NULL,
-	`balance`  NULL,
-	`currentSubscription`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`name` DATETIME NULL,
+	`primaryContactEmail` DATETIME NULL,
+	`billingContactEmail` DATETIME NULL,
+	`balance` DATETIME NULL,
+	`currentSubscription` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
-
-CREATE TABLE `MODEL`.`Payments` (    
-	PRIMARY KEY (``), 
-)
-ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`PersistentBuilders` (    
-	`id`  NULL,
-	`type`  NULL,
-	`withinOrganizationId`  NULL,
-	`name`  NULL,
-	`releaseLevel`  NULL,
-	`mostCurrentVersionId`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`type` DATETIME NULL,
+	`withinOrganizationId` DATETIME NULL,
+	`name` DATETIME NULL,
+	`releaseLevel` DATETIME NULL,
+	`mostCurrentVersionId` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`PersistentBuilderDependencies` (    
-	`id`  NULL,
-	`builderId`  NULL,
-	`dependentOnId`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`builderId` DATETIME NULL,
+	`dependentOnId` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`PersistentBuilderVersions` (    
-	`id`  NULL,
-	`type`  NULL,
-	`persistentBuilderId`  NULL,
-	`version`  NULL,
-	`released`  NULL,
-	`tags`  NULL,
-	`text`  NULL,
-	`deprecated`  NULL,
-	`suggestedAlternateId`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`type` DATETIME NULL,
+	`persistentBuilderId` DATETIME NULL,
+	`version` DATETIME NULL,
+	`released` DATETIME NULL,
+	`tags` DATETIME NULL,
+	`text` DATETIME NULL,
+	`deprecated` DATETIME NULL,
+	`suggestedAlternateId` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`RepositoryDefinitions` (    
-	`id`  NULL,
-	`withinOrganizationId`  NULL,
-	`name`  NULL,
-	`providerName`  NULL,
-	`url`  NULL,
-	`pat`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`withinOrganizationId` DATETIME NULL,
+	`name` DATETIME NULL,
+	`providerName` DATETIME NULL,
+	`url` DATETIME NULL,
+	`pat` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`SubscriptionTypeMetrics` (    
-	`id`  NULL,
-	`name`  NULL,
-	`description`  NULL,
-	`numberOfUsersAllowed`  NULL,
-	`numberOfBuildsAllowed`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`name` DATETIME NULL,
+	`description` DATETIME NULL,
+	`numberOfUsersAllowed` DATETIME NULL,
+	`numberOfBuildsAllowed` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`SystemDescriptions` (    
-	`id`  NULL,
-	`withinOrganizationId`  NULL,
-	`name`  NULL,
-	`description`  NULL,
-	`configurationId`  NULL,
-	`systemAsJson`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`withinOrganizationId` DATETIME NULL,
+	`name` DATETIME NULL,
+	`description` DATETIME NULL,
+	`configurationId` DATETIME NULL,
+	`systemAsJson` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Tags` (    
-	`id`  NULL,
-	`name`  NULL,
-	`description`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`name` DATETIME NULL,
+	`description` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE `MODEL`.`Transactions` (    
-	`id`  NULL,
-	`withinOrganizationId`  NULL,
-	`transactionType`  NULL,
-	`effective`  NULL,
-	`amount`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`withinOrganizationId` DATETIME NULL,
+	`transactionType` DATETIME NULL,
+	`effective` DATETIME NULL,
+	`amount` DATETIME NULL,
+	`invoiceNumber` DATETIME NULL,
+	`coveringId` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
 
-
 CREATE TABLE `MODEL`.`Users` (    
-	`id`  NULL,
-	`withinOrganizationId`  NULL,
-	`givenName`  NULL,
-	`familyName`  NULL,
-	`contactEmail`  NULL,
-	`avatarUrl`  NULL,
-	`performsId`  NULL,
-	`primaryIdentityProvider`  NULL,
-	`enabled`  NULL,
-	`lastInvitationSentOn`  NULL,
-	`invitationAcceptedOn`  NULL,
-	PRIMARY KEY (``), 
+	`id` DATETIME NULL AUTO_INCREMENT,
+	`withinOrganizationId` DATETIME NULL,
+	`givenName` DATETIME NULL,
+	`familyName` DATETIME NULL,
+	`contactEmail` DATETIME NULL,
+	`avatarUrl` DATETIME NULL,
+	`performsId` DATETIME NULL,
+	`primaryIdentityProvider` DATETIME NULL,
+	`enabled` DATETIME NULL,
+	`lastInvitationSentOn` DATETIME NULL,
+	`invitationAcceptedOn` DATETIME NULL,
+	PRIMARY KEY (`id`), 
 )
 ENGINE=InnoDB;
 

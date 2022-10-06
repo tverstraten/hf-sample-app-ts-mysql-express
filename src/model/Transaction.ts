@@ -11,4 +11,8 @@ export class Transaction implements Traceable {
 	effective?: Date
 
 	amount = 0
+
+	invoiceNumber?: string
+
+	coveringId?: number
 }

@@ -6,141 +6,172 @@
         "settings": {
             "configurations": [
                 {
-                    "builder": "builtIn/typescript/EnumValueHarvester",
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take a set of typescript files and create the model from them",
                     "settings": {
                         "sourcePath": "./src/model",
                         "fileNamePattern": ".*(?<!_ex)$",
-                        "classNamePattern": ".*"
+                        "classNamePattern": ".*",
+                        "configurations": [
+                            {
+                                "builder": "builtIn/typescript/EnumValueHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/ClassToModelHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/ClassFieldToModelHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/ClassPropertyToModelHarvester"
+                            }
+                        ]
                     }
                 },
                 {
-                    "builder": "builtIn/typescript/ClassToModelHarvester",
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take the model and turn it into a my sql database instance",
                     "settings": {
-                        "sourcePath": "./src/model",
-                        "fileNamePattern": ".*(?<!_ex)$",
-                        "classNamePattern": ".*"
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/ClassToTableTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/applicationArchitecture/PropertyToColumnTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./mysql_schema.handlebars",
+                                    "targetPath": "./db",
+                                    "fileNamePattern": "%n.generated.sql",
+                                    "repeatFor": {
+                                        "objectTypeName": "RelationalDatabase"
+                                    }
+                                }
+                            }
+                        ]
                     }
                 },
                 {
-                    "builder": "builtIn/typescript/ClassFieldToModelHarvester",
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take the model and turn it into a data access layer",
                     "settings": {
-                        "sourcePath": "./src/model",
-                        "fileNamePattern": ".*(?<!_ex)$",
-                        "classNamePattern": ".*"
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/ModelToDalTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_mysql_abstractDa.handlebars",
+                                    "targetPath": "./src/da/AbstractDa.generated.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_mysql_findResults.handlebars",
+                                    "targetPath": "./src/da/FindResults.generated.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_mysql_da.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "dataAccess"
+                                    },
+                                    "targetPath": "./src/da",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            }
+                        ]
                     }
                 },
                 {
-                    "builder": "builtIn/typescript/ClassPropertyToModelHarvester",
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take a data access layer and turn it into a service layer",
                     "settings": {
-                        "sourcePath": "./src/model",
-                        "fileNamePattern": ".*(?<!_ex)$",
-                        "classNamePattern": ".*"
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/DalToServiceTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_abstractService.handlebars",
+                                    "targetPath": "./src/bl/AbstractService.generated.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_service.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "service"
+                                    },
+                                    "targetPath": "./src/bl",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            }
+                        ]
                     }
                 },
                 {
-                    "builder": "builtIn/applicationArchitecture/ClassToTableTransformer",
-                    "settings": ""
-                },
-                {
-                    "builder": "builtIn/applicationArchitecture/PropertyToColumnTransformer",
-                    "settings": ""
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take a service layer and put an endpoint layer in front of it",
                     "settings": {
-                        "templatePath": "./mysql_schema.handlebars",
-                        "targetPath": "./db",
-                        "fileNamePattern": "%n.generated.sql",
-                        "repeatFor": {
-                            "objectTypeName": "RelationalDatabase"
-                        }
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/ServiceToEndpointTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_express_abstractController.handlebars",
+                                    "targetPath": "./src/api/AbstractController.generated.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./typescript_express_controller.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "serviceEndpoint"
+                                    },
+                                    "targetPath": "./src/api",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            }
+                        ]
                     }
                 },
                 {
-                    "builder": "builtIn/applicationArchitecture/ModelToDalTransformer",
-                    "settings": ""
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Dump the system for review",
                     "settings": {
-                        "templatePath": "./typescript_mysql_abstractDa.handlebars",
-                        "targetPath": "./src/da/AbstractDa.generated.ts"
-                    }
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templatePath": "./typescript_mysql_findResults.handlebars",
-                        "targetPath": "./src/da/FindResults.generated.ts"
-                    }
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templatePath": "./typescript_mysql_da.handlebars",
-                        "repeatFor": {
-                            "objectTypeName": "Class",
-                            "componentType": "dataAccess"
-                        },
-                        "targetPath": "./src/da",
-                        "fileNamePattern": "%n.ts",
-                        "overwrite": false
-                    }
-                },
-                {
-                    "builder": "builtIn/applicationArchitecture/DalToServiceTransformer",
-                    "settings": ""
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templatePath": "./typescript_abstractService.handlebars",
-                        "targetPath": "./src/bl/AbstractService.generated.ts"
-                    }
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templatePath": "./typescript_service.handlebars",
-                        "repeatFor": {
-                            "objectTypeName": "Class",
-                            "componentType": "service"
-                        },
-                        "targetPath": "./src/bl",
-                        "fileNamePattern": "%n.ts",
-                        "overwrite": true
-                    }
-                },
-                {
-                    "builder": "builtIn/applicationArchitecture/ServiceToEndpointTransformer",
-                    "settings": ""
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templatePath": "./typescript_express_abstractController.handlebars",
-                        "targetPath": "./src/api/AbstractController.generated.ts"
-                    }
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templatePath": "./typescript_express_controller.handlebars",
-                        "repeatFor": {
-                            "objectTypeName": "Class",
-                            "componentType": "serviceEndpoint"
-                        },
-                        "targetPath": "./src/api",
-                        "fileNamePattern": "%n.ts",
-                        "overwrite": true
-                    }
-                },
-                {
-                    "builder": "builtIn/handlebars/HandlebarsGenerator",
-                    "settings": {
-                        "templateName": "handlebars/builtIn/handlebars/SystemAsJson",
-                        "targetPath": "./System.json",
-                        "overwrite": true
+                        "configurations": [
+                            {
+                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "settings": {
+                                    "templateName": "handlebars/builtIn/handlebars/SystemAsJson",
+                                    "targetPath": "./System.json",
+                                    "overwrite": true
+                                }
+                            }
+                        ]
                     }
                 }
             ]

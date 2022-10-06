@@ -27,11 +27,26 @@ export abstract class AbstractDa<T extends Traceable> {
 
 	databaseConnection?: PoolConnection
 
-	protected abstract getTableName(): string
+	/**
+	 * NOTE: override as required in derivations.
+	 */
+	protected getTableName(): string {
+		return this.constructor.name
+	}
 
-	protected abstract getIdColumnName(): string
+	/**
+	 * NOTE: override as required in derivations.
+	 */
+	protected getIdColumnName(): string {
+		return 'id'
+	}
 
-	protected abstract getDefaultOrderByColumnName(): string
+	/**
+	 * NOTE: override as required in derivations.
+	 */
+	protected getDefaultOrderByColumnName(): string {
+		return 'id'
+	}
 
 	async getConnectionPool(): Promise<Pool> {
 		const mutex = new Mutex()
