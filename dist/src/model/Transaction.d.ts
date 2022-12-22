@@ -6,5 +6,7 @@ export declare class Transaction implements Traceable {
     transactionType: TransactionType;
     effective?: Date;
     amount: number;
+    invoiceNumber?: string;
+    coveringId?: number;
 }
 //# sourceMappingURL=Transaction.d.ts.map

@@ -36,6 +36,15 @@ class WhereClause {
     }
 }
 class AbstractDa {
+    getTableName() {
+        return this.constructor.name;
+    }
+    getIdColumnName() {
+        return 'id';
+    }
+    getDefaultOrderByColumnName() {
+        return 'id';
+    }
     async getConnectionPool() {
         const mutex = new async_mutex_1.Mutex();
         const release = await mutex.acquire();

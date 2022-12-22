@@ -44,7 +44,7 @@
                             {
                                 "builder": "builtIn/handlebars/HandlebarsGenerator",
                                 "settings": {
-                                    "templatePath": "./mysql_schema.handlebars",
+                                    "templateName": "handlebars/builtIn/mysql/Schema",
                                     "targetPath": "./db",
                                     "fileNamePattern": "%n.generated.sql",
                                     "repeatFor": {

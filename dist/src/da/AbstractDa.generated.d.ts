@@ -9,9 +9,9 @@ declare class WhereClause {
 export declare abstract class AbstractDa<T extends Traceable> {
     static connectionPool?: Pool;
     databaseConnection?: PoolConnection;
-    protected abstract getTableName(): string;
-    protected abstract getIdColumnName(): string;
-    protected abstract getDefaultOrderByColumnName(): string;
+    protected getTableName(): string;
+    protected getIdColumnName(): string;
+    protected getDefaultOrderByColumnName(): string;
     getConnectionPool(): Promise<Pool>;
     getConnection(): Promise<PoolConnection>;
     executePrepared(sql: string, params: any[]): Promise<RowDataPacket[][] | RowDataPacket[] | ResultSetHeader>;
