@@ -1,0 +1,21 @@
+{{#each this.tables}}
+CREATE TABLE `{{this.schemaName}}`.`{{this.name}}` (    
+{{#each this.columns}}
+	`{{this.name}}` {{#if this.inDomain}}enum({{SafeString this.inDomain.values}}){{else}}{{this.ansiTypeDeclaration}}{{/if}} {{#if this.isNullable}}NULL{{else}}NOT NULL{{/if}}{{#if this.isIdentity}} AUTO_INCREMENT{{/if}}{{#if this.columnDefault}} DEFAULT {{SafeString this.columnDefault}}{{/if}}{{#if this.description}} COMMENT '{{this.description}}'{{/if}},
+{{/each}}
+	PRIMARY KEY (`{{this.primaryKey.name}}`), 
+{{#each this.foreignKeys}}
+	CONSTRAINT `{{this.name}}` FOREIGN KEY (`{{this.sourceColumnName}}`) REFERENCES `{{this.targetSchemaName}}`.`{{this.targetTableName}}` (`id`),
+{{/each}}
+)
+{{#if this.description}}COMMENT='{{this.description}}', {{/if}}ENGINE=InnoDB;
+
+{{/each}}
+
+{{#each relationalStorage.views}}
+
+CREATE VIEW `{{this.schemaName}}`.`{{this.name}}` AS    
+	{{SafeString this.queryText}}
+{{#if this.description}}COMMENT='{{this.description}}', {{/if}};
+
+{{/each}}

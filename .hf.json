@@ -14,16 +14,16 @@
                         "classNamePattern": ".*",
                         "configurations": [
                             {
-                                "builder": "builtIn/typescript/EnumValueHarvester"
+                                "builder": "builtIn/typescript/enumValueHarvester"
                             },
                             {
-                                "builder": "builtIn/typescript/ClassToModelHarvester"
+                                "builder": "builtIn/typescript/classToModelHarvester"
                             },
                             {
-                                "builder": "builtIn/typescript/ClassFieldToModelHarvester"
+                                "builder": "builtIn/typescript/classFieldToModelHarvester"
                             },
                             {
-                                "builder": "builtIn/typescript/ClassPropertyToModelHarvester"
+                                "builder": "builtIn/typescript/classPropertyToModelHarvester"
                             }
                         ]
                     }
@@ -34,17 +34,17 @@
                     "settings": {
                         "configurations": [
                             {
-                                "builder": "builtIn/applicationArchitecture/ClassToTableTransformer",
+                                "builder": "builtIn/applicationArchitecture/classToTableTransformer",
                                 "settings": ""
                             },
                             {
-                                "builder": "builtIn/applicationArchitecture/PropertyToColumnTransformer",
+                                "builder": "builtIn/applicationArchitecture/propertyToColumnTransformer",
                                 "settings": ""
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
-                                    "templateName": "handlebars/builtIn/mysql/Schema",
+                                    "templatePath": "./mysql_schema.handlebars",
                                     "targetPath": "./db",
                                     "fileNamePattern": "%n.generated.sql",
                                     "repeatFor": {
@@ -61,25 +61,25 @@
                     "settings": {
                         "configurations": [
                             {
-                                "builder": "builtIn/applicationArchitecture/ModelToDalTransformer",
+                                "builder": "builtIn/applicationArchitecture/modelToDalTransformer",
                                 "settings": ""
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_mysql_abstractDa.handlebars",
                                     "targetPath": "./src/da/AbstractDa.generated.ts"
                                 }
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_mysql_findResults.handlebars",
                                     "targetPath": "./src/da/FindResults.generated.ts"
                                 }
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_mysql_da.handlebars",
                                     "repeatFor": {
@@ -100,18 +100,18 @@
                     "settings": {
                         "configurations": [
                             {
-                                "builder": "builtIn/applicationArchitecture/DalToServiceTransformer",
+                                "builder": "builtIn/applicationArchitecture/dalToServiceTransformer",
                                 "settings": ""
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_abstractService.handlebars",
                                     "targetPath": "./src/bl/AbstractService.generated.ts"
                                 }
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_service.handlebars",
                                     "repeatFor": {
@@ -132,18 +132,18 @@
                     "settings": {
                         "configurations": [
                             {
-                                "builder": "builtIn/applicationArchitecture/ServiceToEndpointTransformer",
+                                "builder": "builtIn/applicationArchitecture/serviceToEndpointTransformer",
                                 "settings": ""
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_express_abstractController.handlebars",
                                     "targetPath": "./src/api/AbstractController.generated.ts"
                                 }
                             },
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./typescript_express_controller.handlebars",
                                     "repeatFor": {
@@ -164,9 +164,9 @@
                     "settings": {
                         "configurations": [
                             {
-                                "builder": "builtIn/handlebars/HandlebarsGenerator",
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
-                                    "templateName": "handlebars/builtIn/handlebars/SystemAsJson",
+                                    "templateName": "handlebars/builtIn/handlebars/systemAsJson",
                                     "targetPath": "./System.json",
                                     "overwrite": true
                                 }

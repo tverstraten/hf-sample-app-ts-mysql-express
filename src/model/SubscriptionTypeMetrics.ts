@@ -1,7 +1,6 @@
-import { Describable, Nameable } from '@hfadmin/runtime'
 import { Traceable } from './Traceable'
 
-export class SubscriptionTypeMetrics implements Nameable, Describable, Traceable {
+export class SubscriptionTypeMetrics implements Traceable {
 	id = 0
 
 	name = ''
