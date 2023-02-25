@@ -1,0 +1,15 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
+import { {{this.operatesOnBehalfOf.name}} } from '@tverstraten/hf-model'
+import { {{this.operatesOnBehalfOf.name}}Service } from '@tverstraten/hf-bll'
+import { Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Api } from './Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Api'
+
+export class {{this.name}} extends Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Api<{{this.operatesOnBehalfOf.name}}, {{this.operatesOnBehalfOf.name}}Service> {
+	static baseName = '/{{this.operatesOnBehalfOf.camelCaseName}}'
+
+	constructor(app: any) {
+		super({{this.operatesOnBehalfOf.name}}, {{this.name}}.baseName, {{this.operatesOnBehalfOf.name}}Service)
+		this.bind(app)
+	}
+}

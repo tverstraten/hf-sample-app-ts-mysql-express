@@ -1,0 +1,14 @@
+.github
+tsconfig.*
+src
+.eslintrc.js
+.prettierrc.json
+*.code-workspace
+.vscode
+**/*.spec.js
+**/*.spec.ts
+**/*.spec.d.ts
+**/*.spec.d.ts.map
+badges
+coverage
+dist/src/tests

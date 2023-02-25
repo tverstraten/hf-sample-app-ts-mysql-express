@@ -1,1 +1,0 @@
-{"version":3,"file":"Organization.d.ts","sourceRoot":"","sources":["../../../src/model/Organization.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,oBAAoB,CAAA;AACrD,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAA;AAEvC,qBAAa,YAAa,YAAW,SAAS;IAC7C,EAAE,SAAI;IAEN,IAAI,SAAK;IAET,mBAAmB,SAAK;IAExB,mBAAmB,SAAK;IAExB,OAAO,SAAI;IAEX,mBAAmB,EAAE,gBAAgB,CAAwB;CAC7D"}

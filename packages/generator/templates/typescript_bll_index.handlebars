@@ -1,0 +1,11 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
+
+{{#each this.children}}
+{{#is this.objectTypeName "ServiceLayer"}}
+{{#each this.children}}export * from './{{this.name}}'
+{{/each}}
+{{/is}}
+{{/each}}
+export * from './AbstractService'

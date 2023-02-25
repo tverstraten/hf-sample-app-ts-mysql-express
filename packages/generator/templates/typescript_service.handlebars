@@ -1,0 +1,16 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
+import { {{this.operatesOnBehalfOf.name}}Dac } from '@tverstraten/hf-dal'
+import { Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Service } from './Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Service'
+import { {{this.operatesOnBehalfOf.name}} } from '@tverstraten/hf-model'
+
+/**
+ * Services meant to operate on the persistent class {{this.operatesOnBehalfOf.name}}.
+ * NOTE: This file is meant to be extended, add to it as you need. It is only generated if it does not already exist.
+ */
+export class {{this.name}} extends Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Service<{{this.operatesOnBehalfOf.name}}> {
+	constructor() {
+		super(new {{this.operatesOnBehalfOf.name}}Dac())
+	}
+}

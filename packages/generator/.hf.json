@@ -1,0 +1,314 @@
+{
+    "plugins": [],
+    "name": "Harvest Forward",
+    "configuration": {
+        "builder": "SequentialAggregateBuilder",
+        "settings": {
+            "configurations": [
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take a set of typescript files and create the model from them",
+                    "settings": {
+                        "sourcePath": "../../packages/model/src",
+                        "fileNamePattern": "^[^.]*(?!spec)*[.]ts$",
+                        "classNamePattern": ".*",
+                        "configurations": [
+                            {
+                                "builder": "builtIn/typescript/enumValueHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/classToModelHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/classInheritanceHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/interfaceToModelHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/classPropertyToModelHarvester"
+                            },
+                            {
+                                "builder": "builtIn/typescript/methodToModelHarvester"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "builder": "builtIn/handlebars/handlebarsGenerator",
+                    "settings": {
+                        "templatePath": "./templates/typescript_model_index.handlebars",
+                        "targetPath": "../../packages/model/src/index.ts",
+                        "overwrite": true
+                    }
+                },
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take the model and turn it into a my sql database instance",
+                    "settings": {
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/classToTableTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/applicationArchitecture/propertyToColumnTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/mysql_schema.handlebars",
+                                    "targetPath": "../../db",
+                                    "fileNamePattern": "%n.sql",
+                                    "repeatFor": {
+                                        "objectTypeName": "RelationalDatabase"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take the model and turn it into a data access layer",
+                    "settings": {
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/modelToDalTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_findResults.handlebars",
+                                    "targetPath": "../../packages/dal/src/FindResults.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_dac.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "dataAccess"
+                                    },
+                                    "targetPath": "../../packages/dal/src",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_abstractDac.handlebars",
+                                    "targetPath": "../../packages/dal/src/AbstractDac.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_abstractTraceableDac.handlebars",
+                                    "targetPath": "../../packages/dal/src/AbstractTraceableDac.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_abstractMutableDac.handlebars",
+                                    "targetPath": "../../packages/dal/src/AbstractMutableDac.ts"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "builder": "builtIn/handlebars/handlebarsGenerator",
+                    "settings": {
+                        "templatePath": "./templates/typescript_dal_index.handlebars",
+                        "targetPath": "../../packages/dal/src/index.ts",
+                        "overwrite": true
+                    }
+                },
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take a data access layer and turn it into a service layer",
+                    "settings": {
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/dalToServiceTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_service.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "service"
+                                    },
+                                    "targetPath": "../../packages/bll/src",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_abstractService.handlebars",
+                                    "targetPath": "../../packages/bll/src/AbstractService.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_abstractTraceableService.handlebars",
+                                    "targetPath": "../../packages/bll/src/AbstractTraceableService.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_abstractMutableService.handlebars",
+                                    "targetPath": "../../packages/bll/src/AbstractMutableService.ts"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "builder": "builtIn/handlebars/handlebarsGenerator",
+                    "settings": {
+                        "templatePath": "./templates/typescript_bll_index.handlebars",
+                        "targetPath": "../../packages/bll/src/index.ts",
+                        "overwrite": true
+                    }
+                },
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Take a service layer and put an endpoint layer in front of it",
+                    "settings": {
+                        "configurations": [
+                            {
+                                "builder": "builtIn/applicationArchitecture/serviceToEndpointTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_express_api.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "serviceEndpoint"
+                                    },
+                                    "targetPath": "../../packages/openApiServer/src",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_express_abstractApi.handlebars",
+                                    "targetPath": "../../packages/openApiServer/src/AbstractApi.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_express_abstractTraceableApi.handlebars",
+                                    "targetPath": "../../packages/openApiServer/src/AbstractTraceableApi.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_express_abstractMutableApi.handlebars",
+                                    "targetPath": "../../packages/openApiServer/src/AbstractMutableApi.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_express_apiApplication.handlebars",
+                                    "targetPath": "../../packages/openApiServer/src",
+                                    "fileNamePattern": "ApiApplication.ts",
+                                    "overwrite": true,
+                                    "repeatFor": {
+                                        "objectTypeName": "EndpointLayer"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Produce a set of client api classes",
+                    "settings": {
+                        "configurations": [
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_isomorphicFetch_apiClient.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "serviceEndpoint"
+                                    },
+                                    "targetPath": "../../packages/openApiClient/src",
+                                    "fileNamePattern": "%n.ts",
+                                    "overwrite": true
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_isomorphicFetch_abstractClientApi.handlebars",
+                                    "targetPath": "../../packages/openApiClient/src/AbstractApi.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_isomorphicFetch_abstractClientTraceableApi.handlebars",
+                                    "targetPath": "../../packages/openApiClient/src/AbstractTraceableApi.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_isomorphicFetch_abstractClientMutableApi.handlebars",
+                                    "targetPath": "../../packages/openApiClient/src/AbstractMutableApi.ts"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "builder": "builtIn/handlebars/handlebarsGenerator",
+                    "settings": {
+                        "templatePath": "./templates/typescript_openApiClient_index.handlebars",
+                        "targetPath": "../../packages/openApiClient/src/index.ts",
+                        "overwrite": true
+                    }
+                },
+                {
+                    "builder": "SequentialAggregateBuilder",
+                    "description": "Dump the system for review",
+                    "settings": {
+                        "configurations": [
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templateName": "handlebars/builtIn/handlebars/systemAsJson",
+                                    "targetPath": "../../System.json",
+                                    "overwrite": true
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

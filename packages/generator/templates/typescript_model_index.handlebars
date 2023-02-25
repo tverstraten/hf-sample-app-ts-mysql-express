@@ -1,0 +1,10 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
+
+{{#each this.children}}
+{{#is this.objectTypeName "InformationModel"}}
+{{#each this.children}}export * from './{{this.name}}'
+{{/each}}
+{{/is}}
+{{/each}}

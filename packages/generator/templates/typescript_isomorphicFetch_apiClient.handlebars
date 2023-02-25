@@ -1,0 +1,12 @@
+import { Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Api } from './Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Api'
+import { {{this.operatesOnBehalfOf.name}} } from '@tverstraten/hf-model'
+
+/**
+ * Api client meant to proxy to open api services that operate on the persistent class {{this.operatesOnBehalfOf.name}}.
+ * NOTE: This file is meant to be extended, add to it as you need. It is only generated if it does not already exist.
+ */
+export class {{this.name}} extends Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Api<{{this.operatesOnBehalfOf.name}}> {
+	constructor() {
+		super('{{this.operatesOnBehalfOf.name}}')
+	}
+}

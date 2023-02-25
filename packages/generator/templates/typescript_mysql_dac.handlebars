@@ -1,0 +1,10 @@
+import { {{this.operatesOnBehalfOf.name}} } from '@tverstraten/hf-model'
+import { Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Dac } from './Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Dac'
+
+/**
+ * NOTE: This file is meant to be extended, add to it as you need. It is only generated if it does not already exist.
+ */
+export class {{this.name}} extends Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Dac<{{this.operatesOnBehalfOf.name}}> 
+{
+	// Add custom code as required
+}
