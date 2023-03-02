@@ -3,7 +3,6 @@
     "private": true,
     "version": "1.0.0",
     "scripts": {
-        "prepare": "tsc",
         "build": "tsc -p tsconfig.build.json",
         "generate": "harvest-forward -l='{\\\"ConfigurationManager\\\":\\\"debug\\\",\\\"hf\\\":\\\"debug\\\"}'"
     },
