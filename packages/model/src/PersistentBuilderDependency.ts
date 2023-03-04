@@ -1,5 +1,6 @@
-import { IsNumber } from 'class-validator'
+import { IsInt } from 'class-validator'
 import { AbstractTraceable } from './AbstractTraceable'
+import { PersistentBuilderVersion } from './PersistentBuilderVersion'
 
 /**
  * An indication of one builder being dependent upon another.
@@ -10,14 +11,24 @@ export class PersistentBuilderDependency extends AbstractTraceable {
 	 *
 	 * @see PersistentBuilderVersion
 	 */
-	@IsNumber()
+	@IsInt()
 	builderId?: number = 0
+
+	/**
+	 * The builder that is dependent.
+	 */
+	builder?: PersistentBuilderVersion
 
 	/**
 	 * The id of the builder that provides the required functionality.
 	 *
 	 * @see PersistentBuilderVersion
 	 */
-	@IsNumber()
+	@IsInt()
 	dependentOnId?: number = 0
+
+	/**
+	 * The builder that provides the required functionality.
+	 */
+	dependentOn?: PersistentBuilderVersion
 }

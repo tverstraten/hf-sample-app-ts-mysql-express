@@ -1,10 +1,18 @@
-import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator'
+import { IsEnum, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator'
 import { AbstractTraceable } from './AbstractTraceable'
+import { SubscriptionType } from './SubscriptionType'
 
 /**
  * A plan for subscriptions.
  */
 export class SubscriptionTypeMetrics extends AbstractTraceable {
+	/**
+	 * The type of subscription this is for.
+	 */
+	@IsNotEmpty()
+	@IsEnum(SubscriptionType)
+	type: SubscriptionType = SubscriptionType.free
+
 	/**
 	 * A human readable identifier for the type of subscription.
 	 */

@@ -1,6 +1,7 @@
 import { IsBeforeToday } from '@tverstraten/hf-validators'
-import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Validate } from 'class-validator'
+import { IsDate, IsEmail, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength, Validate } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { User } from './User'
 
 /**
  * One user extending the ability for another user to join the systems as a member of an organization.
@@ -20,18 +21,28 @@ export class Invitation extends AbstractMutable {
 	 *
 	 * @see User
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	invitedById?: number
+
+	/**
+	 * The user that extended the invitation.
+	 */
+	invitedBy?: User
 
 	/**
 	 * The user that has been invited. When the invitation is created a user is also created to mark them as a placeholder.
 	 *
 	 * @see User
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	invitedUserId?: number
+
+	/**
+	 * The user that has been invited. When the invitation is created a user is also created to mark them as a placeholder.
+	 */
+	invitedUser?: User
 
 	/**
 	 * The point in time the most recent reminder was sent.

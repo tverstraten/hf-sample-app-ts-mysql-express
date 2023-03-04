@@ -1,7 +1,9 @@
 import { IsBeforeToday } from '@tverstraten/hf-validators'
-import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, MaxLength, Validate } from 'class-validator'
+import { IsBoolean, IsDate, IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, Validate } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
 import { IdentityProvider } from './IdentityProvider'
+import { Organization } from './Organization'
+import { OrganizationalRole } from './OrganizationalRole'
 
 /**
  * One single persona that may use the system.
@@ -12,9 +14,14 @@ export class User extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The id of the organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * The name the user uses within their family to be identified. Often called surname.
@@ -53,14 +60,19 @@ export class User extends AbstractMutable {
 	 *
 	 * @see OrganizationalRole
 	 */
-	@IsNumber()
+	@IsInt()
 	performsId?: number
+
+	/**
+	 * The role that the user performs for the organization.
+	 */
+	performs?: OrganizationalRole
 
 	/**
 	 * The identity provider that this account is based off of.
 	 */
-	@IsString()
 	@MaxLength(128)
+	@IsEnum(IdentityProvider)
 	primaryIdentityProvider = IdentityProvider.github
 
 	/**

@@ -1,5 +1,7 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { Organization } from './Organization'
+import { PersistentBuilder } from './PersistentBuilder'
 
 /**
  * A complete meta data description of an application system.
@@ -10,9 +12,14 @@ export class SystemDescription extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * A word that is a human readable identifier for the component.
@@ -32,11 +39,16 @@ export class SystemDescription extends AbstractMutable {
 	/**
 	 * The builder configuration to produce the system.
 	 *
-	 * @see PersistentBuilderConfiguration
+	 * @see PersistentBuilder
 	 */
 	@IsOptional()
-	@IsNumber()
+	@IsInt()
 	configurationId?: number
+
+	/**
+	 * The builder configuration to produce the system.
+	 */
+	configuration?: PersistentBuilder
 
 	/**
 	 * An instance of System converted to json with recursion disconnected.

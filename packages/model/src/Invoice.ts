@@ -1,4 +1,5 @@
-import { IsNumber, IsString, MaxLength } from 'class-validator'
+import { IsInt, IsString, MaxLength } from 'class-validator'
+import { BillingPeriod } from './BillingPeriod'
 import { Transaction } from './Transaction'
 import { TransactionType } from './TransactionType'
 
@@ -18,8 +19,13 @@ export class Invoice extends Transaction {
 	 *
 	 * @see BillingPeriod
 	 */
-	@IsNumber()
+	@IsInt()
 	coveringId?: number
+
+	/**
+	 * The period the invoice is for.
+	 */
+	covering?: BillingPeriod
 
 	/**
 	 * Create a new instance of the object.

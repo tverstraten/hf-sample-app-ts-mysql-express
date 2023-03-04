@@ -1,6 +1,8 @@
 import { IsEmailCsv } from '@tverstraten/hf-validators'
-import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Validate } from 'class-validator'
+import { IsDate, IsEmail, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength, Validate } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { Organization } from './Organization'
+import { User } from './User'
 
 /**
  * An email that was sent.
@@ -11,9 +13,14 @@ export class Email extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * The email address that sent it.
@@ -33,13 +40,18 @@ export class Email extends AbstractMutable {
 	sentTo = ''
 
 	/**
-	 * The the users the sentTo email addresses represent.
+	 * The id of the user the sentTo email addresses represent.
 	 *
-	 * @see Organization
+	 * @see User
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	userSentToId?: number
+
+	/**
+	 * The user the sentTo email addresses represent.
+	 */
+	userSentTo?: User
 
 	/**
 	 * A csv list of the email addresses that were cc'd.

@@ -30,9 +30,15 @@
                             },
                             {
                                 "builder": "builtIn/typescript/methodToModelHarvester"
+                            },
+                            {
+                                "builder": "builtIn/validation/classValidatorRulesHarvester"
                             }
                         ]
                     }
+                },
+                {
+                    "builder": "builtIn/validation/rulesPropertyTypeHarvester"
                 },
                 {
                     "builder": "builtIn/handlebars/handlebarsGenerator",
@@ -53,6 +59,10 @@
                             },
                             {
                                 "builder": "builtIn/applicationArchitecture/propertyToColumnTransformer",
+                                "settings": ""
+                            },
+                            {
+                                "builder": "builtIn/applicationArchitecture/propertyToForeignKeyTransformer",
                                 "settings": ""
                             },
                             {

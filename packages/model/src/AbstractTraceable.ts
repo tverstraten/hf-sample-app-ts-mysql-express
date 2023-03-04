@@ -1,5 +1,6 @@
-import { IsDate, IsNotEmpty, IsNumber, IsOptional } from 'class-validator'
+import { IsDate, IsInt, IsNotEmpty, IsOptional } from 'class-validator'
 import { Traceable } from './Traceable'
+import { User } from './User'
 
 /**
  * A point of inheritance for classes that can be traced.
@@ -8,7 +9,7 @@ export abstract class AbstractTraceable implements Traceable {
 	/**
 	 * The identifier.
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	id = 0
 
@@ -18,8 +19,13 @@ export abstract class AbstractTraceable implements Traceable {
 	 * @see User
 	 */
 	@IsOptional()
-	@IsNumber()
+	@IsInt()
 	createdById?: number
+
+	/**
+	 * The user that created this.
+	 */
+	createdBy?: User
 
 	/**
 	 * The point in time that this object was first created in persistent storage.

@@ -1,6 +1,7 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsBoolean, IsDate, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
 import { IdentityProvider } from './IdentityProvider'
+import { User } from './User'
 
 /**
  * The definition of a way in which a user is identified to the system this can be an access token or a social account
@@ -10,10 +11,10 @@ export class Identity extends AbstractMutable {
 	/**
 	 * The system that provides the identification.
 	 */
-	@IsString()
 	@IsNotEmpty()
 	@MaxLength(128)
-	providedBy = IdentityProvider.github
+	@IsEnum(IdentityProvider)
+	providedBy: IdentityProvider = IdentityProvider.github
 
 	/**
 	 * The identifier used by the social system defined by providedBy.
@@ -28,9 +29,14 @@ export class Identity extends AbstractMutable {
 	 *
 	 * @see User
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	forId?: number
+
+	/**
+	 * The user this belongs to.
+	 */
+	for?: User
 
 	/**
 	 * Is the identity currently valid?

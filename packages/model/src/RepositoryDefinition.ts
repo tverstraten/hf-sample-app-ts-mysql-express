@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString, IsUrl, MaxLength } from 'class-validator'
+import { IsInt, IsNotEmpty, IsString, IsUrl, MaxLength } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { Organization } from './Organization'
 
 /**
  * A statement of one repository that may be used by the organization and how to connect to it.
@@ -10,9 +11,14 @@ export class RepositoryDefinition extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * The human readable identifier for the repository.

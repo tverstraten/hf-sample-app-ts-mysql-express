@@ -1,5 +1,6 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { Organization } from './Organization'
 import { PersistentBuilderType } from './PersistentBuilderType'
 import { ReleaseLevel } from './ReleaseLevel'
 
@@ -10,6 +11,8 @@ export class PersistentBuilder extends AbstractMutable {
 	/**
 	 * The derivation of this class.
 	 */
+	@IsNotEmpty()
+	@IsEnum(PersistentBuilderType)
 	type: PersistentBuilderType = PersistentBuilderType.configuration
 
 	/**
@@ -17,9 +20,14 @@ export class PersistentBuilder extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * Its human readable identifier.
@@ -31,6 +39,7 @@ export class PersistentBuilder extends AbstractMutable {
 	/**
 	 * The degree to which it has been released. This controls who gets to see it.
 	 */
+	@IsNotEmpty()
 	@IsEnum(ReleaseLevel)
 	releaseLevel: ReleaseLevel = ReleaseLevel.community
 
@@ -40,6 +49,6 @@ export class PersistentBuilder extends AbstractMutable {
 	 * @see PersistentBuilderVersion
 	 */
 	@IsOptional()
-	@IsNumber()
+	@IsInt()
 	mostCurrentVersionId?: number
 }

@@ -1,11 +1,11 @@
 {{#each this.tables}}
 CREATE TABLE `{{this.schemaName}}`.`{{this.name}}` (    
 {{#each this.columns}}
-	`{{this.name}}` {{#if this.inDomain}}enum({{SafeString this.inDomain.values}}){{else}}{{this.ansiTypeDeclaration}}{{/if}} {{#if this.valueType.isOptional}}NULL{{else}}NOT NULL{{/if}}{{#if this.autoIncrement}} AUTO_INCREMENT{{/if}}{{#if this.columnDefault}} DEFAULT {{replace this.columnDefault "'" '"'}}{{/if}}{{#if this.description}} COMMENT '{{replace this.description "'" '"'}}'{{/if}},
+	`{{this.name}}` {{#if this.inDomain}}ENUM({{#each this.inDomain.values}}'{{this.value}}'{{#unless @last}},{{/unless}}{{/each}}){{else}}{{this.ansiTypeDeclaration}}{{/if}} {{#if this.valueType.isOptional}}NULL{{else}}NOT NULL{{/if}}{{#if this.columnDefault}} DEFAULT {{replace this.columnDefault "'" '"'}}{{/if}}{{#if this.description}} COMMENT '{{replace this.description "'" '"'}}'{{/if}},
 {{/each}}
-	PRIMARY KEY (`{{this.primaryKey.name}}`), 
+	PRIMARY KEY (`{{this.primaryKey.name}}`)
 {{#each this.foreignKeys}}
-	CONSTRAINT `{{this.name}}` FOREIGN KEY (`{{this.sourceColumnName}}`) REFERENCES `{{this.targetSchemaName}}`.`{{this.targetTableName}}` (`id`),
+	, CONSTRAINT `{{this.name}}` FOREIGN KEY (`{{this.sourceColumnName}}`) REFERENCES `{{this.targetSchemaName}}`.`{{this.targetTableName}}` (`id`)
 {{/each}}
 )
 {{#if this.description}}COMMENT='{{replace this.description "'" '"'}}', {{/if}}ENGINE=InnoDB;

@@ -1,5 +1,6 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsBoolean, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { PersistentBuilder } from './PersistentBuilder'
 import { PersistentBuilderType } from './PersistentBuilderType'
 
 /**
@@ -9,6 +10,8 @@ export class PersistentBuilderVersion extends AbstractMutable {
 	/**
 	 * The derivation of this class.
 	 */
+	@IsNotEmpty()
+	@IsEnum(PersistentBuilderType)
 	type: PersistentBuilderType = PersistentBuilderType.configuration
 
 	/**
@@ -16,9 +19,14 @@ export class PersistentBuilderVersion extends AbstractMutable {
 	 *
 	 * @see PersistentBuilder
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	persistentBuilderId?: number
+
+	/**
+	 * The version it is for.
+	 */
+	persistentBuilder?: PersistentBuilder
 
 	/**
 	 * An identifier of its version.
@@ -58,6 +66,11 @@ export class PersistentBuilderVersion extends AbstractMutable {
 	 * @see PersistentBuilderVersion
 	 */
 	@IsOptional()
-	@IsNumber()
+	@IsInt()
 	suggestedAlternateId?: number
+
+	/**
+	 * The builder version that should be used instead of this if its deprecated.
+	 */
+	suggestedAlternate?: PersistentBuilderVersion
 }

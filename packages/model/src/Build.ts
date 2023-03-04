@@ -1,6 +1,9 @@
 import { IsBeforeToday } from '@tverstraten/hf-validators'
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, Validate } from 'class-validator'
+import { IsDate, IsInt, IsNotEmpty, IsOptional, Validate } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { Organization } from './Organization'
+import { SystemDescription } from './SystemDescription'
+import { User } from './User'
 /**
  * One invocation of a builder.
  */
@@ -10,18 +13,28 @@ export class Build extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * The system the build is for.
 	 *
 	 * @see SystemDescription
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	forSystemId?: number
+
+	/**
+	 * The system the build is for.
+	 */
+	forSystem?: SystemDescription
 
 	/**
 	 * The point in time the build was started.
@@ -44,8 +57,13 @@ export class Build extends AbstractMutable {
 	 * @see User
 	 */
 	@IsOptional()
-	@IsNumber()
+	@IsInt()
 	builtById?: number
+
+	/**
+	 * The id of the user that built it.
+	 */
+	builtBy?: User
 
 	/**
 	 * The user that triggered the build.
@@ -53,6 +71,11 @@ export class Build extends AbstractMutable {
 	 * @see User
 	 */
 	@IsOptional()
-	@IsNumber()
+	@IsInt()
 	triggeredById?: number
+
+	/**
+	 * The user that triggered the build.
+	 */
+	triggeredBy?: User
 }

@@ -1,5 +1,6 @@
-import { IsDate, IsEnum, IsNotEmpty, IsNumber } from 'class-validator'
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsNumber } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { Organization } from './Organization'
 import { TransactionType } from './TransactionType'
 
 /**
@@ -11,9 +12,14 @@ export class Transaction extends AbstractMutable {
 	 *
 	 * @see Organization
 	 */
-	@IsNumber()
+	@IsInt()
 	@IsNotEmpty()
 	withinOrganizationId?: number
+
+	/**
+	 * The id of the organization it is for.
+	 */
+	withinOrganization?: Organization
 
 	/**
 	 * The kind of transaction it is.
@@ -32,6 +38,7 @@ export class Transaction extends AbstractMutable {
 	/**
 	 * The amount to add to the balance of the account.
 	 */
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	@IsNumber()
 	@IsNotEmpty()
 	amount = 0
