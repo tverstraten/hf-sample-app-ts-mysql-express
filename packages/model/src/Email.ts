@@ -119,6 +119,6 @@ export class Email extends AbstractMutable {
 	 */
 	@IsString()
 	@IsNotEmpty()
-	@MaxLength(19000)
+	@MaxLength(8192)
 	body = ''
 }

@@ -16,8 +16,8 @@ async function run() {
 		const configurations = settings.configurations as any[]
 		const typescriptOuterConfiguration = configurations[0]
 		const typescriptBuilders = typescriptOuterConfiguration.settings.configurations as any[]
-		typescriptBuilders.push({ builder: additionalBuilder1 })
- 
+		typescriptBuilders.push({ builder: additionalBuilder1 }) 
+
 		const additionalBuilder2 = new RulesPropertyTypeExtractor()
 		configurations.splice(1, 0, { builder: additionalBuilder2 })
 		*/

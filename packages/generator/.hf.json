@@ -68,11 +68,11 @@
                             {
                                 "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
-                                    "templatePath": "./templates/mysql_schema.handlebars",
+                                    "templatePath": "./templates/mysql_table.handlebars",
                                     "targetPath": "../../db",
                                     "fileNamePattern": "%n.sql",
                                     "repeatFor": {
-                                        "objectTypeName": "RelationalDatabase"
+                                        "objectTypeName": "Table"
                                     }
                                 }
                             }

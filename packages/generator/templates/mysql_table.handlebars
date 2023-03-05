@@ -1,0 +1,13 @@
+CREATE TABLE `{{this.name}}` (    
+{{#each this.columns}}
+	`{{this.name}}` {{#if this.inDomain}}ENUM({{#each this.inDomain.values}}'{{this.value}}'{{#unless @last}},{{/unless}}{{/each}}){{else}}{{this.ansiTypeDeclaration}}{{/if}} {{#if this.valueType.isOptional}}NULL{{else}}NOT NULL{{/if}}{{#if this.columnDefault}} DEFAULT {{replace this.columnDefault "'" '"'}}{{/if}}{{#if this.description}} COMMENT '{{replace this.description "'" '"'}}'{{/if}},
+{{/each}}
+	PRIMARY KEY (`{{this.primaryKey.name}}`)
+{{#each this.foreignKeys}}
+	, CONSTRAINT `{{this.name}}` FOREIGN KEY (`{{this.sourceColumnName}}`) REFERENCES `{{this.targetTableName}}` (`id`)
+{{/each}}
+) 
+ENGINE=InnoDB{{#if this.description}},
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_general_ci,
+COMMENT='{{replace this.description "'" '"'}}'{{/if}};
