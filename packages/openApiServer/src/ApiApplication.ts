@@ -13,14 +13,12 @@ import {BuildApi} from './BuildApi'
 import {EmailApi} from './EmailApi'
 import {IdentityApi} from './IdentityApi'
 import {InvitationApi} from './InvitationApi'
-import {InvoiceApi} from './InvoiceApi'
 import {NotificationApi} from './NotificationApi'
 import {OrganizationApi} from './OrganizationApi'
 import {OrganizationalRoleApi} from './OrganizationalRoleApi'
-import {PaymentApi} from './PaymentApi'
-import {PersistentBuilderApi} from './PersistentBuilderApi'
 import {PersistentBuilderDependencyApi} from './PersistentBuilderDependencyApi'
 import {PersistentBuilderVersionApi} from './PersistentBuilderVersionApi'
+import {PersistentBuilderApi} from './PersistentBuilderApi'
 import {RepositoryDefinitionApi} from './RepositoryDefinitionApi'
 import {RoleApi} from './RoleApi'
 import {SubscriptionTypeMetricsApi} from './SubscriptionTypeMetricsApi'
@@ -84,14 +82,12 @@ export class ApiApplication {
         new EmailApi(this.express)
         new IdentityApi(this.express)
         new InvitationApi(this.express)
-        new InvoiceApi(this.express)
         new NotificationApi(this.express)
         new OrganizationApi(this.express)
         new OrganizationalRoleApi(this.express)
-        new PaymentApi(this.express)
-        new PersistentBuilderApi(this.express)
         new PersistentBuilderDependencyApi(this.express)
         new PersistentBuilderVersionApi(this.express)
+        new PersistentBuilderApi(this.express)
         new RepositoryDefinitionApi(this.express)
         new RoleApi(this.express)
         new SubscriptionTypeMetricsApi(this.express)

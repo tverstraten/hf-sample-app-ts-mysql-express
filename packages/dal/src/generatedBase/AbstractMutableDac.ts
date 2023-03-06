@@ -1,9 +1,9 @@
 /**
  * NOTE: This file is generated, do not make changes to it.
  */
+import { Mutable } from '@tverstraten/hf-model'
 import { LogAsyncMethod } from '@tverstraten/log-annotations'
 import { ResultSetHeader, RowDataPacket } from 'mysql2/promise'
-import { Mutable } from '@tverstraten/hf-model'
 import { WhereClause } from './AbstractDac'
 import { AbstractTraceableDac } from './AbstractTraceableDac'
 
@@ -16,15 +16,17 @@ export abstract class AbstractMutableDac<T extends Mutable> extends AbstractTrac
 		let setFragments = ''
 		const parameters = [] as any[]
 		Object.keys(values).forEach((columnName) => {
-			const columnValue = values[columnName]
-			if (columnValue !== undefined) {
-				if (setFragments !== '') setFragments += ','
+			if (!this.excludedProperties.includes(columnName)) {
+				const columnValue = values[columnName]
+				if (typeof columnValue != 'object' && columnValue !== undefined) {
+					if (setFragments !== '') setFragments += ','
 
-				if (columnName === 'objectVersion') {
-					setFragments += `\`objectVersion\` = \`objectVersion\` + 1`
-				} else {
-					setFragments += `\`${columnName}\` = ?`
-					parameters.push(columnValue)
+					if (columnName === 'objectVersion') {
+						setFragments += `\`objectVersion\` = \`objectVersion\` + 1`
+					} else {
+						setFragments += `\`${columnName}\` = ?`
+						parameters.push(columnValue)
+					}
 				}
 			}
 		})

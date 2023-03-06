@@ -1,0 +1,56 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
+import { {{this.operatesOnBehalfOf.name}} } from '@tverstraten/hf-model'
+import { Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Dac } from './Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Dac'
+
+/**
+ * NOTE: This class is generated, do not make changes to it.
+ */
+export class Generated{{this.name}} extends Abstract{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_TRACEABLE"}}Traceable{{else}}{{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}Mutable{{else}}{{/inArray}}{{/inArray}}Dac<{{this.operatesOnBehalfOf.name}}> 
+{
+	constructor(userId: number) {
+		super({{this.operatesOnBehalfOf.name}}, userId)
+	}
+	
+	protected getTableName(): string {
+		return '{{this.operatesOnBehalfOf.pluralName}}'
+	}
+
+	// eslint-disable-next-line max-lines-per-function
+	protected fromRow(row: any): {{this.operatesOnBehalfOf.name}} {
+		const result = new {{this.operatesOnBehalfOf.name}}()
+		const resultAny = result as any
+		{{#each this.operatesOnBehalfOf.allDataMembers}}
+		{{#unless this.static}}
+		{{#compare this.type.asMandatory.name '==' 'date'}}		
+		result.{{this.name}} = new Date(row['{{this.name}}']) // {{this.type.asMandatory.name}}
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'boolean'}}	
+		result.{{this.name}} = row['{{this.name}}'] == 1 // {{this.type.asMandatory.name}}
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'int'}}	
+		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'number'}}	
+		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'string'}}	
+		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
+		{{else}}
+		{{#compare this.type.objectTypeName '==' 'Enumeration'}}	
+		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
+		{{else}}
+		resultAny.{{this.name}} = (): any => { throw new RangeError(`Property {{this.name}} was not loaded from database`)} // {{this.type.asMandatory.name}}
+		{{/compare}}
+		{{/compare}}
+		{{/compare}}
+		{{/compare}}
+		{{/compare}}
+		{{/compare}}
+		{{/unless}}
+		{{/each}}
+
+		return result
+	}
+}

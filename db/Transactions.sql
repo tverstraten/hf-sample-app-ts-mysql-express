@@ -12,10 +12,13 @@ of 0 and each new state is added with the value increased by 1.',
 	`transactionType` ENUM('payment','invoice') NOT NULL COMMENT 'The kind of transaction it is.',
 	`effective` DATE NOT NULL COMMENT 'The point in time the transaction was effective.',
 	`amount` NUMERIC(0, 0) NOT NULL COMMENT 'The amount to add to the balance of the account.',
+	`invoiceNumber` VARCHAR(128) NULL COMMENT 'The human readable identifier.',
+	`coveringId` INTEGER NULL COMMENT 'The period the invoice is for.',
 	PRIMARY KEY (`id`)
 	, CONSTRAINT `FK-Transactions-createdBy` FOREIGN KEY (`createdById`) REFERENCES `Users` (`id`)
 	, CONSTRAINT `FK-Transactions-lastUpdatedBy` FOREIGN KEY (`lastUpdatedById`) REFERENCES `Users` (`id`)
 	, CONSTRAINT `FK-Transactions-withinOrganization` FOREIGN KEY (`withinOrganizationId`) REFERENCES `Organizations` (`id`)
+	, CONSTRAINT `FK-Transactions-covering` FOREIGN KEY (`coveringId`) REFERENCES `BillingPeriods` (`id`)
 ) 
 ENGINE=InnoDB,
 CHARACTER SET utf8mb4,

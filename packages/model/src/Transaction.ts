@@ -1,5 +1,6 @@
-import { IsDate, IsEnum, IsInt, IsNotEmpty, IsNumber } from 'class-validator'
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator'
 import { AbstractMutable } from './AbstractMutable'
+import { BillingPeriod } from './BillingPeriod'
 import { Organization } from './Organization'
 import { TransactionType } from './TransactionType'
 
@@ -42,4 +43,24 @@ export class Transaction extends AbstractMutable {
 	@IsNumber()
 	@IsNotEmpty()
 	amount = 0
+
+	/**
+	 * The human readable identifier.
+	 */
+	@IsString()
+	@MaxLength(128)
+	invoiceNumber?: string
+
+	/**
+	 * The period the invoice is for.
+	 *
+	 * @see BillingPeriod
+	 */
+	@IsInt()
+	coveringId?: number
+
+	/**
+	 * The period the invoice is for.
+	 */
+	covering?: BillingPeriod
 }

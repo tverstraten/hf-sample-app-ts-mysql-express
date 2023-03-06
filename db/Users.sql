@@ -14,7 +14,7 @@ of 0 and each new state is added with the value increased by 1.',
 	`contactEmail` VARCHAR(128) NOT NULL COMMENT 'The email address that they indicate should be used to contact them at.',
 	`avatarUrl` VARCHAR(1024) NULL COMMENT 'A url to the image the users makes use of as an avatar.',
 	`performsId` INTEGER NULL COMMENT 'The role that the user performs for the organization.',
-	`primaryIdentityProvider` VARCHAR(128) NOT NULL COMMENT 'The identity provider that this account is based off of.',
+	`primaryIdentityProvider` ENUM('github','google','microsoft','personalAccessToken') NOT NULL COMMENT 'The identity provider that this account is based off of.',
 	`enabled` SMALLINT NOT NULL COMMENT 'If true, the user is currently able to log into the system ad perform operations
 NOTE: access may also be restricted if the account is not currently enabled.',
 	`lastInvitationSentOn` DATE NULL COMMENT 'The last date an invitation was sent to this user. Previously invitations are not recorded.',

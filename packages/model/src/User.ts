@@ -73,7 +73,7 @@ export class User extends AbstractMutable {
 	 */
 	@MaxLength(128)
 	@IsEnum(IdentityProvider)
-	primaryIdentityProvider = IdentityProvider.github
+	primaryIdentityProvider: IdentityProvider = IdentityProvider.github
 
 	/**
 	 * If true, the user is currently able to log into the system ad perform operations

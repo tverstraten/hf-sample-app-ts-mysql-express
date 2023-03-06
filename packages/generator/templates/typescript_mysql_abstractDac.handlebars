@@ -6,6 +6,7 @@ import { Mutex } from 'async-mutex'
 import * as dotenv from 'dotenv'
 import { createPool, Pool, PoolConnection, ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 import { FindResults } from './FindResults'
+import { NoParamConstructor } from './NoParamConstructor'
 
 dotenv.config()
 
@@ -34,11 +35,22 @@ export abstract class AbstractDac<T> {
 
 	databaseConnection?: PoolConnection
 
+	userId: number
+
+	supportType: NoParamConstructor<T>
+
+	excludedProperties = ['id']
+
+	constructor(supportType: NoParamConstructor<T>, userId: number) {
+		this.userId = userId
+		this.supportType = supportType
+	}
+
 	/**
 	 * NOTE: override as required in derivations.
 	 */
 	protected getTableName(): string {
-		return this.constructor.name
+		return this.supportType.name
 	}
 
 	/**
@@ -66,7 +78,7 @@ export abstract class AbstractDac<T> {
 					host: process.env.DATABASE_URL,
 					user: process.env.DATABASE_USER_ID,
 					password: process.env.DATABASE_PASSWORD,
-					database: process.env.DATABASE_NAME,
+					database: 'model',
 					waitForConnections: true,
 					connectionLimit: 20,
 					queueLimit: 0,
@@ -100,7 +112,7 @@ export abstract class AbstractDac<T> {
 	}
 
 	protected fromRow(row: any): T {
-		const result = this.constructor()
+		const result = new this.supportType()
 		const resultAny = result as any
 		Object.keys(row).forEach((columnName) => {
 			resultAny[columnName] = row[columnName]

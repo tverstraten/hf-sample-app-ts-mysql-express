@@ -28,7 +28,8 @@
             "packages/model/src",
             "packages/dal/src",
             "packages/bll/src",
-            "packages/openApiClient/src"
+            "packages/openApiClient/src",
+            "packages/utils/src"
         ],
         "testRegex": ".spec.ts$",
         "transform": {

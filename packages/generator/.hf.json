@@ -92,7 +92,35 @@
                                 "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
                                     "templatePath": "./templates/typescript_mysql_findResults.handlebars",
-                                    "targetPath": "../../packages/dal/src/FindResults.ts"
+                                    "targetPath": "../../packages/dal/src/generatedBase/FindResults.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_abstractDac.handlebars",
+                                    "targetPath": "../../packages/dal/src/generatedBase/AbstractDac.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_abstractTraceableDac.handlebars",
+                                    "targetPath": "../../packages/dal/src/generatedBase/AbstractTraceableDac.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_abstractMutableDac.handlebars",
+                                    "targetPath": "../../packages/dal/src/generatedBase/AbstractMutableDac.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
+                                    "templatePath": "./templates/typescript_mysql_noParamConstructor.handlebars",
+                                    "targetPath": "../../packages/dal/src/generatedBase/NoParamConstructor.ts"
                                 }
                             },
                             {
@@ -104,29 +132,31 @@
                                         "componentType": "dataAccess"
                                     },
                                     "targetPath": "../../packages/dal/src",
-                                    "fileNamePattern": "%n.ts",
-                                    "overwrite": true
+                                    "fileNamePattern": "%n.ts"
                                 }
                             },
                             {
                                 "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
-                                    "templatePath": "./templates/typescript_mysql_abstractDac.handlebars",
-                                    "targetPath": "../../packages/dal/src/AbstractDac.ts"
+                                    "templatePath": "./templates/typescript_mysql_generatedDac.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "dataAccess"
+                                    },
+                                    "targetPath": "../../packages/dal/src/generatedBase",
+                                    "fileNamePattern": "Generated%n.ts"
                                 }
                             },
                             {
                                 "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
-                                    "templatePath": "./templates/typescript_mysql_abstractTraceableDac.handlebars",
-                                    "targetPath": "../../packages/dal/src/AbstractTraceableDac.ts"
-                                }
-                            },
-                            {
-                                "builder": "builtIn/handlebars/handlebarsGenerator",
-                                "settings": {
-                                    "templatePath": "./templates/typescript_mysql_abstractMutableDac.handlebars",
-                                    "targetPath": "../../packages/dal/src/AbstractMutableDac.ts"
+                                    "templatePath": "./templates/typescript_mysql_generatedDacTests.handlebars",
+                                    "repeatFor": {
+                                        "objectTypeName": "Class",
+                                        "componentType": "dataAccess"
+                                    },
+                                    "targetPath": "../../packages/dal/src/generatedTests",
+                                    "fileNamePattern": "Generated%n.spec.ts"
                                 }
                             }
                         ]

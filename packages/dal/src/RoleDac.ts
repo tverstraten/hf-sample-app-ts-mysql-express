@@ -1,10 +1,9 @@
-import { Role } from '@tverstraten/hf-model'
-import { AbstractMutableDac } from './AbstractMutableDac'
+import { GeneratedRoleDac } from './generatedBase/GeneratedRoleDac'
 
 /**
  * NOTE: This file is meant to be extended, add to it as you need. It is only generated if it does not already exist.
  */
-export class RoleDac extends AbstractMutableDac<Role> 
+export class RoleDac extends GeneratedRoleDac
 {
 	// Add custom code as required
 }
