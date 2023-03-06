@@ -24,11 +24,11 @@ export class GeneratedEmailDac extends AbstractMutableDac<Email>
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
 		result.lastUpdatedById = row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // date
+		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.withinOrganizationId = row['withinOrganizationId'] // int
 		resultAny.withinOrganization = (): any => { throw new RangeError(`Property withinOrganization was not loaded from database`)} // Organization
@@ -38,7 +38,7 @@ export class GeneratedEmailDac extends AbstractMutableDac<Email>
 		resultAny.userSentTo = (): any => { throw new RangeError(`Property userSentTo was not loaded from database`)} // User
 		result.ccd = row['ccd'] // string
 		result.bccd = row['bccd'] // string
-		result.firstRead = new Date(row['firstRead']) // date
+		result.firstRead = new Date(row['firstRead']) // dateTime
 		result.subject = row['subject'] // string
 		result.body = row['body'] // string
 

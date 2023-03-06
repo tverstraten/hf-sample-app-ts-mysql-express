@@ -33,7 +33,7 @@ export class Organization extends AbstractMutable {
 	/**
 	 * The current amount that the organization owes for usage.
 	 */
-	@IsNumber()
+	@IsNumber({ maxDecimalPlaces: 2, allowInfinity: true, allowNaN: false })
 	@IsNotEmpty()
 	balance = 0
 

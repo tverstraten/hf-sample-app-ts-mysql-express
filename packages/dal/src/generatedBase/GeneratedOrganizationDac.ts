@@ -24,16 +24,16 @@ export class GeneratedOrganizationDac extends AbstractMutableDac<Organization>
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
 		result.lastUpdatedById = row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // date
+		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.name = row['name'] // string
 		result.primaryContactEmail = row['primaryContactEmail'] // string
 		result.billingContactEmail = row['billingContactEmail'] // string
-		result.balance = row['balance'] // number
+		result.balance = row['balance'] // float
 		result.currentSubscription = row['currentSubscription'] // SubscriptionType
 
 		return result

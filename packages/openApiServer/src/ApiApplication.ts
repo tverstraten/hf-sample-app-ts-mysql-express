@@ -16,9 +16,9 @@ import {InvitationApi} from './InvitationApi'
 import {NotificationApi} from './NotificationApi'
 import {OrganizationApi} from './OrganizationApi'
 import {OrganizationalRoleApi} from './OrganizationalRoleApi'
+import {PersistentBuilderApi} from './PersistentBuilderApi'
 import {PersistentBuilderDependencyApi} from './PersistentBuilderDependencyApi'
 import {PersistentBuilderVersionApi} from './PersistentBuilderVersionApi'
-import {PersistentBuilderApi} from './PersistentBuilderApi'
 import {RepositoryDefinitionApi} from './RepositoryDefinitionApi'
 import {RoleApi} from './RoleApi'
 import {SubscriptionTypeMetricsApi} from './SubscriptionTypeMetricsApi'
@@ -85,9 +85,9 @@ export class ApiApplication {
         new NotificationApi(this.express)
         new OrganizationApi(this.express)
         new OrganizationalRoleApi(this.express)
+        new PersistentBuilderApi(this.express)
         new PersistentBuilderDependencyApi(this.express)
         new PersistentBuilderVersionApi(this.express)
-        new PersistentBuilderApi(this.express)
         new RepositoryDefinitionApi(this.express)
         new RoleApi(this.express)
         new SubscriptionTypeMetricsApi(this.express)

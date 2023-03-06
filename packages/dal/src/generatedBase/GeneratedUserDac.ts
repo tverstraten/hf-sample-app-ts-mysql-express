@@ -24,11 +24,11 @@ export class GeneratedUserDac extends AbstractMutableDac<User>
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
 		result.lastUpdatedById = row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // date
+		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.withinOrganizationId = row['withinOrganizationId'] // int
 		resultAny.withinOrganization = (): any => { throw new RangeError(`Property withinOrganization was not loaded from database`)} // Organization
@@ -40,8 +40,8 @@ export class GeneratedUserDac extends AbstractMutableDac<User>
 		resultAny.performs = (): any => { throw new RangeError(`Property performs was not loaded from database`)} // OrganizationalRole
 		result.primaryIdentityProvider = row['primaryIdentityProvider'] // IdentityProvider
 		result.enabled = row['enabled'] == 1 // boolean
-		result.lastInvitationSentOn = new Date(row['lastInvitationSentOn']) // date
-		result.invitationAcceptedOn = new Date(row['invitationAcceptedOn']) // date
+		result.lastInvitationSentOn = new Date(row['lastInvitationSentOn']) // dateTime
+		result.invitationAcceptedOn = new Date(row['invitationAcceptedOn']) // dateTime
 
 		return result
 	}

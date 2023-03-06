@@ -15,12 +15,12 @@ describe('PersistentBuilderVersionDac', () => {
 		const userDac = new UserDac(1)
 		const currentUser = await userDac.findOneById(1)
 		expect(currentUser).toBeDefined()
+		const runDate = new Date()
 
 		const objectDac = new PersistentBuilderVersionDac(1)
-
 		const newObject = new PersistentBuilderVersion()
-		newObject.createdById = currentUser.id
-		newObject.lastUpdatedById = currentUser.id
+		newObject.createdById = -1
+		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
 		newObject.type = TestHelper.randomEnum(PersistentBuilderType) 
 		newObject.persistentBuilderId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
@@ -35,12 +35,12 @@ describe('PersistentBuilderVersionDac', () => {
 		expect(results.length).toBe(1)
 		const resultObject = results[0]
 		expect(resultObject.id).toBeGreaterThan(0)
-		expect(resultObject.createdById).toBe(newObject.createdById)
-		expect(resultObject.createdOn).toBe(newObject.createdOn)
-		expect(resultObject.objectVersion).toBe(newObject.objectVersion)
-		expect(resultObject.lastUpdatedById).toBe(newObject.lastUpdatedById)
-		expect(resultObject.lastUpdatedOn).toBe(newObject.lastUpdatedOn)
-		expect(resultObject.isDeleted).toBe(newObject.isDeleted)
+		expect(resultObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((resultObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(resultObject.objectVersion).toBe(1)
+		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(resultObject.isDeleted).toBe(false)
 		expect(resultObject.type).toBe(newObject.type)
 		expect(resultObject.persistentBuilderId).toBe(newObject.persistentBuilderId)
 		expect(resultObject.version).toBe(newObject.version)

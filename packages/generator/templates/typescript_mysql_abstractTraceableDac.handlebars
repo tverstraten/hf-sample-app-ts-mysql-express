@@ -11,6 +11,13 @@ import { AbstractDac } from './AbstractDac'
  * NOTE: This class is generated, do not make changes to it.
  */
 export abstract class AbstractTraceableDac<T extends Traceable> extends AbstractDac<T> {
+	isMutable?: boolean
+
+	get mutable(): boolean {
+		if (!this.isMutable) this.isMutable = Object.keys(new this.supportType()).find((key) => key === 'objectVersion') ? true : false
+		return this.isMutable
+	}
+
 	getInsertSqlFragments(values: any): { columnNames: string; parameterMarkers: string; parameters: any[] } {
 		let columnNames = ''
 		let parameterMarkers = ''
@@ -18,7 +25,8 @@ export abstract class AbstractTraceableDac<T extends Traceable> extends Abstract
 		Object.keys(values).forEach((columnName) => {
 			if (!this.excludedProperties.includes(columnName)) {
 				const columnValue = values[columnName]
-				if (typeof columnValue != 'object' && columnValue !== undefined) {
+				// must explicitly check for undefined to avoid falsy values such as "false"
+				if (columnValue != undefined && (typeof columnValue != 'object' || columnValue instanceof Date)) {
 					if (columnNames !== '') columnNames += ','
 					columnNames += `\`${columnName}\``
 					if (parameterMarkers !== '') parameterMarkers += ','
@@ -31,9 +39,23 @@ export abstract class AbstractTraceableDac<T extends Traceable> extends Abstract
 		return { columnNames: columnNames, parameterMarkers: parameterMarkers, parameters: parameters }
 	}
 
+	setDefaults(value: any): any {
+		const newValue = Object.assign({}, value)
+		newValue.createdOn = new Date()
+		newValue.createdById = this.userId
+
+		if (this.mutable) {
+			newValue.lastUpdatedById = this.userId
+			newValue.lastUpdatedOn = new Date()
+		}
+
+		return newValue
+	}
+
 	@LogAsyncMethod()
-	async insertOnePartial(values: any): Promise<number> {
-		const fragments = this.getInsertSqlFragments(values)
+	async insertOnePartial(originalValue: any): Promise<number> {
+		const adjustedValue = this.setDefaults(originalValue)
+		const fragments = this.getInsertSqlFragments(adjustedValue)
 		const sql = `INSERT INTO \`${this.getTableName()}\` (${fragments.columnNames}) values (${fragments.parameterMarkers});SELECT LAST_INSERT_ID()`
 		const executeResult = (await this.executePrepared(sql, fragments.parameters)) as ResultSetHeader
 
@@ -66,8 +88,9 @@ export abstract class AbstractTraceableDac<T extends Traceable> extends Abstract
 	}
 
 	@LogAsyncMethod()
-	async insertOnePartialAndReturn(values: any): Promise<T> {
-		const fragments = this.getInsertSqlFragments(values)
+	async insertOnePartialAndReturn(originalValue: any): Promise<T> {
+		const adjustedValue = this.setDefaults(originalValue)
+		const fragments = this.getInsertSqlFragments(adjustedValue)
 		const sql = `INSERT INTO \`${this.getTableName()}\` (${fragments.columnNames}) values (${
 			fragments.parameterMarkers
 		});SELECT * FROM \`${this.getTableName()}\` WHERE \`${this.getIdColumnName()}\` = LAST_INSERT_ID()`

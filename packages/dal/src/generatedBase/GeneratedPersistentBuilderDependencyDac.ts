@@ -24,7 +24,7 @@ export class GeneratedPersistentBuilderDependencyDac extends AbstractTraceableDa
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.builderId = row['builderId'] // int
 		resultAny.builder = (): any => { throw new RangeError(`Property builder was not loaded from database`)} // PersistentBuilderVersion
 		result.dependentOnId = row['dependentOnId'] // int

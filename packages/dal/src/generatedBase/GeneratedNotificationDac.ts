@@ -24,16 +24,16 @@ export class GeneratedNotificationDac extends AbstractMutableDac<Notification>
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
 		result.lastUpdatedById = row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // date
+		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.userId = row['userId'] // int
 		resultAny.user = (): any => { throw new RangeError(`Property user was not loaded from database`)} // User
 		result.text = row['text'] // string
-		result.readOn = new Date(row['readOn']) // date
+		result.readOn = new Date(row['readOn']) // dateTime
 
 		return result
 	}

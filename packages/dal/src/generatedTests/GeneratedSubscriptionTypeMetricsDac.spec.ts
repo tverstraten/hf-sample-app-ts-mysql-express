@@ -15,25 +15,29 @@ describe('SubscriptionTypeMetricsDac', () => {
 		const userDac = new UserDac(1)
 		const currentUser = await userDac.findOneById(1)
 		expect(currentUser).toBeDefined()
+		const runDate = new Date()
 
 		const objectDac = new SubscriptionTypeMetricsDac(1)
-
 		const newObject = new SubscriptionTypeMetrics()
-		newObject.createdById = currentUser.id
+		newObject.createdById = -1
 		newObject.type = TestHelper.randomEnum(SubscriptionType) 
 		newObject.name = TestHelper.randomString(255) 
 		newObject.description = TestHelper.randomString(1024) 
-		newObject.numberOfUsersAllowed = Math.random() * Number.MAX_SAFE_INTEGER 
-		newObject.numberOfBuildsAllowed = Math.random() * Number.MAX_SAFE_INTEGER 
-		newObject.costPerUser = Math.random() * Number.MAX_SAFE_INTEGER 
-		newObject.costPerBuild = Math.random() * Number.MAX_SAFE_INTEGER 
+		newObject.numberOfUsersAllowed = Math.random() * Number.MAX_SAFE_INTEGER / 100
+		newObject.numberOfBuildsAllowed = Math.random() * Number.MAX_SAFE_INTEGER / 100
+		newObject.costPerUser = Math.random() * Number.MAX_SAFE_INTEGER / 100
+		newObject.costPerBuild = Math.random() * Number.MAX_SAFE_INTEGER / 100
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
 		const resultObject = results[0]
 		expect(resultObject.id).toBeGreaterThan(0)
-		expect(resultObject.createdById).toBe(newObject.createdById)
-		expect(resultObject.createdOn).toBe(newObject.createdOn)
+		expect(resultObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((resultObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(resultObject.objectVersion).toBe(1)
+		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(resultObject.isDeleted).toBe(false)
 		expect(resultObject.type).toBe(newObject.type)
 		expect(resultObject.name).toBe(newObject.name)
 		expect(resultObject.description).toBe(newObject.description)

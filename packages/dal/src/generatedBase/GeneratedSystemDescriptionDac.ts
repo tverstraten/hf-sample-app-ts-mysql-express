@@ -24,11 +24,11 @@ export class GeneratedSystemDescriptionDac extends AbstractMutableDac<SystemDesc
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
 		result.lastUpdatedById = row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // date
+		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.withinOrganizationId = row['withinOrganizationId'] // int
 		resultAny.withinOrganization = (): any => { throw new RangeError(`Property withinOrganization was not loaded from database`)} // Organization

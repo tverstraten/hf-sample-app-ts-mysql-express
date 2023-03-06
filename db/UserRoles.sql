@@ -1,7 +1,7 @@
 CREATE TABLE `UserRoles` (    
 	`id` INTEGER AUTO_INCREMENT NOT NULL COMMENT 'The identifier.',
 	`createdById` INTEGER NULL COMMENT 'The id of the user that created this.',
-	`createdOn` DATE NULL COMMENT 'The point in time that this object was first created in persistent storage.',
+	`createdOn` TIMESTAMP NULL COMMENT 'The point in time that this object was first created in persistent storage.',
 	`userId` INTEGER NOT NULL COMMENT 'The user that performs the role.',
 	`roleId` INTEGER NOT NULL COMMENT 'The role the user performs.',
 	PRIMARY KEY (`id`)

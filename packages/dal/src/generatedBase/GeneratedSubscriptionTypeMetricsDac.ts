@@ -24,14 +24,14 @@ export class GeneratedSubscriptionTypeMetricsDac extends AbstractTraceableDac<Su
 		result.id = row['id'] // int
 		result.createdById = row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // date
+		result.createdOn = new Date(row['createdOn']) // dateTime
 		result.type = row['type'] // SubscriptionType
 		result.name = row['name'] // string
 		result.description = row['description'] // string
-		result.numberOfUsersAllowed = row['numberOfUsersAllowed'] // number
-		result.numberOfBuildsAllowed = row['numberOfBuildsAllowed'] // number
-		result.costPerUser = row['costPerUser'] // number
-		result.costPerBuild = row['costPerBuild'] // number
+		result.numberOfUsersAllowed = row['numberOfUsersAllowed'] // float
+		result.numberOfBuildsAllowed = row['numberOfBuildsAllowed'] // float
+		result.costPerUser = row['costPerUser'] // float
+		result.costPerBuild = row['costPerBuild'] // float
 
 		return result
 	}

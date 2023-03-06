@@ -23,6 +23,9 @@ export class Generated{{this.name}} extends Abstract{{#inArray this.operatesOnBe
 		const resultAny = result as any
 		{{#each this.operatesOnBehalfOf.allDataMembers}}
 		{{#unless this.static}}
+		{{#compare this.type.asMandatory.name '==' 'dateTime'}}		
+		result.{{this.name}} = new Date(row['{{this.name}}']) // {{this.type.asMandatory.name}}
+		{{else}}
 		{{#compare this.type.asMandatory.name '==' 'date'}}		
 		result.{{this.name}} = new Date(row['{{this.name}}']) // {{this.type.asMandatory.name}}
 		{{else}}
@@ -35,6 +38,12 @@ export class Generated{{this.name}} extends Abstract{{#inArray this.operatesOnBe
 		{{#compare this.type.asMandatory.name '==' 'number'}}	
 		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
 		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'float'}}	
+		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'decimal'}}	
+		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
+		{{else}}
 		{{#compare this.type.asMandatory.name '==' 'string'}}	
 		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
 		{{else}}
@@ -42,6 +51,9 @@ export class Generated{{this.name}} extends Abstract{{#inArray this.operatesOnBe
 		result.{{this.name}} = row['{{this.name}}'] // {{this.type.asMandatory.name}}
 		{{else}}
 		resultAny.{{this.name}} = (): any => { throw new RangeError(`Property {{this.name}} was not loaded from database`)} // {{this.type.asMandatory.name}}
+		{{/compare}}
+		{{/compare}}
+		{{/compare}}
 		{{/compare}}
 		{{/compare}}
 		{{/compare}}

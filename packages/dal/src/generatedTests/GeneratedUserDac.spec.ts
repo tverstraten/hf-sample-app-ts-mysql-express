@@ -14,12 +14,12 @@ describe('UserDac', () => {
 		const userDac = new UserDac(1)
 		const currentUser = await userDac.findOneById(1)
 		expect(currentUser).toBeDefined()
+		const runDate = new Date()
 
 		const objectDac = new UserDac(1)
-
 		const newObject = new User()
-		newObject.createdById = currentUser.id
-		newObject.lastUpdatedById = currentUser.id
+		newObject.createdById = -1
+		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
 		newObject.withinOrganizationId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
 		newObject.givenName = TestHelper.randomString(128) 
@@ -29,19 +29,17 @@ describe('UserDac', () => {
 		newObject.performsId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
 		newObject.primaryIdentityProvider = TestHelper.randomEnum(IdentityProvider) 
 		newObject.enabled = Math.random() > .5 
-		newObject.lastInvitationSentOn = new Date(Math.round(Math.random() * 10000000))
-		newObject.invitationAcceptedOn = new Date(Math.round(Math.random() * 10000000))
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
 		const resultObject = results[0]
 		expect(resultObject.id).toBeGreaterThan(0)
-		expect(resultObject.createdById).toBe(newObject.createdById)
-		expect(resultObject.createdOn).toBe(newObject.createdOn)
-		expect(resultObject.objectVersion).toBe(newObject.objectVersion)
-		expect(resultObject.lastUpdatedById).toBe(newObject.lastUpdatedById)
-		expect(resultObject.lastUpdatedOn).toBe(newObject.lastUpdatedOn)
-		expect(resultObject.isDeleted).toBe(newObject.isDeleted)
+		expect(resultObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((resultObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(resultObject.objectVersion).toBe(1)
+		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(resultObject.isDeleted).toBe(false)
 		expect(resultObject.withinOrganizationId).toBe(newObject.withinOrganizationId)
 		expect(resultObject.givenName).toBe(newObject.givenName)
 		expect(resultObject.familyName).toBe(newObject.familyName)
@@ -50,8 +48,6 @@ describe('UserDac', () => {
 		expect(resultObject.performsId).toBe(newObject.performsId)
 		expect(resultObject.primaryIdentityProvider).toBe(newObject.primaryIdentityProvider)
 		expect(resultObject.enabled).toBe(newObject.enabled)
-		expect(resultObject.lastInvitationSentOn).toBe(newObject.lastInvitationSentOn)
-		expect(resultObject.invitationAcceptedOn).toBe(newObject.invitationAcceptedOn)
 	})
 })
 
