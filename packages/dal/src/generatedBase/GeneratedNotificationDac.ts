@@ -22,18 +22,18 @@ export class GeneratedNotificationDac extends AbstractMutableDac<Notification>
 		const result = new Notification()
 		const resultAny = result as any
 		result.id = row['id'] // int
-		result.createdById = row['createdById'] // int
+		result.createdById = row['createdById'] == null ? undefined : row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // dateTime
+		result.createdOn = row['createdOn'] == null ? undefined : new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
-		result.lastUpdatedById = row['lastUpdatedById'] // int
+		result.lastUpdatedById = row['lastUpdatedById'] == null ? undefined : row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
+		result.lastUpdatedOn = row['lastUpdatedOn'] == null ? undefined : new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.userId = row['userId'] // int
 		resultAny.user = (): any => { throw new RangeError(`Property user was not loaded from database`)} // User
 		result.text = row['text'] // string
-		result.readOn = new Date(row['readOn']) // dateTime
+		result.readOn = row['readOn'] == null ? undefined : new Date(row['readOn']) // dateTime
 
 		return result
 	}

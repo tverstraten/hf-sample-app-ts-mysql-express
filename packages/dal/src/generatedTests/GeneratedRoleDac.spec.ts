@@ -6,6 +6,7 @@
 import { Role } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { RoleDac } from '../RoleDac'
 import { UserDac } from '../UserDac'
 
@@ -21,8 +22,8 @@ describe('RoleDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.name = TestHelper.randomString(128) 
-		newObject.description = TestHelper.randomString(128) 
+		newObject.name = TestHelper.randomString(128) // string
+		newObject.description = TestHelper.randomString(128) // string
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -34,8 +35,8 @@ describe('RoleDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.name).toBe(newObject.name)
-		expect(resultObject.description).toBe(newObject.description)
+		expect(resultObject.name).toBe(newObject.name) // string
+		expect(resultObject.description).toBe(newObject.description) // string
 	})
 })
 

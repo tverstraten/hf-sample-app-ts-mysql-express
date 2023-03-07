@@ -22,9 +22,9 @@ export class GeneratedSubscriptionTypeMetricsDac extends AbstractTraceableDac<Su
 		const result = new SubscriptionTypeMetrics()
 		const resultAny = result as any
 		result.id = row['id'] // int
-		result.createdById = row['createdById'] // int
+		result.createdById = row['createdById'] == null ? undefined : row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // dateTime
+		result.createdOn = row['createdOn'] == null ? undefined : new Date(row['createdOn']) // dateTime
 		result.type = row['type'] // SubscriptionType
 		result.name = row['name'] // string
 		result.description = row['description'] // string

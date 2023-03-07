@@ -6,8 +6,10 @@
 import { PersistentBuilderVersion } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { PersistentBuilderVersionDac } from '../PersistentBuilderVersionDac'
 import { UserDac } from '../UserDac'
+import { PersistentBuilderDac } from '../PersistentBuilderDac'
 import { PersistentBuilderType } from '@tverstraten/hf-model'
 
 describe('PersistentBuilderVersionDac', () => {
@@ -22,14 +24,14 @@ describe('PersistentBuilderVersionDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.type = TestHelper.randomEnum(PersistentBuilderType) 
-		newObject.persistentBuilderId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.version = TestHelper.randomString(128) 
-		newObject.released = Math.random() > .5 
-		newObject.tags = TestHelper.randomString(1024) 
-		newObject.text = TestHelper.randomString(0) 
-		newObject.deprecated = Math.random() > .5 
-		newObject.suggestedAlternateId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
+		newObject.type = TestHelper.randomEnum(PersistentBuilderType) // enumeration
+		newObject.persistentBuilderId = await DacTestHelper.firstResultId(new PersistentBuilderDac(1)) // int
+		newObject.version = TestHelper.randomString(128) // string
+		newObject.released = Math.random() > .5 // boolean
+		newObject.tags = TestHelper.randomString(1024) // string
+		newObject.text = TestHelper.randomString(0) // string
+		newObject.deprecated = Math.random() > .5 // boolean
+		newObject.suggestedAlternateId = await DacTestHelper.firstResultId(new PersistentBuilderVersionDac(1)) // int
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -41,14 +43,16 @@ describe('PersistentBuilderVersionDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.type).toBe(newObject.type)
-		expect(resultObject.persistentBuilderId).toBe(newObject.persistentBuilderId)
-		expect(resultObject.version).toBe(newObject.version)
-		expect(resultObject.released).toBe(newObject.released)
-		expect(resultObject.tags).toBe(newObject.tags)
-		expect(resultObject.text).toBe(newObject.text)
-		expect(resultObject.deprecated).toBe(newObject.deprecated)
-		expect(resultObject.suggestedAlternateId).toBe(newObject.suggestedAlternateId)
+		expect(resultObject.type).toBe(newObject.type) // Enumeration
+		expect(resultObject.persistentBuilderId).toBe(newObject.persistentBuilderId) // int
+		// persistentBuilder - the type (PersistentBuilder) is not matched
+		expect(resultObject.version).toBe(newObject.version) // string
+		expect(resultObject.released).toBe(newObject.released) // boolean
+		expect(resultObject.tags).toBe(newObject.tags) // string
+		expect(resultObject.text).toBe(newObject.text) // string
+		expect(resultObject.deprecated).toBe(newObject.deprecated) // boolean
+		expect(resultObject.suggestedAlternateId).toBe(newObject.suggestedAlternateId) // int
+		// suggestedAlternate - the type (PersistentBuilderVersion) is not matched
 	})
 })
 

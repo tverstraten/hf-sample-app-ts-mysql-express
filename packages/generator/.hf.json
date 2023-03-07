@@ -150,6 +150,13 @@
                             {
                                 "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
+                                    "templatePath": "./templates/typescript_mysql_dacTestHelper.handlebars",
+                                    "targetPath": "../../packages/dal/src/generatedBase/DacTestHelper.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
                                     "templatePath": "./templates/typescript_mysql_generatedDacTests.handlebars",
                                     "repeatFor": {
                                         "objectTypeName": "Class",

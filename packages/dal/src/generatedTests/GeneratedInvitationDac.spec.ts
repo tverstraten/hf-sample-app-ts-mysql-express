@@ -6,6 +6,7 @@
 import { Invitation } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { InvitationDac } from '../InvitationDac'
 import { UserDac } from '../UserDac'
 
@@ -21,9 +22,10 @@ describe('InvitationDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.toEmail = TestHelper.randomString(128) 
-		newObject.invitedById = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.invitedUserId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
+		newObject.toEmail = TestHelper.randomString(128) // string
+		newObject.invitedById = await DacTestHelper.firstResultId(new UserDac(1)) // int
+		newObject.invitedUserId = await DacTestHelper.firstResultId(new UserDac(1)) // int
+		newObject.lastReminderSentOn = new Date(Math.round(Math.random() * 10000000)) // dateTime
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -35,9 +37,12 @@ describe('InvitationDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.toEmail).toBe(newObject.toEmail)
-		expect(resultObject.invitedById).toBe(newObject.invitedById)
-		expect(resultObject.invitedUserId).toBe(newObject.invitedUserId)
+		expect(resultObject.toEmail).toBe(newObject.toEmail) // string
+		expect(resultObject.invitedById).toBe(newObject.invitedById) // int
+		// invitedBy - the type (User) is not matched
+		expect(resultObject.invitedUserId).toBe(newObject.invitedUserId) // int
+		// invitedUser - the type (User) is not matched
+		expect(Math.abs((resultObject.lastReminderSentOn as Date).getTime() - newObject.lastReminderSentOn.getTime())).toBeLessThan(1000) // dateTime
 	})
 })
 

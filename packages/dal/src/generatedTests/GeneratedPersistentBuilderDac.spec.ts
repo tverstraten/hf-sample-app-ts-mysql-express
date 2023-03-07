@@ -6,8 +6,10 @@
 import { PersistentBuilder } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { PersistentBuilderDac } from '../PersistentBuilderDac'
 import { UserDac } from '../UserDac'
+import { OrganizationDac } from '../OrganizationDac'
 import { PersistentBuilderType } from '@tverstraten/hf-model'
 import { ReleaseLevel } from '@tverstraten/hf-model'
 
@@ -23,11 +25,10 @@ describe('PersistentBuilderDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.type = TestHelper.randomEnum(PersistentBuilderType) 
-		newObject.withinOrganizationId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.name = TestHelper.randomString(128) 
-		newObject.releaseLevel = TestHelper.randomEnum(ReleaseLevel) 
-		newObject.mostCurrentVersionId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
+		newObject.type = TestHelper.randomEnum(PersistentBuilderType) // enumeration
+		newObject.withinOrganizationId = await DacTestHelper.firstResultId(new OrganizationDac(1)) // int
+		newObject.name = TestHelper.randomString(128) // string
+		newObject.releaseLevel = TestHelper.randomEnum(ReleaseLevel) // enumeration
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -39,11 +40,12 @@ describe('PersistentBuilderDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.type).toBe(newObject.type)
-		expect(resultObject.withinOrganizationId).toBe(newObject.withinOrganizationId)
-		expect(resultObject.name).toBe(newObject.name)
-		expect(resultObject.releaseLevel).toBe(newObject.releaseLevel)
-		expect(resultObject.mostCurrentVersionId).toBe(newObject.mostCurrentVersionId)
+		expect(resultObject.type).toBe(newObject.type) // Enumeration
+		expect(resultObject.withinOrganizationId).toBe(newObject.withinOrganizationId) // int
+		// withinOrganization - the type (Organization) is not matched
+		expect(resultObject.name).toBe(newObject.name) // string
+		expect(resultObject.releaseLevel).toBe(newObject.releaseLevel) // Enumeration
+		expect(resultObject.mostCurrentVersionId).toBe(newObject.mostCurrentVersionId) // int
 	})
 })
 

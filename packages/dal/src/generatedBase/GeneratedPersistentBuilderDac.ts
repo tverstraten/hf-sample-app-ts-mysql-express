@@ -22,20 +22,20 @@ export class GeneratedPersistentBuilderDac extends AbstractMutableDac<Persistent
 		const result = new PersistentBuilder()
 		const resultAny = result as any
 		result.id = row['id'] // int
-		result.createdById = row['createdById'] // int
+		result.createdById = row['createdById'] == null ? undefined : row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // dateTime
+		result.createdOn = row['createdOn'] == null ? undefined : new Date(row['createdOn']) // dateTime
 		result.objectVersion = row['objectVersion'] // int
-		result.lastUpdatedById = row['lastUpdatedById'] // int
+		result.lastUpdatedById = row['lastUpdatedById'] == null ? undefined : row['lastUpdatedById'] // int
 		resultAny.lastUpdatedBy = (): any => { throw new RangeError(`Property lastUpdatedBy was not loaded from database`)} // User
-		result.lastUpdatedOn = new Date(row['lastUpdatedOn']) // dateTime
+		result.lastUpdatedOn = row['lastUpdatedOn'] == null ? undefined : new Date(row['lastUpdatedOn']) // dateTime
 		result.isDeleted = row['isDeleted'] == 1 // boolean
 		result.type = row['type'] // PersistentBuilderType
 		result.withinOrganizationId = row['withinOrganizationId'] // int
 		resultAny.withinOrganization = (): any => { throw new RangeError(`Property withinOrganization was not loaded from database`)} // Organization
 		result.name = row['name'] // string
 		result.releaseLevel = row['releaseLevel'] // ReleaseLevel
-		result.mostCurrentVersionId = row['mostCurrentVersionId'] // int
+		result.mostCurrentVersionId = row['mostCurrentVersionId'] == null ? undefined : row['mostCurrentVersionId'] // int
 
 		return result
 	}

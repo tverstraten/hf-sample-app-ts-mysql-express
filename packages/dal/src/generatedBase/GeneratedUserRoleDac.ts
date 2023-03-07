@@ -22,9 +22,9 @@ export class GeneratedUserRoleDac extends AbstractTraceableDac<UserRole>
 		const result = new UserRole()
 		const resultAny = result as any
 		result.id = row['id'] // int
-		result.createdById = row['createdById'] // int
+		result.createdById = row['createdById'] == null ? undefined : row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // dateTime
+		result.createdOn = row['createdOn'] == null ? undefined : new Date(row['createdOn']) // dateTime
 		result.userId = row['userId'] // int
 		resultAny.user = (): any => { throw new RangeError(`Property user was not loaded from database`)} // User
 		result.roleId = row['roleId'] // int

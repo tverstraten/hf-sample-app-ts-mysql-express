@@ -10,13 +10,6 @@ of 0 and each new state is added with the value increased by 1.',
 	`isDeleted` SMALLINT NOT NULL COMMENT 'Is the object deleted.',
 	`name` VARCHAR(128) NOT NULL COMMENT 'The human readable identifier for the role.',
 	`description` VARCHAR(1024) NOT NULL COMMENT 'A sentence or phrase that describe the role.',
-	`operator` VARCHAR(255) NOT NULL COMMENT 'Well known names.',
-	`user` VARCHAR(255) NOT NULL,
-	`administrator` VARCHAR(255) NOT NULL,
-	`administratorWithBilling` VARCHAR(255) NOT NULL,
-	`internalAdministrator` VARCHAR(255) NOT NULL,
-	`internalSupport` VARCHAR(255) NOT NULL,
-	`internalBilling` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`)
 	, CONSTRAINT `FK-OrganizationalRoles-createdBy` FOREIGN KEY (`createdById`) REFERENCES `Users` (`id`)
 	, CONSTRAINT `FK-OrganizationalRoles-lastUpdatedBy` FOREIGN KEY (`lastUpdatedById`) REFERENCES `Users` (`id`)

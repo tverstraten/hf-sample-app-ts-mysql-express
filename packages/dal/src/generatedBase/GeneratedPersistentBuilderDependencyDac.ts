@@ -22,12 +22,12 @@ export class GeneratedPersistentBuilderDependencyDac extends AbstractTraceableDa
 		const result = new PersistentBuilderDependency()
 		const resultAny = result as any
 		result.id = row['id'] // int
-		result.createdById = row['createdById'] // int
+		result.createdById = row['createdById'] == null ? undefined : row['createdById'] // int
 		resultAny.createdBy = (): any => { throw new RangeError(`Property createdBy was not loaded from database`)} // User
-		result.createdOn = new Date(row['createdOn']) // dateTime
-		result.builderId = row['builderId'] // int
+		result.createdOn = row['createdOn'] == null ? undefined : new Date(row['createdOn']) // dateTime
+		result.builderId = row['builderId'] == null ? undefined : row['builderId'] // int
 		resultAny.builder = (): any => { throw new RangeError(`Property builder was not loaded from database`)} // PersistentBuilderVersion
-		result.dependentOnId = row['dependentOnId'] // int
+		result.dependentOnId = row['dependentOnId'] == null ? undefined : row['dependentOnId'] // int
 		resultAny.dependentOn = (): any => { throw new RangeError(`Property dependentOn was not loaded from database`)} // PersistentBuilderVersion
 
 		return result

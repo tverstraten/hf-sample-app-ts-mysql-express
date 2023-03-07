@@ -164,7 +164,8 @@ export abstract class AbstractDac<T> {
 		const results = new FindResults<T>()
 		results.page = page
 		results.rowsPerPage = pageSize
-		results.numberOfMatchingRows = overallResults.affectedRows
+		const firstOverall = (overallResults as any)[0]
+		results.numberOfMatchingRows = firstOverall['FOUND_ROWS()']
 		results.rows = foundObjects
 
 		return results

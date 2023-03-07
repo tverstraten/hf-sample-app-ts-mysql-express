@@ -6,8 +6,10 @@
 import { PersistentBuilderDependency } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { PersistentBuilderDependencyDac } from '../PersistentBuilderDependencyDac'
 import { UserDac } from '../UserDac'
+import { PersistentBuilderVersionDac } from '../PersistentBuilderVersionDac'
 
 describe('PersistentBuilderDependencyDac', () => {
 	it('create and read basic properties', async () => {
@@ -19,8 +21,8 @@ describe('PersistentBuilderDependencyDac', () => {
 		const objectDac = new PersistentBuilderDependencyDac(1)
 		const newObject = new PersistentBuilderDependency()
 		newObject.createdById = -1
-		newObject.builderId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.dependentOnId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
+		newObject.builderId = await DacTestHelper.firstResultId(new PersistentBuilderVersionDac(1)) // int
+		newObject.dependentOnId = await DacTestHelper.firstResultId(new PersistentBuilderVersionDac(1)) // int
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -28,12 +30,10 @@ describe('PersistentBuilderDependencyDac', () => {
 		expect(resultObject.id).toBeGreaterThan(0)
 		expect(resultObject.createdById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
-		expect(resultObject.objectVersion).toBe(1)
-		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
-		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
-		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.builderId).toBe(newObject.builderId)
-		expect(resultObject.dependentOnId).toBe(newObject.dependentOnId)
+		expect(resultObject.builderId).toBe(newObject.builderId) // int
+		// builder - the type (PersistentBuilderVersion) is not matched
+		expect(resultObject.dependentOnId).toBe(newObject.dependentOnId) // int
+		// dependentOn - the type (PersistentBuilderVersion) is not matched
 	})
 })
 

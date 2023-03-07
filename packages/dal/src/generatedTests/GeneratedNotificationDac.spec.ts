@@ -6,6 +6,7 @@
 import { Notification } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { NotificationDac } from '../NotificationDac'
 import { UserDac } from '../UserDac'
 
@@ -21,8 +22,9 @@ describe('NotificationDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.userId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.text = TestHelper.randomString(8192) 
+		newObject.userId = await DacTestHelper.firstResultId(new UserDac(1)) // int
+		newObject.text = TestHelper.randomString(8192) // string
+		newObject.readOn = new Date(Math.round(Math.random() * 10000000)) // dateTime
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -34,8 +36,10 @@ describe('NotificationDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.userId).toBe(newObject.userId)
-		expect(resultObject.text).toBe(newObject.text)
+		expect(resultObject.userId).toBe(newObject.userId) // int
+		// user - the type (User) is not matched
+		expect(resultObject.text).toBe(newObject.text) // string
+		expect(Math.abs((resultObject.readOn as Date).getTime() - newObject.readOn.getTime())).toBeLessThan(1000) // dateTime
 	})
 })
 

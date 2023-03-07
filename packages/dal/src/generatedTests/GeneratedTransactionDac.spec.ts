@@ -6,8 +6,11 @@
 import { Transaction } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { TransactionDac } from '../TransactionDac'
 import { UserDac } from '../UserDac'
+import { BillingPeriodDac } from '../BillingPeriodDac'
+import { OrganizationDac } from '../OrganizationDac'
 import { TransactionType } from '@tverstraten/hf-model'
 
 describe('TransactionDac', () => {
@@ -22,11 +25,12 @@ describe('TransactionDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.withinOrganizationId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.transactionType = TestHelper.randomEnum(TransactionType) 
-		newObject.amount = Math.random() * Number.MAX_SAFE_INTEGER / 100
-		newObject.invoiceNumber = TestHelper.randomString(128) 
-		newObject.coveringId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
+		newObject.withinOrganizationId = await DacTestHelper.firstResultId(new OrganizationDac(1)) // int
+		newObject.transactionType = TestHelper.randomEnum(TransactionType) // enumeration
+		newObject.effective = new Date(Math.round(Math.random() * 10000000)) // dateTime
+		newObject.amount = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) / 100 // float
+		newObject.invoiceNumber = TestHelper.randomString(128) // string
+		newObject.coveringId = await DacTestHelper.firstResultId(new BillingPeriodDac(1)) // int
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -38,11 +42,14 @@ describe('TransactionDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.withinOrganizationId).toBe(newObject.withinOrganizationId)
-		expect(resultObject.transactionType).toBe(newObject.transactionType)
-		expect(resultObject.amount).toBe(newObject.amount)
-		expect(resultObject.invoiceNumber).toBe(newObject.invoiceNumber)
-		expect(resultObject.coveringId).toBe(newObject.coveringId)
+		expect(resultObject.withinOrganizationId).toBe(newObject.withinOrganizationId) // int
+		// withinOrganization - the type (Organization) is not matched
+		expect(resultObject.transactionType).toBe(newObject.transactionType) // Enumeration
+		expect(Math.abs((resultObject.effective as Date).getTime() - newObject.effective.getTime())).toBeLessThan(1000) // dateTime
+		expect(resultObject.amount).toBe(newObject.amount) // float
+		expect(resultObject.invoiceNumber).toBe(newObject.invoiceNumber) // string
+		expect(resultObject.coveringId).toBe(newObject.coveringId) // int
+		// covering - the type (BillingPeriod) is not matched
 	})
 })
 

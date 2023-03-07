@@ -6,6 +6,7 @@
 import { BillingPeriod } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { BillingPeriodDac } from '../BillingPeriodDac'
 import { UserDac } from '../UserDac'
 
@@ -21,7 +22,9 @@ describe('BillingPeriodDac', () => {
 		newObject.createdById = -1
 		newObject.lastUpdatedById = -1
 		newObject.isDeleted = false
-		newObject.name = TestHelper.randomString(128) 
+		newObject.name = TestHelper.randomString(128) // string
+		newObject.start = new Date(Math.round(Math.random() * 10000000)) // dateTime
+		newObject.end = new Date(Math.round(Math.random() * 10000000)) // dateTime
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -33,7 +36,9 @@ describe('BillingPeriodDac', () => {
 		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
 		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.name).toBe(newObject.name)
+		expect(resultObject.name).toBe(newObject.name) // string
+		expect(Math.abs((resultObject.start as Date).getTime() - newObject.start.getTime())).toBeLessThan(1000) // dateTime
+		expect(Math.abs((resultObject.end as Date).getTime() - newObject.end.getTime())).toBeLessThan(1000) // dateTime
 	})
 })
 

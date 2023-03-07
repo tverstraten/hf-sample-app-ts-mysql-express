@@ -6,6 +6,7 @@
 import { UserRole } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+import { DacTestHelper } from './DacTestHelper'
 import { UserRoleDac } from '../UserRoleDac'
 import { UserDac } from '../UserDac'
 
@@ -19,8 +20,8 @@ describe('UserRoleDac', () => {
 		const objectDac = new UserRoleDac(1)
 		const newObject = new UserRole()
 		newObject.createdById = -1
-		newObject.userId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
-		newObject.roleId = Math.round(Math.random() * Number.MAX_SAFE_INTEGER) 
+		newObject.userId = await DacTestHelper.firstResultId(new UserDac(1)) // int
+		newObject.roleId = await DacTestHelper.firstResultId(new UserDac(1)) // int
 
 		const results = await objectDac.createAndReturn([newObject])
 		expect(results.length).toBe(1)
@@ -28,12 +29,10 @@ describe('UserRoleDac', () => {
 		expect(resultObject.id).toBeGreaterThan(0)
 		expect(resultObject.createdById).toBe(objectDac.userId)
 		expect(Math.abs((resultObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
-		expect(resultObject.objectVersion).toBe(1)
-		expect(resultObject.lastUpdatedById).toBe(objectDac.userId)
-		expect(Math.abs((resultObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
-		expect(resultObject.isDeleted).toBe(false)
-		expect(resultObject.userId).toBe(newObject.userId)
-		expect(resultObject.roleId).toBe(newObject.roleId)
+		expect(resultObject.userId).toBe(newObject.userId) // int
+		// user - the type (User) is not matched
+		expect(resultObject.roleId).toBe(newObject.roleId) // int
+		// role - the type (User) is not matched
 	})
 })
 
