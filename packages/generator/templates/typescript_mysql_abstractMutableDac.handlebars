@@ -12,17 +12,26 @@ import { AbstractTraceableDac } from './AbstractTraceableDac'
  * NOTE: This class is generated, do not make changes to it.
  */
 export abstract class AbstractMutableDac<T extends Mutable> extends AbstractTraceableDac<T> {
+	// isDeleted must be excluded to force the use of the delete method
+	excludedMutableProperties = this.excludedProperties.concat(['createdById', 'createOn', 'isDeleted'])
+
 	getUpdatePartialSqlFragments(values: any): { setFragments: string; parameters: any[] } {
 		let setFragments = ''
 		const parameters = [] as any[]
 		Object.keys(values).forEach((columnName) => {
-			if (!this.excludedProperties.includes(columnName)) {
+			if (!this.excludedMutableProperties.includes(columnName)) {
 				const columnValue = values[columnName]
-				if (typeof columnValue != 'object' && columnValue !== undefined) {
+				if (columnValue != undefined && typeof columnValue != 'function' && (typeof columnValue != 'object' || columnValue instanceof Date)) {
 					if (setFragments !== '') setFragments += ','
 
 					if (columnName === 'objectVersion') {
 						setFragments += `\`objectVersion\` = \`objectVersion\` + 1`
+					} else if (columnName === 'lastUpdatedById') {
+						setFragments += `\`lastUpdatedById\` = ?`
+						parameters.push(this.userId)
+					} else if (columnName === 'lastUpdatedOn') {
+						setFragments += `\`lastUpdatedOn\` = ?`
+						parameters.push(new Date())
 					} else {
 						setFragments += `\`${columnName}\` = ?`
 						parameters.push(columnValue)
@@ -56,7 +65,7 @@ export abstract class AbstractMutableDac<T extends Mutable> extends AbstractTrac
 	}
 
 	@LogAsyncMethod()
-	async updateAndReturnPartial(values: any, whereClause: WhereClause): Promise<T[]> {
+	async updateManyAndReturnPartial(values: any, whereClause: WhereClause): Promise<T[]> {
 		const fragments = this.getUpdatePartialSqlFragments(values)
 		fragments.parameters = fragments.parameters.concat(whereClause.valuesToBind)
 
@@ -78,11 +87,37 @@ export abstract class AbstractMutableDac<T extends Mutable> extends AbstractTrac
 		return results
 	}
 
-	async updateAndReturn(itemUpdate: T): Promise<T> {
-		const id = itemUpdate.id
-		const where = new WhereClause(`\`${this.getIdColumnName()}\` = ?`, [id])
-		const data = await this.updateAndReturnPartial(itemUpdate, where)
-		return data[0]
+	@LogAsyncMethod()
+	async updateOneAndReturnPartial(values: any, id: number): Promise<T> {
+		const fragments = this.getUpdatePartialSqlFragments(values)
+		const sql = `SET @uids := null;UPDATE \`${this.getTableName()}\` SET ${
+			fragments.setFragments
+		} WHERE id=${id} AND (SELECT @uids := CONCAT_WS(',', \`${this.getIdColumnName()}\`, @uids) ); SELECT * FROM \`${this.getTableName()}\` WHERE \`${this.getIdColumnName()}\` in (@uids);`
+
+		const executeResult = await this.executePrepared(sql, fragments.parameters)
+
+		const updatedRows = (executeResult as any)[2] as RowDataPacket[]
+
+		let results: T | undefined
+		if (updatedRows != null) {
+			updatedRows.forEach((row) => {
+				const updatedObject = this.fromRow(row)
+				results = updatedObject
+			})
+		}
+		if (results) return results
+		throw new RangeError(`No result found for id ${id}`)
+	}
+
+	async updateAndReturn(values: T[]): Promise<T[]> {
+		const promises = values?.map((value) => this.updateOneAndReturnPartial(value, value.id))
+		const results = await Promise.allSettled(promises)
+		const resultObjects = results.map((result) => {
+			if (result.status === 'fulfilled') return result.value
+			else throw result.reason
+		})
+
+		return resultObjects
 	}
 
 	@LogAsyncMethod()

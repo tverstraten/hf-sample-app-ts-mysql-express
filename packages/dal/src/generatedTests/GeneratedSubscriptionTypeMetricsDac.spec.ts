@@ -6,19 +6,22 @@
 import { SubscriptionTypeMetrics } from '@tverstraten/hf-model'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TestHelper } from '@tverstraten/hf-utils'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DacTestHelper } from './DacTestHelper'
 import { SubscriptionTypeMetricsDac } from '../SubscriptionTypeMetricsDac'
 import { UserDac } from '../UserDac'
 import { SubscriptionType } from '@tverstraten/hf-model'
+import { User } from '@tverstraten/hf-model' // SubscriptionTypeMetricsDac
 
 describe('SubscriptionTypeMetricsDac', () => {
 	it('create and read basic properties', async () => {
-		const userDac = new UserDac(1)
-		const currentUser = await userDac.findOneById(1)
+		const currentUser = await DacTestHelper.randomResult(new UserDac(1)) as User
 		expect(currentUser).toBeDefined()
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const userDac = new UserDac(currentUser.id)		
 		const runDate = new Date()
 
-		const objectDac = new SubscriptionTypeMetricsDac(1)
+		const objectDac = new SubscriptionTypeMetricsDac(currentUser.id)
 		const newObject = new SubscriptionTypeMetrics()
 		newObject.createdById = -1
 		newObject.type = TestHelper.randomEnum(SubscriptionType) // enumeration
@@ -43,8 +46,8 @@ describe('SubscriptionTypeMetricsDac', () => {
 		expect(resultObject.costPerUser).toBe(newObject.costPerUser) // float
 		expect(resultObject.costPerBuild).toBe(newObject.costPerBuild) // float
 	})
+	
 })
-
 
 
 
