@@ -150,8 +150,15 @@
                             {
                                 "builder": "builtIn/handlebars/handlebarsGenerator",
                                 "settings": {
+                                    "templatePath": "./templates/typescript_mysql_dacRdbmsMapping.handlebars",
+                                    "targetPath": "../../packages/dal/src/generatedBase/RdbmsMapping.ts"
+                                }
+                            },
+                            {
+                                "builder": "builtIn/handlebars/handlebarsGenerator",
+                                "settings": {
                                     "templatePath": "./templates/typescript_mysql_dacTestHelper.handlebars",
-                                    "targetPath": "../../packages/dal/src/generatedBase/DacTestHelper.ts"
+                                    "targetPath": "../../packages/dal/src/generatedTests/DacTestHelper.ts"
                                 }
                             },
                             {

@@ -60,7 +60,7 @@ describe('SystemDescriptionDac', () => {
 		const runDate = new Date()
 
 		const objectDac = new SystemDescriptionDac(currentUser.id)
-		const initialRead = await objectDac.findBy('1=1 and isDeleted=0', [], undefined, 1, 1)
+		const initialRead = await objectDac.findBy('1=1 and isDeleted=0', [], [], [], 1, 1)
 		const readObject = initialRead.rows[0]
 		readObject.lastUpdatedById = -1
 		readObject.withinOrganizationId = await DacTestHelper.randomResultId(new OrganizationDac(currentUser.id)) // int

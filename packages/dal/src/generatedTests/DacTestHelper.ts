@@ -6,12 +6,12 @@ import { AbstractDac } from '../generatedBase/AbstractDac'
  */
 export class DacTestHelper {
 	static async firstResultId<T extends Traceable>(dac: AbstractDac<T>): Promise<number | undefined> {
-		const results = await dac.findBy('1=1', [], undefined, 1, 1)
+		const results = await dac.findBy('1=1', [], [], [], 1, 1)
 		return results.rows.length > 0 ? results.rows[0].id : undefined
 	}
 
 	static async randomResult<T extends Traceable>(dac: AbstractDac<T>): Promise<T | undefined> {
-		const results = await dac.findBy('1=1', [], undefined, 1, 20)
+		const results = await dac.findBy('1=1', [], [], [], 1, 20)
 		return results.rows.length > 0 ? results.rows[Math.floor(Math.random() * results.rows.length)] : undefined
 	}
 

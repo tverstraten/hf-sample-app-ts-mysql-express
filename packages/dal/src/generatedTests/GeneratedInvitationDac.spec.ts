@@ -56,7 +56,7 @@ describe('InvitationDac', () => {
 		const runDate = new Date()
 
 		const objectDac = new InvitationDac(currentUser.id)
-		const initialRead = await objectDac.findBy('1=1 and isDeleted=0', [], undefined, 1, 1)
+		const initialRead = await objectDac.findBy('1=1 and isDeleted=0', [], [], [], 1, 1)
 		const readObject = initialRead.rows[0]
 		readObject.lastUpdatedById = -1
 		readObject.toEmail = TestHelper.randomString(128) // string

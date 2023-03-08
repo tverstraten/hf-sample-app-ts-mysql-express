@@ -7,7 +7,7 @@ import { UserDac } from '../UserDac'
 describe('UserDac', () => {
 	it('create and read basic properties', async () => {
 		const userDac = new UserDac(1)
-		const currentUser = await userDac.findOneById(1)
+		const currentUser = await userDac.findOneById(1, [])
 		expect(currentUser).toBeDefined()
 
 		const newObject = new User()

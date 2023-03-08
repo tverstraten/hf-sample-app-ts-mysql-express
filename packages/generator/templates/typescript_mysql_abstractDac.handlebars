@@ -7,6 +7,7 @@ import * as dotenv from 'dotenv'
 import { createPool, Pool, PoolConnection, ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 import { FindResults } from './FindResults'
 import { NoParamConstructor } from './NoParamConstructor'
+import { RdbmsMapping } from './RdbmsMapping'
 
 dotenv.config()
 
@@ -122,7 +123,7 @@ export abstract class AbstractDac<T> {
 	}
 
 	@LogAsyncMethod()
-	async findOneById(id: number): Promise<T> {
+	async findOneById(id: number, expand: string[] = []): Promise<T> {
 		const sql = `SELECT * FROM \`${this.getTableName()}\` WHERE \`${this.getIdColumnName()}\` = ?`
 		const queryResults = (await this.executePrepared(sql, [id])) as RowDataPacket[]
 
@@ -133,16 +134,26 @@ export abstract class AbstractDac<T> {
 			})
 		}
 
-		if (findResult == null) throw RangeError(`findOneById(${id}) Object with the given id does not exist`)
+		if (!findResult) throw RangeError(`findOneById(${id}) Object with the given id does not exist`)
+
+		for (const oneExpandIndex in expand) {
+			const oneExpand = expand[oneExpandIndex].trim()
+			if (oneExpand.length > 0) {
+				await this.expand([findResult], this.supportType.name, oneExpand)
+			}
+		}
+
 		return findResult
 	}
 
-	async findBy(where: string, params: any[] = [], orderBy?: string, page = 1, pageSize = 20): Promise<FindResults<T>> {
-		return this.findBySafe(where, params, orderBy, page, pageSize)
+	// eslint-disable-next-line max-params
+	async findBy(where: string, params: any[] = [], expand: string[] = [], orderBy: string[] = [], page = 1, pageSize = 20): Promise<FindResults<T>> {
+		return this.findBySafe(where, params, expand, orderBy, page, pageSize)
 	}
 
+	// eslint-disable-next-line max-params, max-lines-per-function
 	@LogAsyncMethod()
-	async findBySafe(where: string, params: any[] = [], orderBy?: string, page = 1, pageSize = 20): Promise<FindResults<T>> {
+	async findBySafe(where: string, params: any[] = [], expand: string[] = [], orderBy: string[] = [], page = 1, pageSize = 20): Promise<FindResults<T>> {
 		const selectList = ` SQL_CALC_FOUND_ROWS *`
 		const fromFragment = ` FROM \`${this.getTableName()}\``
 		const whereFragment = where ? ` WHERE ${where}` : ''
@@ -168,6 +179,149 @@ export abstract class AbstractDac<T> {
 		results.numberOfMatchingRows = firstOverall['FOUND_ROWS()']
 		results.rows = foundObjects
 
+		if (results.rows.length > 0) {
+			for (const oneExpandIndex in expand) {
+				const oneExpand = expand[oneExpandIndex].trim()
+				if (oneExpand.length > 0) {
+					await this.expand(results.rows, this.supportType.name, oneExpand)
+				}
+			}
+		}
+
 		return results
+	}
+
+	private getIdList(sourceObjects: T[], propertyName: string): string {
+		let idList = ''
+		const idArray: number[] = []
+		sourceObjects?.forEach((source) => {
+			if (source) {
+				const propertyValue = (source as any)[propertyName]
+				if (!idArray.includes(propertyValue)) {
+					idArray.push(propertyValue)
+					if (propertyValue) {
+						if (idList != '') idList += ','
+						idList += propertyValue
+					}
+				}
+			}
+		})
+
+		return idList
+	}
+
+	// eslint-disable-next-line max-lines-per-function
+	private async deepLoadPropertyOneToMany(sourceObjects: any[], propertyName: string, propertyType: string): Promise<any[]> {
+		// is the value set? if so just get the data and return
+		if (sourceObjects?.length > 0) {
+			const source1 = sourceObjects[0]
+			if (source1[propertyName]) {
+				let deepObjects: any[] = []
+				sourceObjects.forEach((sourceObject) => {
+					if (sourceObject) {
+						const sourceProperty = sourceObject[propertyName]
+						if (Array.isArray(sourceProperty)) deepObjects = deepObjects.concat(sourceProperty)
+						else deepObjects.push(sourceProperty)
+					}
+				})
+				return deepObjects
+			}
+		}
+
+		// get the id's of the source objects
+		const idList = this.getIdList(sourceObjects, 'id')
+
+		// get the dal and do a find by
+		if (idList != null && idList.length > 0) {
+			const dal = RdbmsMapping.getDac(propertyType, this.userId) as AbstractDac<any>
+			const deepObjects = (await dal.findBy(`${propertyName} in (${idList})`, [], [], [], 1, -1)).rows
+			const deepObjectMap = new Map<number | string, any>()
+			deepObjects?.forEach((deepObject: any) => {
+				if (deepObject) {
+					const id = deepObject[propertyName]
+					let arrayForId: any[]
+					if (!deepObjectMap.has(id)) {
+						arrayForId = []
+						deepObjectMap.set(id, arrayForId)
+					} else arrayForId = deepObjectMap.get(id)
+					arrayForId.push(deepObject)
+				}
+			})
+
+			// stitch the values in
+			sourceObjects?.forEach((source) => {
+				if (!source[propertyName]) source[propertyName] = deepObjectMap.get(source['id'])
+			})
+
+			return deepObjects
+		}
+
+		return []
+	}
+
+	// eslint-disable-next-line max-lines-per-function
+	private async deepLoadPropertyManyToOne(sourceObjects: any[], propertyName: string, propertyType: string): Promise<any[]> {
+		//this.debug(`deepLoadPropertyManyToOne(${JSON.stringify(property)})`)
+		if (sourceObjects && sourceObjects.length > 0) {
+			const source1 = sourceObjects[0]
+			if (source1[propertyName]) {
+				let deepObjects: any[] = []
+				sourceObjects.forEach((sourceObject) => {
+					const sourceProperty = sourceObject[propertyName]
+					if (Array.isArray(sourceProperty)) deepObjects = deepObjects.concat(sourceProperty)
+					else deepObjects.push(sourceProperty)
+				})
+				return deepObjects
+			}
+		}
+
+		const id_list = this.getIdList(sourceObjects, propertyName)
+
+		// get the dal and do a find by
+		if (id_list != null && id_list.length > 0) {
+			const dal = RdbmsMapping.getDac(propertyType, this.userId) as AbstractDac<any>
+			const deepObjects = (await dal.findBy(`id in (${id_list})`, [], [], [], 1, -1)).rows
+			const deep_object_map = new Map()
+			deepObjects?.forEach((deepObject) => {
+				const id = deepObject['id']
+				deep_object_map.set(id, deepObject)
+			})
+
+			// stitch the values in
+			sourceObjects?.forEach((source) => {
+				source[propertyName] = deep_object_map.get(source[propertyName])
+			})
+
+			return deepObjects
+		}
+
+		return []
+	}
+
+	// eslint-disable-next-line max-lines-per-function
+	private async expand(sourceObjects: T[], sourceClassName: string, propertyPathToExpand: string): Promise<void> {
+		// does the path exist?
+		const steps = propertyPathToExpand.split('.')
+		const step = steps[0].trim()
+		const propertyMapping = RdbmsMapping.getPropertyMapping(sourceClassName, step)
+		if (propertyMapping) {
+			const targetClassName = propertyMapping?.typeName
+			const loadedObjects = propertyMapping?.reversePropertyName
+				? await this.deepLoadPropertyManyToOne(sourceObjects, step, targetClassName)
+				: await this.deepLoadPropertyOneToMany(sourceObjects, step, targetClassName)
+
+			// next step
+			if (steps != null && steps.length > 1) {
+				if (loadedObjects != null && loadedObjects.length > 0) {
+					const remainingSteps = propertyPathToExpand.replace(`${step}.`, '').trim()
+					if (remainingSteps.length > 0) {
+						await this.expand(loadedObjects, targetClassName, remainingSteps)
+					}
+				}
+			}
+		} else {
+			this.logger.debug(`expand "${propertyPathToExpand}" step ${step} invalid`)
+			throw new Error(`Property path "${propertyPathToExpand}" is invalid for ${sourceClassName}`)
+		}
 	}
 }
