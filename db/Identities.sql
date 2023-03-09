@@ -1,3 +1,6 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
 CREATE TABLE `Identities` (    
 	`id` INTEGER AUTO_INCREMENT NOT NULL COMMENT 'The identifier.',
 	`createdById` INTEGER NULL COMMENT 'The id of the user that created this.',

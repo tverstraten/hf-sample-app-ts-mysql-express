@@ -46,6 +46,31 @@ describe('InvitationDac', () => {
 		expect(resultObject.invitedUserId).toBe(newObject.invitedUserId) // int
 		// invitedUser - the type (User) is not being tested
 		expect(Math.abs((resultObject.lastReminderSentOn as Date).getTime() - newObject.lastReminderSentOn.getTime())).toBeLessThan(1000) // dateTime
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.toEmail).toBe(newObject.toEmail) // string
+		expect(reReadObject.invitedById).toBe(newObject.invitedById) // int
+		// invitedBy - the type (User) is not being tested
+		expect(reReadObject.invitedUserId).toBe(newObject.invitedUserId) // int
+		// invitedUser - the type (User) is not being tested
+		expect(Math.abs((reReadObject.lastReminderSentOn as Date).getTime() - newObject.lastReminderSentOn.getTime())).toBeLessThan(1000) // dateTime
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const invitedByResult = await objectDac.findOneById(resultObject.id, ['invitedBy'])
+		expect(invitedByResult?.invitedBy?.id).toBe(resultObject.invitedById)
+		const invitedUserResult = await objectDac.findOneById(resultObject.id, ['invitedUser'])
+		expect(invitedUserResult?.invitedUser?.id).toBe(resultObject.invitedUserId)
 	})
 	
 	it('read one and change basic properties', async () => {

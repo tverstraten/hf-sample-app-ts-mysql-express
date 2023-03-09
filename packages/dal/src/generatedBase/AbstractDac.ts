@@ -157,7 +157,7 @@ export abstract class AbstractDac<T> {
 		const selectList = ` SQL_CALC_FOUND_ROWS *`
 		const fromFragment = ` FROM \`${this.getTableName()}\``
 		const whereFragment = where ? ` WHERE ${where}` : ''
-		const orderByFragment = orderBy ? ` ORDER BY ${orderBy}` : ''
+		const orderByFragment = orderBy.length > 0 ? ` ORDER BY ${orderBy}` : ''
 		const limitFragment = pageSize === -1 ? '' : ` LIMIT ${(page - 1) * pageSize}, ${pageSize}`
 		const sql = `SELECT${selectList}${fromFragment}${whereFragment}${orderByFragment}${limitFragment}; SELECT FOUND_ROWS()`
 		const queryResults = await this.executePrepared(sql, params)
@@ -212,7 +212,7 @@ export abstract class AbstractDac<T> {
 
 	// eslint-disable-next-line max-lines-per-function
 	private async deepLoadPropertyOneToMany(sourceObjects: any[], propertyName: string, propertyType: string): Promise<any[]> {
-		// is the value set? if so just get the data and return
+		/*
 		if (sourceObjects?.length > 0) {
 			const source1 = sourceObjects[0]
 			if (source1[propertyName]) {
@@ -226,7 +226,7 @@ export abstract class AbstractDac<T> {
 				})
 				return deepObjects
 			}
-		}
+		}*/
 
 		// get the id's of the source objects
 		const idList = this.getIdList(sourceObjects, 'id')
@@ -261,7 +261,7 @@ export abstract class AbstractDac<T> {
 
 	// eslint-disable-next-line max-lines-per-function
 	private async deepLoadPropertyManyToOne(sourceObjects: any[], propertyName: string, propertyType: string): Promise<any[]> {
-		//this.debug(`deepLoadPropertyManyToOne(${JSON.stringify(property)})`)
+		/*
 		if (sourceObjects && sourceObjects.length > 0) {
 			const source1 = sourceObjects[0]
 			if (source1[propertyName]) {
@@ -273,23 +273,23 @@ export abstract class AbstractDac<T> {
 				})
 				return deepObjects
 			}
-		}
+		}*/
 
-		const id_list = this.getIdList(sourceObjects, propertyName)
+		const idList = this.getIdList(sourceObjects, propertyName)
 
 		// get the dal and do a find by
-		if (id_list != null && id_list.length > 0) {
+		if (idList != null && idList.length > 0) {
 			const dal = RdbmsMapping.getDac(propertyType, this.userId) as AbstractDac<any>
-			const deepObjects = (await dal.findBy(`id in (${id_list})`, [], [], [], 1, -1)).rows
-			const deep_object_map = new Map()
+			const deepObjects = (await dal.findBy(`id in (${idList})`, [], [], [], 1, -1)).rows
+			const deepObjectMap = new Map()
 			deepObjects?.forEach((deepObject) => {
 				const id = deepObject['id']
-				deep_object_map.set(id, deepObject)
+				deepObjectMap.set(id, deepObject)
 			})
 
 			// stitch the values in
 			sourceObjects?.forEach((source) => {
-				source[propertyName] = deep_object_map.get(source[propertyName])
+				source[propertyName] = deepObjectMap.get(source[propertyName])
 			})
 
 			return deepObjects
@@ -306,9 +306,10 @@ export abstract class AbstractDac<T> {
 		const propertyMapping = RdbmsMapping.getPropertyMapping(sourceClassName, step)
 		if (propertyMapping) {
 			const targetClassName = propertyMapping?.typeName
-			const loadedObjects = propertyMapping?.reversePropertyName
-				? await this.deepLoadPropertyManyToOne(sourceObjects, step, targetClassName)
-				: await this.deepLoadPropertyOneToMany(sourceObjects, step, targetClassName)
+			const loadedObjects =
+				propertyMapping?.reversePropertyName == undefined
+					? await this.deepLoadPropertyManyToOne(sourceObjects, step, targetClassName)
+					: await this.deepLoadPropertyOneToMany(sourceObjects, step, targetClassName)
 
 			// next step
 			if (steps != null && steps.length > 1) {

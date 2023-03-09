@@ -56,6 +56,35 @@ describe('PersistentBuilderVersionDac', () => {
 		expect(resultObject.deprecated).toBe(newObject.deprecated) // boolean
 		expect(resultObject.suggestedAlternateId).toBe(newObject.suggestedAlternateId) // int
 		// suggestedAlternate - the type (PersistentBuilderVersion) is not being tested
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.type).toBe(newObject.type) // Enumeration
+		expect(reReadObject.persistentBuilderId).toBe(newObject.persistentBuilderId) // int
+		// persistentBuilder - the type (PersistentBuilder) is not being tested
+		expect(reReadObject.version).toBe(newObject.version) // string
+		expect(reReadObject.released).toBe(newObject.released) // boolean
+		expect(reReadObject.tags).toBe(newObject.tags) // string
+		expect(reReadObject.text).toBe(newObject.text) // string
+		expect(reReadObject.deprecated).toBe(newObject.deprecated) // boolean
+		expect(reReadObject.suggestedAlternateId).toBe(newObject.suggestedAlternateId) // int
+		// suggestedAlternate - the type (PersistentBuilderVersion) is not being tested
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const persistentBuilderResult = await objectDac.findOneById(resultObject.id, ['persistentBuilder'])
+		expect(persistentBuilderResult?.persistentBuilder?.id).toBe(resultObject.persistentBuilderId)
+		const suggestedAlternateResult = await objectDac.findOneById(resultObject.id, ['suggestedAlternate'])
+		expect(suggestedAlternateResult?.suggestedAlternate?.id).toBe(resultObject.suggestedAlternateId)
 	})
 	
 	it('read one and change basic properties', async () => {

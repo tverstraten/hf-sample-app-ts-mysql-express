@@ -3,9 +3,9 @@
  */
 
 export * from './BillingPeriodApi'
-export * from './BuildApi'
 export * from './EmailApi'
 export * from './IdentityApi'
+export * from './BuildApi'
 export * from './InvitationApi'
 export * from './NotificationApi'
 export * from './OrganizationApi'

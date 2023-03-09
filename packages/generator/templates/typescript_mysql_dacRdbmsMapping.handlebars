@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { AbstractDac } from './AbstractDac'
-{{#each this.children}}
-{{#is this.objectTypeName "InformationModel"}}
-{{#each this.persistentTypes}}	
-{{#and (compare this.isAbstract '!=' true) (compare this.objectTypeName '==' 'Class')}}
-import { {{this.name}}Dac } from '../{{this.name}}Dac'
-{{/and}}
-{{/each}}
-{{/is}}
-{{/each}}
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
 
 export interface PropertyMapping {
 	typeName: string
@@ -23,7 +16,7 @@ export class RdbmsMapping {
 {{#and (compare this.isAbstract '!=' true) (compare this.objectTypeName '==' 'Class')}}
 {{#each this.allDataMembers}}	
 {{#and (compare this.type.asMandatory.primitive '!=' true) (compare this.type.asMandatory.objectTypeName '==' 'Class')}}
-		'{{../name}}.{{this.name}}Id': { typeName: '{{this.type.asMandatory.name}}' },
+		'{{../name}}.{{this.name}}': { typeName: '{{this.type.asMandatory.name}}' },
 {{/and}}
 {{/each}}
 {{/and}}
@@ -32,22 +25,16 @@ export class RdbmsMapping {
 {{/each}}
 	}
 
+	static dacMapping: Map<string, any> = new Map<string, any>()
+
+	static registerDac(className: string, dac: any): void {
+		this.dacMapping.set(className, dac)
+	}
+
 	// eslint-disable-next-line max-lines-per-function
-	static getDac(className: string, userId: number): AbstractDac<any> {
-		switch (className) {
-{{#each this.children}}
-{{#is this.objectTypeName "InformationModel"}}
-{{#each this.persistentTypes}}	
-{{#and (compare this.isAbstract '!=' true) (compare this.objectTypeName '==' 'Class')}}
-			case '{{this.name}}':
-				return new {{this.name}}Dac(userId)
-{{/and}}
-{{/each}}
-{{/is}}
-{{/each}}
-			default:
-				throw new RangeError(`Class ${className} is not mapped to a dac. `)
-		}
+	static getDac(className: string, userId: number): any {
+		const type = this.dacMapping.get(className)
+		return new type(userId)
 	}
 
 	static getPropertyMapping(className: string, propertyName: string): PropertyMapping | undefined {

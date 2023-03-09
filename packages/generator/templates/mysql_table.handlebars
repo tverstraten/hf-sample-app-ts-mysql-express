@@ -1,3 +1,6 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
 CREATE TABLE `{{this.name}}` (    
 {{#each this.columns}}
 	`{{this.name}}` {{#if this.inDomain}}ENUM({{#each this.inDomain.values}}'{{this.value}}'{{#unless @last}},{{/unless}}{{/each}}){{else}}{{this.ansiTypeDeclaration}}{{/if}} {{#if this.valueType.isOptional}}NULL{{else}}NOT NULL{{/if}}{{#if this.columnDefault}} DEFAULT {{replace this.columnDefault "'" '"'}}{{/if}}{{#if this.description}} COMMENT '{{replace this.description "'" '"'}}'{{/if}},

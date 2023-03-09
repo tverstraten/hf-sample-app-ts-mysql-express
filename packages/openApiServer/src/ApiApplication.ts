@@ -9,9 +9,9 @@ import fs = require('fs')
 import { Logging } from '@tverstraten/log-annotations'
 const cors = require('cors') // eslint-disable-line @typescript-eslint/no-var-requires
 import {BillingPeriodApi} from './BillingPeriodApi'
-import {BuildApi} from './BuildApi'
 import {EmailApi} from './EmailApi'
 import {IdentityApi} from './IdentityApi'
+import {BuildApi} from './BuildApi'
 import {InvitationApi} from './InvitationApi'
 import {NotificationApi} from './NotificationApi'
 import {OrganizationApi} from './OrganizationApi'
@@ -78,9 +78,9 @@ export class ApiApplication {
 
 		// routes		
 		new BillingPeriodApi(this.express)
-        new BuildApi(this.express)
         new EmailApi(this.express)
         new IdentityApi(this.express)
+        new BuildApi(this.express)
         new InvitationApi(this.express)
         new NotificationApi(this.express)
         new OrganizationApi(this.express)

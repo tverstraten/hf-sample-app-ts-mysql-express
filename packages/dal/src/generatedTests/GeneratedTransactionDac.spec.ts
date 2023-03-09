@@ -53,6 +53,33 @@ describe('TransactionDac', () => {
 		expect(resultObject.invoiceNumber).toBe(newObject.invoiceNumber) // string
 		expect(resultObject.coveringId).toBe(newObject.coveringId) // int
 		// covering - the type (BillingPeriod) is not being tested
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.withinOrganizationId).toBe(newObject.withinOrganizationId) // int
+		// withinOrganization - the type (Organization) is not being tested
+		expect(reReadObject.transactionType).toBe(newObject.transactionType) // Enumeration
+		expect(Math.abs((reReadObject.effective as Date).getTime() - newObject.effective.getTime())).toBeLessThan(1000) // dateTime
+		expect(reReadObject.amount).toBe(newObject.amount) // float
+		expect(reReadObject.invoiceNumber).toBe(newObject.invoiceNumber) // string
+		expect(reReadObject.coveringId).toBe(newObject.coveringId) // int
+		// covering - the type (BillingPeriod) is not being tested
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const withinOrganizationResult = await objectDac.findOneById(resultObject.id, ['withinOrganization'])
+		expect(withinOrganizationResult?.withinOrganization?.id).toBe(resultObject.withinOrganizationId)
+		const coveringResult = await objectDac.findOneById(resultObject.id, ['covering'])
+		expect(coveringResult?.covering?.id).toBe(resultObject.coveringId)
 	})
 	
 	it('read one and change basic properties', async () => {

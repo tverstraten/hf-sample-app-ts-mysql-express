@@ -57,6 +57,36 @@ describe('EmailDac', () => {
 		expect(Math.abs((resultObject.firstRead as Date).getTime() - newObject.firstRead.getTime())).toBeLessThan(1000) // dateTime
 		expect(resultObject.subject).toBe(newObject.subject) // string
 		expect(resultObject.body).toBe(newObject.body) // string
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.withinOrganizationId).toBe(newObject.withinOrganizationId) // int
+		// withinOrganization - the type (Organization) is not being tested
+		expect(reReadObject.from).toBe(newObject.from) // string
+		expect(reReadObject.sentTo).toBe(newObject.sentTo) // string
+		expect(reReadObject.userSentToId).toBe(newObject.userSentToId) // int
+		// userSentTo - the type (User) is not being tested
+		expect(reReadObject.ccd).toBe(newObject.ccd) // string
+		expect(reReadObject.bccd).toBe(newObject.bccd) // string
+		expect(Math.abs((reReadObject.firstRead as Date).getTime() - newObject.firstRead.getTime())).toBeLessThan(1000) // dateTime
+		expect(reReadObject.subject).toBe(newObject.subject) // string
+		expect(reReadObject.body).toBe(newObject.body) // string
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const withinOrganizationResult = await objectDac.findOneById(resultObject.id, ['withinOrganization'])
+		expect(withinOrganizationResult?.withinOrganization?.id).toBe(resultObject.withinOrganizationId)
+		const userSentToResult = await objectDac.findOneById(resultObject.id, ['userSentTo'])
+		expect(userSentToResult?.userSentTo?.id).toBe(resultObject.userSentToId)
 	})
 	
 	it('read one and change basic properties', async () => {

@@ -40,6 +40,23 @@ describe('RoleDac', () => {
 		expect(resultObject.isDeleted).toBe(false)
 		expect(resultObject.name).toBe(newObject.name) // string
 		expect(resultObject.description).toBe(newObject.description) // string
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.name).toBe(newObject.name) // string
+		expect(reReadObject.description).toBe(newObject.description) // string
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
 	})
 	
 	it('read one and change basic properties', async () => {

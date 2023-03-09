@@ -3,9 +3,9 @@
  */
 
 export * from './BillingPeriodService'
-export * from './BuildService'
 export * from './EmailService'
 export * from './IdentityService'
+export * from './BuildService'
 export * from './InvitationService'
 export * from './NotificationService'
 export * from './OrganizationService'

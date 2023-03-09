@@ -45,6 +45,22 @@ describe('SubscriptionTypeMetricsDac', () => {
 		expect(resultObject.numberOfBuildsAllowed).toBe(newObject.numberOfBuildsAllowed) // float
 		expect(resultObject.costPerUser).toBe(newObject.costPerUser) // float
 		expect(resultObject.costPerBuild).toBe(newObject.costPerBuild) // float
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.type).toBe(newObject.type) // Enumeration
+		expect(reReadObject.name).toBe(newObject.name) // string
+		expect(reReadObject.description).toBe(newObject.description) // string
+		expect(reReadObject.numberOfUsersAllowed).toBe(newObject.numberOfUsersAllowed) // float
+		expect(reReadObject.numberOfBuildsAllowed).toBe(newObject.numberOfBuildsAllowed) // float
+		expect(reReadObject.costPerUser).toBe(newObject.costPerUser) // float
+		expect(reReadObject.costPerBuild).toBe(newObject.costPerBuild) // float
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
 	})
 	
 })

@@ -3,9 +3,9 @@
  */
 
 export * from './BillingPeriodDac'
-export * from './BuildDac'
 export * from './EmailDac'
 export * from './IdentityDac'
+export * from './BuildDac'
 export * from './InvitationDac'
 export * from './NotificationDac'
 export * from './OrganizationDac'

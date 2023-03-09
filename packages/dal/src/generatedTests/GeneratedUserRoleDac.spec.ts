@@ -36,6 +36,23 @@ describe('UserRoleDac', () => {
 		// user - the type (User) is not being tested
 		expect(resultObject.roleId).toBe(newObject.roleId) // int
 		// role - the type (User) is not being tested
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.userId).toBe(newObject.userId) // int
+		// user - the type (User) is not being tested
+		expect(reReadObject.roleId).toBe(newObject.roleId) // int
+		// role - the type (User) is not being tested
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const userResult = await objectDac.findOneById(resultObject.id, ['user'])
+		expect(userResult?.user?.id).toBe(resultObject.userId)
+		const roleResult = await objectDac.findOneById(resultObject.id, ['role'])
+		expect(roleResult?.role?.id).toBe(resultObject.roleId)
 	})
 	
 })

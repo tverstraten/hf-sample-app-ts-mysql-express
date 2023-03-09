@@ -47,6 +47,26 @@ describe('OrganizationDac', () => {
 		expect(resultObject.billingContactEmail).toBe(newObject.billingContactEmail) // string
 		expect(resultObject.balance).toBe(newObject.balance) // float
 		expect(resultObject.currentSubscription).toBe(newObject.currentSubscription) // Enumeration
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.name).toBe(newObject.name) // string
+		expect(reReadObject.primaryContactEmail).toBe(newObject.primaryContactEmail) // string
+		expect(reReadObject.billingContactEmail).toBe(newObject.billingContactEmail) // string
+		expect(reReadObject.balance).toBe(newObject.balance) // float
+		expect(reReadObject.currentSubscription).toBe(newObject.currentSubscription) // Enumeration
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
 	})
 	
 	it('read one and change basic properties', async () => {

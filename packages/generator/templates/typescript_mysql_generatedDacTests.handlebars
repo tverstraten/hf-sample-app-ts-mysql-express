@@ -119,7 +119,56 @@ describe('{{this.operatesOnBehalfOf.name}}Dac', () => {
 		expect(resultObject.{{this.name}}).toBe(newObject.{{this.name}}) // Enumeration
 		{{else}}
 		// {{this.name}} - the type ({{this.type.asMandatory.name}}) is not being tested
-{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/contains}}{{/unless}}{{/each}}	})
+{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/contains}}{{/unless}}{{/each}}
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000){{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false){{/inArray}}
+		{{#each this.operatesOnBehalfOf.allDataMembers}}
+		{{#unless this.static}}
+		{{#contains "['id','createdById', 'createdOn', 'objectVersion', 'lastUpdatedById', 'lastUpdatedOn', 'isDeleted']" this.name}}
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'dateTime'}}		
+		expect(Math.abs((reReadObject.{{this.name}} as Date).getTime() - newObject.{{this.name}}.getTime())).toBeLessThan(1000) // dateTime
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'date'}}		
+		expect(Math.abs((reReadObject.{{this.name}} as Date).getTime() - newObject.{{this.name}}.getTime())).toBeLessThan(1000) // date
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'boolean'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // boolean
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'int'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // int
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'number'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // number
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'float'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // float
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'decimal'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // decimal
+		{{else}}
+		{{#compare this.type.asMandatory.name '==' 'string'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // string
+		{{else}}
+		{{#compare this.type.asMandatory.objectTypeName '==' 'Enumeration'}}	
+		expect(reReadObject.{{this.name}}).toBe(newObject.{{this.name}}) // Enumeration
+		{{else}}
+		// {{this.name}} - the type ({{this.type.asMandatory.name}}) is not being tested
+{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/compare}}{{/contains}}{{/unless}}{{/each}}
+		// test deep loading the initial values
+		{{#each this.operatesOnBehalfOf.allDataMembers}}
+		{{#and (compare this.type.asMandatory.isClass '==' true)}}
+		const {{this.name}}Result = await objectDac.findOneById(resultObject.id, ['{{this.name}}'])
+		expect({{this.name}}Result?.{{this.name}}?.id).toBe(resultObject.{{this.name}}Id)
+		{{/and}}
+		{{/each}}
+	})
 	
 {{#inArray this.operatesOnBehalfOf.inheritsFrom "INFORMATION_MODEL/ABSTRACT_MUTABLE"}}
 	it('read one and change basic properties', async () => {

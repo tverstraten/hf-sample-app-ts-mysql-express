@@ -54,6 +54,39 @@ describe('BuildDac', () => {
 		// builtBy - the type (User) is not being tested
 		expect(resultObject.triggeredById).toBe(newObject.triggeredById) // int
 		// triggeredBy - the type (User) is not being tested
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.withinOrganizationId).toBe(newObject.withinOrganizationId) // int
+		// withinOrganization - the type (Organization) is not being tested
+		expect(reReadObject.forSystemId).toBe(newObject.forSystemId) // int
+		// forSystem - the type (SystemDescription) is not being tested
+		expect(Math.abs((reReadObject.startedOn as Date).getTime() - newObject.startedOn.getTime())).toBeLessThan(1000) // dateTime
+		expect(Math.abs((reReadObject.finishedOn as Date).getTime() - newObject.finishedOn.getTime())).toBeLessThan(1000) // dateTime
+		expect(reReadObject.builtById).toBe(newObject.builtById) // int
+		// builtBy - the type (User) is not being tested
+		expect(reReadObject.triggeredById).toBe(newObject.triggeredById) // int
+		// triggeredBy - the type (User) is not being tested
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const withinOrganizationResult = await objectDac.findOneById(resultObject.id, ['withinOrganization'])
+		expect(withinOrganizationResult?.withinOrganization?.id).toBe(resultObject.withinOrganizationId)
+		const forSystemResult = await objectDac.findOneById(resultObject.id, ['forSystem'])
+		expect(forSystemResult?.forSystem?.id).toBe(resultObject.forSystemId)
+		const builtByResult = await objectDac.findOneById(resultObject.id, ['builtBy'])
+		expect(builtByResult?.builtBy?.id).toBe(resultObject.builtById)
+		const triggeredByResult = await objectDac.findOneById(resultObject.id, ['triggeredBy'])
+		expect(triggeredByResult?.triggeredBy?.id).toBe(resultObject.triggeredById)
 	})
 	
 	it('read one and change basic properties', async () => {

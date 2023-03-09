@@ -48,6 +48,29 @@ describe('IdentityDac', () => {
 		// for - the type (User) is not being tested
 		expect(resultObject.enabled).toBe(newObject.enabled) // boolean
 		expect(Math.abs((resultObject.expiresOn as Date).getTime() - newObject.expiresOn.getTime())).toBeLessThan(1000) // dateTime
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.providedBy).toBe(newObject.providedBy) // Enumeration
+		expect(reReadObject.socialIdentifier).toBe(newObject.socialIdentifier) // string
+		expect(reReadObject.forId).toBe(newObject.forId) // int
+		// for - the type (User) is not being tested
+		expect(reReadObject.enabled).toBe(newObject.enabled) // boolean
+		expect(Math.abs((reReadObject.expiresOn as Date).getTime() - newObject.expiresOn.getTime())).toBeLessThan(1000) // dateTime
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const forResult = await objectDac.findOneById(resultObject.id, ['for'])
+		expect(forResult?.for?.id).toBe(resultObject.forId)
 	})
 	
 	it('read one and change basic properties', async () => {

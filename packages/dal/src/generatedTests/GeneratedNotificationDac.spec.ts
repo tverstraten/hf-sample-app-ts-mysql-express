@@ -43,6 +43,27 @@ describe('NotificationDac', () => {
 		// user - the type (User) is not being tested
 		expect(resultObject.text).toBe(newObject.text) // string
 		expect(Math.abs((resultObject.readOn as Date).getTime() - newObject.readOn.getTime())).toBeLessThan(1000) // dateTime
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.userId).toBe(newObject.userId) // int
+		// user - the type (User) is not being tested
+		expect(reReadObject.text).toBe(newObject.text) // string
+		expect(Math.abs((reReadObject.readOn as Date).getTime() - newObject.readOn.getTime())).toBeLessThan(1000) // dateTime
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const userResult = await objectDac.findOneById(resultObject.id, ['user'])
+		expect(userResult?.user?.id).toBe(resultObject.userId)
 	})
 	
 	it('read one and change basic properties', async () => {

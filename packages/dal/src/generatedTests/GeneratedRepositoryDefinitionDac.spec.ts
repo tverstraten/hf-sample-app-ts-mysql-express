@@ -48,6 +48,29 @@ describe('RepositoryDefinitionDac', () => {
 		expect(resultObject.providerName).toBe(newObject.providerName) // string
 		expect(resultObject.url).toBe(newObject.url) // string
 		expect(resultObject.pat).toBe(newObject.pat) // string
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.objectVersion).toBe(1)
+		expect(reReadObject.lastUpdatedById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.lastUpdatedOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.isDeleted).toBe(false)
+		expect(reReadObject.withinOrganizationId).toBe(newObject.withinOrganizationId) // int
+		// withinOrganization - the type (Organization) is not being tested
+		expect(reReadObject.name).toBe(newObject.name) // string
+		expect(reReadObject.providerName).toBe(newObject.providerName) // string
+		expect(reReadObject.url).toBe(newObject.url) // string
+		expect(reReadObject.pat).toBe(newObject.pat) // string
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const lastUpdatedByResult = await objectDac.findOneById(resultObject.id, ['lastUpdatedBy'])
+		expect(lastUpdatedByResult?.lastUpdatedBy?.id).toBe(resultObject.lastUpdatedById)
+		const withinOrganizationResult = await objectDac.findOneById(resultObject.id, ['withinOrganization'])
+		expect(withinOrganizationResult?.withinOrganization?.id).toBe(resultObject.withinOrganizationId)
 	})
 	
 	it('read one and change basic properties', async () => {

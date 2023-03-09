@@ -37,6 +37,23 @@ describe('PersistentBuilderDependencyDac', () => {
 		// builder - the type (PersistentBuilderVersion) is not being tested
 		expect(resultObject.dependentOnId).toBe(newObject.dependentOnId) // int
 		// dependentOn - the type (PersistentBuilderVersion) is not being tested
+
+		// test the values again but by reading this getTime
+		const reReadObject = await objectDac.findOneById(resultObject.id)
+		expect(reReadObject.createdById).toBe(objectDac.userId)
+		expect(Math.abs((reReadObject.createdOn as Date).getTime() - runDate.getTime())).toBeLessThan(1000)
+		expect(reReadObject.builderId).toBe(newObject.builderId) // int
+		// builder - the type (PersistentBuilderVersion) is not being tested
+		expect(reReadObject.dependentOnId).toBe(newObject.dependentOnId) // int
+		// dependentOn - the type (PersistentBuilderVersion) is not being tested
+
+		// test deep loading the initial values
+		const createdByResult = await objectDac.findOneById(resultObject.id, ['createdBy'])
+		expect(createdByResult?.createdBy?.id).toBe(resultObject.createdById)
+		const builderResult = await objectDac.findOneById(resultObject.id, ['builder'])
+		expect(builderResult?.builder?.id).toBe(resultObject.builderId)
+		const dependentOnResult = await objectDac.findOneById(resultObject.id, ['dependentOn'])
+		expect(dependentOnResult?.dependentOn?.id).toBe(resultObject.dependentOnId)
 	})
 	
 })

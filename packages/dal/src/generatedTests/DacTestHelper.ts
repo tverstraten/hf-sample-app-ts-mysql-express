@@ -1,8 +1,12 @@
+/**
+ * NOTE: This file is generated, do not make changes to it.
+ */
 import { Traceable } from '@tverstraten/hf-model'
 import { AbstractDac } from '../generatedBase/AbstractDac'
 
 /**
  * Utility with helper methods for testing.
+ * NOTE: This class is generated, do not make changes to it.
  */
 export class DacTestHelper {
 	static async firstResultId<T extends Traceable>(dac: AbstractDac<T>): Promise<number | undefined> {
